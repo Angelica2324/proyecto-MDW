@@ -1,0 +1,82 @@
+<header class="navbar">
+  <div class="logo">
+    🏋️ XTREME FITNESS CENTER
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-login">↪ Login</button>
+  </div>
+</header>
+
+<section class="registro-section">
+  <div class="registro-card">
+
+    <button type="button" class="btn-volver" (click)="volver()">← Volver al inicio</button>
+
+    <h2>REGISTRO DE NUEVO SOCIO</h2>
+    <div class="underline"></div>
+
+    <form class="registro-form">
+
+      <label>Nombre completo:</label>
+      <div class="input-group">
+        <span>👤</span>
+        <input #nombreSocio type="text" placeholder="Ingresa tu nombre completo">
+      </div>
+
+      <label>DNI:</label>
+      <div class="input-group">
+        <span>🪪</span>
+        <input type="text" placeholder="Ingresa tu DNI">
+      </div>
+
+      <label>Teléfono:</label>
+      <div class="input-group">
+        <span>📞</span>
+        <input type="text" placeholder="Ingresa tu teléfono">
+      </div>
+
+      <label>Correo electrónico:</label>
+      <div class="input-group">
+        <span>✉️</span>
+        <input type="email" placeholder="Ingresa tu correo electrónico">
+      </div>
+
+      <label>Tipo de membresía:</label>
+      <div class="input-group">
+        <span>💳</span>
+        <select #tipoMembresia>
+          <option value="">Selecciona un plan</option>
+          <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Anual">Anual</option>
+        </select>
+      </div>
+
+      <label>Usuario:</label>
+      <div class="input-group">
+        <span>👤</span>
+        <input type="text" placeholder="Crea tu nombre de usuario">
+      </div>
+
+      <label>Contraseña:</label>
+      <div class="input-group">
+        <span>🔒</span>
+        <input type="password" placeholder="Crea tu contraseña">
+      </div>
+
+      <div class="terminos">
+        <input type="checkbox">
+        <p>Acepto los <a href="#">términos y condiciones</a></p>
+      </div>
+
+      <button
+        type="button"
+        class="btn-registrar"
+        (click)="registrarSocio(nombreSocio.value, tipoMembresia.value)">
+        👥 REGISTRAR SOCIO
+      </button>
+
+    </form>
+  </div>
+</section>

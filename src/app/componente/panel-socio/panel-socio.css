@@ -1,0 +1,259 @@
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+  height: 70px;
+  background-color: white;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #222;
+}
+
+.btn-cerrar {
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.panel-section {
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
+  padding: 35px 20px;
+}
+
+.panel-section h1 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+  color: #202020;
+  margin: 0;
+}
+
+.underline {
+  width: 90px;
+  height: 4px;
+  background-color: #ef0000;
+  margin: 10px auto 30px;
+  border-radius: 5px;
+}
+
+.card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 25px;
+  background-color: white;
+  border-radius: 14px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.socio-card {
+  position: relative;
+}
+
+.socio-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #ff4a16;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.bienvenido {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.socio-info h2 {
+  margin: 5px 0 0;
+  font-size: 24px;
+  color: #111;
+}
+
+.estado {
+  position: absolute;
+  top: 30px;
+  right: 32px;
+  background-color: #eeeeee;
+  color: #555;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.estado-activo {
+  background-color: #ccffd9;
+  color: #008f3a;
+}
+
+.datos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.dato-box {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dato-box span {
+  font-size: 22px;
+}
+
+.dato-box p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.dato-box strong {
+  font-size: 15px;
+  color: #111;
+}
+
+.card h3 {
+  margin: 0 0 25px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111;
+}
+
+.objetivo-box {
+  background: linear-gradient(to right, #fff0f0, #fff7ea);
+  border-left: 5px solid #ef0000;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.objetivo-box p {
+  margin: 0 0 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+.objetivo-box strong {
+  font-size: 17px;
+  color: #111;
+}
+
+.rutina-item {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.dia {
+  min-width: 110px;
+  background-color: #ef0000;
+  color: white;
+  padding: 9px 18px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.clase-item {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clase-nombre {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.circulo {
+  width: 42px;
+  height: 42px;
+  background-color: #d943ef;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.hora {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-weight: bold;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    padding: 18px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .datos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .estado {
+    position: static;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .clase-item,
+  .rutina-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hora {
+    width: 100%;
+    text-align: center;
+  }
+}

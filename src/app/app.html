@@ -33,3 +33,14 @@
     (cerrarSesion)="irAInicio()">
   </app-panel-socio>
 }
+@if (pantallaActual === 'panelAdministrador') {
+  <app-panel-administrador
+    (cerrarSesion)="irAInicio()">
+  </app-panel-administrador>
+}
+
+@if (pantallaActual === 'panelEntrenador') {
+  <app-panel-entrenador
+    (cerrarSesion)="irAInicio()">
+  </app-panel-entrenador>
+}

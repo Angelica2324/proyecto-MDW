@@ -1,0 +1,97 @@
+<header class="navbar">
+  <div class="logo">
+    🏋️ XTREME FITNESS CENTER
+  </div>
+
+  <button type="button" class="btn-cerrar" (click)="salir()">
+    ↪ Cerrar sesión
+  </button>
+</header>
+
+<main class="entrenador-section">
+
+  <h1>PANEL DEL ENTRENADOR</h1>
+  <div class="underline"></div>
+
+  <section class="card entrenador-card">
+
+    <div class="entrenador-info">
+      <div class="avatar">
+        👤
+      </div>
+
+      <div>
+        <p>Entrenador:</p>
+        <h2>Carlos Ramos</h2>
+      </div>
+    </div>
+
+    <div class="estado">
+      ✓ ACTIVO
+    </div>
+
+    <div class="especialidad-box">
+      <span>🏅</span>
+      <div>
+        <p>Especialidad:</p>
+        <strong>Entrenamiento funcional</strong>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="card">
+    <h3>🕒 CLASES PROGRAMADAS</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Clase</th>
+          <th>Horario</th>
+          <th>Cupos</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (clase of clases; track clase.nombre) {
+          <tr>
+            <td>{{ clase.nombre }}</td>
+            <td>🕒 {{ clase.horario }}</td>
+            <td><span class="cupos">👥 {{ clase.cupos }}</span></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h3>🎯 RUTINAS ASIGNADAS</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Socio</th>
+          <th>Rutina</th>
+          <th>Objetivo</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (rutina of rutinas; track rutina.socio) {
+          <tr>
+            <td>👤 {{ rutina.socio }}</td>
+            <td><span class="rutina-badge">{{ rutina.rutina }}</span></td>
+            <td>{{ rutina.objetivo }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button class="btn-red" (click)="crearRutina()">＋ Crear rutina</button>
+      <button class="btn-blue" (click)="agregarEjercicio()">▣ Agregar ejercicio</button>
+      <button class="btn-dark" (click)="verSocios()">👥 Ver socios</button>
+    </div>
+  </section>
+
+</main>

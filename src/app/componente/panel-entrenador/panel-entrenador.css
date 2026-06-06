@@ -1,0 +1,232 @@
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+  height: 70px;
+  background-color: white;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #222222;
+}
+
+.btn-cerrar {
+  border: none;
+  background-color: transparent;
+  color: #333333;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.entrenador-section {
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(to bottom, #f5f5f5, #e5e5e5);
+  padding: 35px 24px;
+}
+
+.entrenador-section h1 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+  color: #202020;
+  margin: 0;
+}
+
+.underline {
+  width: 90px;
+  height: 4px;
+  background-color: #ef0000;
+  margin: 10px auto 30px;
+  border-radius: 5px;
+}
+
+.card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  background-color: white;
+  border-radius: 14px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.entrenador-card {
+  position: relative;
+}
+
+.entrenador-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.avatar {
+  width: 65px;
+  height: 65px;
+  background-color: #159df2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.entrenador-info p {
+  margin: 0;
+  color: #666666;
+  font-weight: bold;
+}
+
+.entrenador-info h2 {
+  margin: 5px 0 0;
+  font-size: 26px;
+  color: #111111;
+}
+
+.estado {
+  position: absolute;
+  top: 30px;
+  right: 32px;
+  background-color: #d7ffe4;
+  color: #008f3a;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.especialidad-box {
+  background: linear-gradient(to right, #eef4ff, #eaffff);
+  border-left: 5px solid #1266f1;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.especialidad-box span {
+  font-size: 25px;
+}
+
+.especialidad-box p {
+  margin: 0;
+  color: #666666;
+  font-weight: bold;
+}
+
+.especialidad-box strong {
+  font-size: 18px;
+  color: #111111;
+}
+
+.card h3 {
+  margin: 0 0 22px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111111;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 22px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+th {
+  color: #666666;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+td {
+  color: #333333;
+  font-weight: bold;
+}
+
+.cupos {
+  background-color: #d9ebff;
+  color: #1266f1;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.rutina-badge {
+  background-color: #f3ddff;
+  color: #9d2dea;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+}
+
+.actions button {
+  border: none;
+  padding: 14px 24px;
+  color: white;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-red {
+  background-color: #ef0000;
+}
+
+.btn-blue {
+  background-color: #1266f1;
+}
+
+.btn-dark {
+  background-color: #55555f;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    padding: 18px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .estado {
+    position: static;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  table {
+    font-size: 13px;
+  }
+}

@@ -25,31 +25,62 @@
   </section>
 
   <section class="services">
-    <div class="service-item">
-      <span>👥</span>
-      <p>Clases</p>
-    </div>
+  <button type="button" class="service-item" (click)="abrirServicio('clases')">
+    <span>👥</span>
+    <p>Clases</p>
+  </button>
 
-    <div class="line"></div>
+  <div class="line"></div>
 
-    <div class="service-item">
-      <span>📋</span>
-      <p>Rutinas</p>
-    </div>
+  <button type="button" class="service-item" (click)="abrirServicio('rutinas')">
+    <span>📋</span>
+    <p>Rutinas</p>
+  </button>
 
-    <div class="line"></div>
+  <div class="line"></div>
 
-    <div class="service-item">
-      <span>💳</span>
-      <p>Membresías</p>
-    </div>
+  <button type="button" class="service-item" (click)="abrirServicio('membresias')">
+    <span>💳</span>
+    <p>Membresías</p>
+  </button>
 
-    <div class="line"></div>
+  <div class="line"></div>
 
-    <div class="service-item">
-      <span>📅</span>
-      <p>Horarios</p>
-    </div>
-  </section>
+  <button type="button" class="service-item" (click)="abrirServicio('horarios')">
+    <span>📅</span>
+    <p>Horarios</p>
+  </button>
+</section>
 
 </main>
+
+@if (mostrarModalServicio) {
+  <div class="modal-servicio-fondo">
+    <div class="modal-servicio-card">
+
+      <button type="button" class="modal-servicio-x" (click)="cerrarModalServicio()">×</button>
+
+      <div class="modal-servicio-icono">
+        ℹ
+      </div>
+
+      <h2>{{ tituloServicio }}</h2>
+      <div class="modal-servicio-linea"></div>
+
+      <p class="modal-servicio-mensaje">
+        {{ descripcionServicio }}
+      </p>
+
+      <div class="modal-servicio-lista">
+        <p>{{ detalleServicio1 }}</p>
+        <p>{{ detalleServicio2 }}</p>
+        <p>{{ detalleServicio3 }}</p>
+      </div>
+
+      <button type="button" class="modal-servicio-boton" (click)="cerrarModalServicio()">
+        CERRAR
+      </button>
+
+    </div>
+  </div>
+}

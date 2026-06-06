@@ -48,4 +48,12 @@ export class App {
   irAPanelSocio() {
     this.pantallaActual = 'panelSocio';
   }
+
+  irAPanelEntrenador() {
+  this.pantallaActual = 'panelEntrenador';
+}
+
+irAPanelAdministrador() {
+  this.pantallaActual = 'panelAdministrador';
+}
 }

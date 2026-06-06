@@ -16,6 +16,14 @@ private Long id_usuario;
 
 
 
+public Long getId_usuario() {
+    return id_usuario;
+}
+
+public void setId_usuario(Long id_usuario) {
+    this.id_usuario = id_usuario;
+}
+
 public Administrador(){}
 
 public Long getId_administrador() {
@@ -25,13 +33,7 @@ public void setId_administrador(Long id_administrador) {
     this.id_administrador = id_administrador;
 }
  
-public Long getUsuario() {
-    return id_usuario;
-}
 
-public void setUsuario(Long usuario) {
-    this.id_usuario = usuario;
-}
 
 
 }

@@ -28,3 +28,33 @@
 - GET : http://localhost:8080/administrador
 - POST : http://localhost:8080/administrador
 - DELETE : http://localhost:8080/administrador/{id}
+
+## Membresia 
+
+## MEMBRESIAS POR USUARIO
+- GET: http://localhost:8080/usuario/{ID_USUARIO}/socio/{ID_SOCIO}/membresia
+- POST: http://localhost:8080/usuario/{ID_USUARIO}/socio/{ID_SOCIO}/membresia
+-DELETE: http://localhost:8080/usuario/{ID_USUARIO}/socio/{ID_SOCIO}/membresia/{ID_MEMBRESIA}
+
+## todas las membresias
+- GET: http://localhost:8080/membresia
+
+## RUTINA
+- get: http://localhost:8080/rutina
+- post: http://localhost:8080/rutina
+- delete: http://localhost:8080/rutina/{id}
+
+## Ejercicio 
+- get: http://localhost:8080/ejercicio
+- post: http://localhost:8080/ejercicio
+- delete: http://localhost:8080/ejercicio/{id}
+
+## pago
+- GET : http://localhost:8080/pago
+- POST : http://localhost:8080/pago
+- DELETE : http://localhost:8080/pago/{id}
+
+# clase
+- GET : http://localhost:8080/clase
+- POST : http://localhost:8080/clase
+- DELETE : http://localhost:8080/clase/{id}

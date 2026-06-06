@@ -1,0 +1,86 @@
+<header class="navbar">
+  <div class="logo">
+    🏋️ XTREME FITNESS CENTER
+  </div>
+
+  <button type="button" class="btn-cerrar" (click)="salir()">
+    ↪ Cerrar sesión
+  </button>
+</header>
+
+<main class="panel-section">
+
+  <h1>PANEL DEL SOCIO</h1>
+  <div class="underline"></div>
+
+  <section class="card socio-card">
+
+    <div class="socio-info">
+      <div class="avatar">
+        👤
+      </div>
+
+      <div>
+        <p class="bienvenido">Bienvenido:</p>
+        <h2>{{ socio.nombre }}</h2>
+      </div>
+    </div>
+
+    <div class="estado" [class.estado-activo]="socio.estado === 'Activo'">
+      ✓ {{ socio.estado }}
+    </div>
+
+    <div class="datos-grid">
+      <div class="dato-box">
+        <span>💳</span>
+        <div>
+          <p>Tipo de membresía:</p>
+          <strong>{{ socio.membresia }}</strong>
+        </div>
+      </div>
+
+      <div class="dato-box">
+        <span>📅</span>
+        <div>
+          <p>Fecha de vencimiento:</p>
+          <strong>{{ socio.fechaVencimiento }}</strong>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="card">
+    <h3>🎯 RUTINA ASIGNADA</h3>
+
+    <div class="objetivo-box">
+      <p>Objetivo:</p>
+      <strong>{{ socio.objetivoRutina }}</strong>
+    </div>
+
+    @for (rutina of socio.rutinas; track rutina.dia) {
+      <div class="rutina-item">
+        <span class="dia">{{ rutina.dia }}</span>
+        <strong>{{ rutina.entrenamiento }}</strong>
+      </div>
+    }
+  </section>
+
+  <section class="card">
+    <h3>🕒 HORARIOS DE CLASES</h3>
+
+    @for (clase of socio.clases; track clase.nombre) {
+      <div class="clase-item">
+        <div class="clase-nombre">
+          <span class="circulo">{{ clase.nombre.charAt(0) }}</span>
+          <strong>{{ clase.nombre }}</strong>
+        </div>
+
+        <div class="hora">
+          🕒 {{ clase.hora }}
+        </div>
+      </div>
+    }
+  </section>
+
+</main>

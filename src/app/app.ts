@@ -1,78 +1,51 @@
 import { Component, signal } from '@angular/core';
 
+import { Principal } from './componente/principal/principal';
+import { Registro } from './componente/registro/registro';
+import { Login } from './componente/login/login';
+import { ConfirmacionRegistro } from './componente/comfirmacion-registro/comfirmacion-registro';
+import { PanelSocio } from './componente/panel-socio/panel-socio';
+
 @Component({
   selector: 'app-root',
-  imports: [],
+  standalone: true,
+  imports: [Principal, Registro, Login, ConfirmacionRegistro, PanelSocio],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('ProyectoFinalMDW');
+  protected readonly title = signal('proyecto-MDW');
 
-  mostrarRegistro = false;
-  mostrarLogin = false;
-  mostrarModal = false;
-  loginExitoso = false;
-  loginError = '';
+  pantallaActual = 'principal';
 
   socioRegistrado = '';
   membresiaRegistrada = '';
   estadoRegistrado = 'Activo';
-  usuarioRegistrado = '';
-  passwordRegistrado = '';
 
   irARegistro() {
-    this.mostrarRegistro = true;
-    this.mostrarLogin = false;
-    this.mostrarModal = false;
-    this.loginError = '';
+    this.pantallaActual = 'registro';
   }
 
   irALogin() {
-    this.mostrarLogin = true;
-    this.mostrarRegistro = false;
-    this.mostrarModal = false;
+    this.pantallaActual = 'login';
   }
 
   irAInicio() {
-    this.mostrarRegistro = false;
-    this.mostrarLogin = false;
-    this.mostrarModal = false;
+    this.pantallaActual = 'principal';
   }
 
-  registrarSocio(nombre: string, membresia: string, usuario: string, contrasena: string) {
-    this.socioRegistrado = nombre;
-    this.membresiaRegistrada = membresia;
-    this.usuarioRegistrado = usuario;
-    this.passwordRegistrado = contrasena;
+  mostrarConfirmacion(datos: { nombre: string; membresia: string }) {
+    this.socioRegistrado = datos.nombre;
+    this.membresiaRegistrada = datos.membresia;
     this.estadoRegistrado = 'Activo';
-    this.mostrarModal = true;
-    this.loginError = '';
+    this.pantallaActual = 'confirmacion';
   }
 
-  iniciarSesion(usuario: string, contrasena: string) {
-    this.loginError = '';
-    this.loginExitoso = false;
-
-    if (!usuario || !contrasena) {
-      this.loginError = 'Debes ingresar usuario y contraseña.';
-      return;
-    }
-
-    if (usuario === this.usuarioRegistrado && contrasena === this.passwordRegistrado) {
-      this.loginExitoso = true;
-      this.mostrarLogin = false;
-      this.mostrarRegistro = false;
-      return;
-    }
-
-    this.loginError = this.usuarioRegistrado
-      ? 'Usuario o contraseña incorrectos.'
-      : 'No hay un usuario registrado. Regístrate primero.';
+  cerrarConfirmacion() {
+    this.pantallaActual = 'principal';
   }
 
-  cerrarModal() {
-    this.mostrarModal = false;
-    this.irAInicio();
+  irAPanelSocio() {
+    this.pantallaActual = 'panelSocio';
   }
 }

@@ -30,6 +30,13 @@
   font-weight: bold;
   cursor: pointer;
   font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.btn-cerrar:hover {
+  background-color: #ffe5e5;
+  color: #ef0000;
 }
 
 .entrenador-section {
@@ -56,8 +63,8 @@
 
 .card {
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto 25px;
+  max-width: 1250px;
+  margin: 0 auto 28px;
   background-color: white;
   border-radius: 14px;
   padding: 28px 32px;
@@ -135,11 +142,37 @@
   color: #111111;
 }
 
-.card h3 {
-  margin: 0 0 22px;
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.table-header h3 {
+  margin: 0;
   font-size: 22px;
   font-weight: 900;
   color: #111111;
+}
+
+.search-box {
+  width: 280px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
 }
 
 table {
@@ -164,14 +197,36 @@ th {
 td {
   color: #333333;
   font-weight: bold;
+  vertical-align: middle;
 }
 
-.cupos {
-  background-color: #d9ebff;
-  color: #1266f1;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-weight: bold;
+.acciones-col {
+  text-align: center;
+  width: 140px;
+}
+
+.acciones {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-accion {
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0 4px;
+  font-size: 16px;
+  color: white;
+}
+
+.btn-editar {
+  background-color: #4db6d6;
+}
+
+.btn-eliminar {
+  background-color: #e04b59;
 }
 
 .rutina-badge {
@@ -182,9 +237,17 @@ td {
   font-weight: bold;
 }
 
+.descripcion-rutina {
+  max-width: 350px;
+  line-height: 1.5;
+  color: #444444;
+  font-weight: 600;
+}
+
 .actions {
   display: flex;
   gap: 14px;
+  margin-top: 24px;
 }
 
 .actions button {
@@ -208,7 +271,7 @@ td {
   background-color: #55555f;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .navbar {
     height: auto;
     padding: 18px;
@@ -222,11 +285,20 @@ td {
     margin-bottom: 20px;
   }
 
-  .actions {
+  .table-header {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
   }
 
   table {
     font-size: 13px;
+  }
+
+  .actions {
+    flex-direction: column;
   }
 }

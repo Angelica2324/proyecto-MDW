@@ -10,6 +10,22 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class PanelAdministrador {
   @Output() cerrarSesion = new EventEmitter<void>();
 
+  seccionActual = 'inicio';
+
+  busquedaSocio = '';
+  busquedaEntrenador = '';
+
+  administrador = {
+    nombre: 'Kevin',
+    apellido: 'Quispe Salcedo',
+    cargo: 'Administrador General',
+    ubicacion: 'Lima, Perú',
+    telefono: '959 374 711',
+    correo: 'Kevin@xtremefitness.com',
+    estado: 'Activo',
+    fechaIngreso: '07/06/2026'
+  };
+
   socios = [
     { id: '01', nombre: 'Juan Pérez', estado: 'Activo', membresia: 'Mensual' },
     { id: '02', nombre: 'Ana López', estado: 'Inactivo', membresia: 'Trimestral' },
@@ -21,36 +37,108 @@ export class PanelAdministrador {
     { id: '08', nombre: 'Sofía Herrera', estado: 'Inactivo', membresia: 'Anual' }
   ];
 
-  paginaActual = 1;
+  entrenadores = [
+    { id: '01', nombre: 'Carlos Ramos', estado: 'Activo', especialidad: 'Entrenamiento funcional' },
+    { id: '02', nombre: 'Miguel Torres', estado: 'Activo', especialidad: 'Musculación' },
+    { id: '03', nombre: 'Laura Méndez', estado: 'Activo', especialidad: 'Zumba' },
+    { id: '04', nombre: 'Diego Herrera', estado: 'Inactivo', especialidad: 'Cross Training' },
+    { id: '05', nombre: 'Andrea López', estado: 'Activo', especialidad: 'Cardio y resistencia' },
+    { id: '06', nombre: 'Pedro Castillo', estado: 'Inactivo', especialidad: 'HIIT' }
+  ];
+
+  paginaSocios = 1;
+  paginaEntrenadores = 1;
   elementosPorPagina = 5;
 
-  get totalPaginas(): number {
-    return Math.ceil(this.socios.length / this.elementosPorPagina);
+  cambiarSeccion(seccion: string) {
+    this.seccionActual = seccion;
+  }
+
+  buscarSocio(evento: Event) {
+    const input = evento.target as HTMLInputElement;
+    this.busquedaSocio = input.value.toLowerCase();
+    this.paginaSocios = 1;
+  }
+
+  buscarEntrenador(evento: Event) {
+    const input = evento.target as HTMLInputElement;
+    this.busquedaEntrenador = input.value.toLowerCase();
+    this.paginaEntrenadores = 1;
+  }
+
+  get sociosFiltrados() {
+    return this.socios.filter(socio =>
+      socio.nombre.toLowerCase().includes(this.busquedaSocio) ||
+      socio.estado.toLowerCase().includes(this.busquedaSocio) ||
+      socio.membresia.toLowerCase().includes(this.busquedaSocio)
+    );
+  }
+
+  get entrenadoresFiltrados() {
+    return this.entrenadores.filter(entrenador =>
+      entrenador.nombre.toLowerCase().includes(this.busquedaEntrenador) ||
+      entrenador.estado.toLowerCase().includes(this.busquedaEntrenador) ||
+      entrenador.especialidad.toLowerCase().includes(this.busquedaEntrenador)
+    );
+  }
+
+  get totalPaginasSocios(): number {
+    return Math.ceil(this.sociosFiltrados.length / this.elementosPorPagina);
+  }
+
+  get totalPaginasEntrenadores(): number {
+    return Math.ceil(this.entrenadoresFiltrados.length / this.elementosPorPagina);
   }
 
   get sociosPaginados() {
-    const inicio = (this.paginaActual - 1) * this.elementosPorPagina;
+    const inicio = (this.paginaSocios - 1) * this.elementosPorPagina;
     const fin = inicio + this.elementosPorPagina;
-    return this.socios.slice(inicio, fin);
+    return this.sociosFiltrados.slice(inicio, fin);
   }
 
-  get paginas(): number[] {
-    return Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
+  get entrenadoresPaginados() {
+    const inicio = (this.paginaEntrenadores - 1) * this.elementosPorPagina;
+    const fin = inicio + this.elementosPorPagina;
+    return this.entrenadoresFiltrados.slice(inicio, fin);
   }
 
-  cambiarPagina(numero: number) {
-    this.paginaActual = numero;
+  get paginasSocios(): number[] {
+    return Array.from({ length: this.totalPaginasSocios }, (_, i) => i + 1);
   }
 
-  paginaAnterior() {
-    if (this.paginaActual > 1) {
-      this.paginaActual--;
+  get paginasEntrenadores(): number[] {
+    return Array.from({ length: this.totalPaginasEntrenadores }, (_, i) => i + 1);
+  }
+
+  cambiarPaginaSocios(numero: number) {
+    this.paginaSocios = numero;
+  }
+
+  cambiarPaginaEntrenadores(numero: number) {
+    this.paginaEntrenadores = numero;
+  }
+
+  paginaAnteriorSocios() {
+    if (this.paginaSocios > 1) {
+      this.paginaSocios--;
     }
   }
 
-  paginaSiguiente() {
-    if (this.paginaActual < this.totalPaginas) {
-      this.paginaActual++;
+  paginaSiguienteSocios() {
+    if (this.paginaSocios < this.totalPaginasSocios) {
+      this.paginaSocios++;
+    }
+  }
+
+  paginaAnteriorEntrenadores() {
+    if (this.paginaEntrenadores > 1) {
+      this.paginaEntrenadores--;
+    }
+  }
+
+  paginaSiguienteEntrenadores() {
+    if (this.paginaEntrenadores < this.totalPaginasEntrenadores) {
+      this.paginaEntrenadores++;
     }
   }
 
@@ -64,6 +152,18 @@ export class PanelAdministrador {
 
   eliminarSocio(socio: any) {
     alert('Eliminar socio: ' + socio.nombre);
+  }
+
+  agregarEntrenador() {
+    alert('Aquí irá la función para agregar entrenador.');
+  }
+
+  editarEntrenador(entrenador: any) {
+    alert('Editar entrenador: ' + entrenador.nombre);
+  }
+
+  eliminarEntrenador(entrenador: any) {
+    alert('Eliminar entrenador: ' + entrenador.nombre);
   }
 
   salir() {

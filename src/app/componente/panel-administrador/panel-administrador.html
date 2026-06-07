@@ -1,6 +1,5 @@
 <div class="admin-layout">
 
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="brand">
       <h2>🏋️ XTREME FITNESS</h2>
@@ -8,111 +7,285 @@
     </div>
 
     <nav class="menu">
-      <a class="menu-item active">🏠 Inicio</a>
-      <a class="menu-item">👥 Socios</a>
-      <a class="menu-item">💳 Membresías</a>
-      <a class="menu-item">📅 Clases</a>
-      <a class="menu-item">🧑‍💼 Usuarios</a>
-      <a class="menu-item">🏋️ Entrenadores</a>
-      <a class="menu-item">💰 Pagos</a>
+      <button
+        type="button"
+        class="menu-item"
+        [class.active]="seccionActual === 'inicio'"
+        (click)="cambiarSeccion('inicio')">
+        🏠 Inicio
+      </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.active]="seccionActual === 'socios'"
+        (click)="cambiarSeccion('socios')">
+        👥 Socios
+      </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.active]="seccionActual === 'entrenadores'"
+        (click)="cambiarSeccion('entrenadores')">
+        🏋️ Entrenadores
+      </button>
     </nav>
 
-    <div class="logout">
+    <button type="button" class="logout" (click)="salir()">
       ↪ Cerrar sesión
-    </div>
+    </button>
   </aside>
 
-  <!-- Contenido -->
   <main class="main-content">
+
     <header class="topbar">
       <h1>PANEL ADMINISTRATIVO - XTREME FITNESS CENTER</h1>
     </header>
 
-    <section class="summary">
-      <h2>RESUMEN GENERAL</h2>
+    @if (seccionActual === 'inicio') {
+      <section class="admin-info-section">
 
-      <div class="cards">
-        <div class="card">
-          <p>Socios</p>
-          <h3>120</h3>
-          <span>Total registrados</span>
+        <h2>INFORMACIÓN DEL ADMINISTRADOR</h2>
+
+        <div class="admin-profile-card">
+          <div class="admin-profile-header">
+            <div class="admin-avatar">
+              👨‍💼
+            </div>
+
+            <div>
+              <p>Bienvenido:</p>
+              <h3>{{ administrador.nombre }} {{ administrador.apellido }}</h3>
+              <span>{{ administrador.cargo }}</span>
+            </div>
+
+            <div class="admin-status">
+              ✓ {{ administrador.estado }}
+            </div>
+          </div>
+
+          <div class="admin-info-grid">
+            <div class="info-box">
+              <span>📍 Ubicación</span>
+              <strong>{{ administrador.ubicacion }}</strong>
+            </div>
+
+            <div class="info-box">
+              <span>📞 Teléfono</span>
+              <strong>{{ administrador.telefono }}</strong>
+            </div>
+
+            <div class="info-box">
+              <span>✉️ Correo</span>
+              <strong>{{ administrador.correo }}</strong>
+            </div>
+
+            <div class="info-box">
+              <span>📅 Fecha de ingreso</span>
+              <strong>{{ administrador.fechaIngreso }}</strong>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <p>Activos</p>
-          <h3 class="green">95</h3>
-          <span>Membresías vigentes</span>
+        <section class="summary">
+          <h2>RESUMEN GENERAL</h2>
+
+          <div class="cards">
+            <div class="card">
+              <p>Socios</p>
+              <h3>120</h3>
+              <span>Total registrados</span>
+            </div>
+
+            <div class="card">
+              <p>Activos</p>
+              <h3 class="green">95</h3>
+              <span>Membresías vigentes</span>
+            </div>
+
+            <div class="card">
+              <p>Inactivos</p>
+              <h3 class="red">25</h3>
+              <span>Membresías vencidas</span>
+            </div>
+          </div>
+        </section>
+
+      </section>
+    }
+
+    @if (seccionActual === 'socios') {
+      <section class="table-section">
+
+        <div class="table-header">
+          <h2>TABLA DE SOCIOS</h2>
+
+          <div class="search-box">
+            <span>🔍</span>
+            <input
+              type="text"
+              placeholder="Buscar socio..."
+              (input)="buscarSocio($event)">
+          </div>
         </div>
 
-        <div class="card">
-          <p>Inactivos</p>
-          <h3 class="red">25</h3>
-          <span>Membresías vencidas</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="table-section">
-      <h2>TABLA DE SOCIOS</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NOMBRE</th>
-              <th>ESTADO</th>
-              <th>MEMBRESÍA</th>
-              <th class="acciones-col">ACCIONES</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            @for (socio of sociosPaginados; track socio.id) {
+        <div class="table-wrapper">
+          <table>
+            <thead>
               <tr>
-                <td>{{ socio.id }}</td>
-                <td>{{ socio.nombre }}</td>
-                <td>
-                  <span
-                    class="estado"
-                    [class.activo]="socio.estado === 'Activo'"
-                    [class.inactivo]="socio.estado === 'Inactivo'">
-                    {{ socio.estado }}
-                  </span>
-                </td>
-                <td>{{ socio.membresia }}</td>
-                <td class="acciones">
-                  <button class="btn-accion btn-editar" (click)="editarSocio(socio)">✏️</button>
-                  <button class="btn-accion btn-eliminar" (click)="eliminarSocio(socio)">🗑️</button>
-                </td>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>ESTADO</th>
+                <th>MEMBRESÍA</th>
+                <th class="acciones-col">ACCIONES</th>
               </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+            </thead>
 
-      <div class="table-footer">
-        <button class="btn-agregar" (click)="agregarSocio()">＋ Agregar</button>
-
-        <div class="pagination">
-          <button class="page-btn" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
-            ←
-          </button>
-
-          @for (pagina of paginas; track pagina) {
-  <button
-    class="page-number"
-    [class.active-page]="paginaActual === pagina"
-    (click)="cambiarPagina(pagina)">
-    {{ pagina }}
-  </button>
-}
-
-          <button class="page-btn" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
-            →
-          </button>
+            <tbody>
+              @for (socio of sociosPaginados; track socio.id) {
+                <tr>
+                  <td>{{ socio.id }}</td>
+                  <td>{{ socio.nombre }}</td>
+                  <td>
+                    <span
+                      class="estado"
+                      [class.activo]="socio.estado === 'Activo'"
+                      [class.inactivo]="socio.estado === 'Inactivo'">
+                      {{ socio.estado }}
+                    </span>
+                  </td>
+                  <td>{{ socio.membresia }}</td>
+                  <td class="acciones">
+                    <button class="btn-accion btn-editar" type="button" (click)="editarSocio(socio)">✏️</button>
+                    <button class="btn-accion btn-eliminar" type="button" (click)="eliminarSocio(socio)">🗑️</button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
-      </div>
-    </section>
+
+        <div class="table-footer">
+          <button class="btn-agregar" type="button" (click)="agregarSocio()">＋ Agregar</button>
+
+          <div class="pagination">
+            <button
+              class="page-btn"
+              type="button"
+              (click)="paginaAnteriorSocios()"
+              [disabled]="paginaSocios === 1">
+              ←
+            </button>
+
+            @for (pagina of paginasSocios; track pagina) {
+              <button
+                type="button"
+                class="page-number"
+                [class.active-page]="paginaSocios === pagina"
+                (click)="cambiarPaginaSocios(pagina)">
+                {{ pagina }}
+              </button>
+            }
+
+            <button
+              class="page-btn"
+              type="button"
+              (click)="paginaSiguienteSocios()"
+              [disabled]="paginaSocios === totalPaginasSocios">
+              →
+            </button>
+          </div>
+        </div>
+
+      </section>
+    }
+
+    @if (seccionActual === 'entrenadores') {
+      <section class="table-section">
+
+        <div class="table-header">
+          <h2>TABLA DE ENTRENADORES</h2>
+
+          <div class="search-box">
+            <span>🔍</span>
+            <input
+              type="text"
+              placeholder="Buscar entrenador..."
+              (input)="buscarEntrenador($event)">
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>ESTADO</th>
+                <th>ESPECIALIDAD</th>
+                <th class="acciones-col">ACCIONES</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (entrenador of entrenadoresPaginados; track entrenador.id) {
+                <tr>
+                  <td>{{ entrenador.id }}</td>
+                  <td>{{ entrenador.nombre }}</td>
+                  <td>
+                    <span
+                      class="estado"
+                      [class.activo]="entrenador.estado === 'Activo'"
+                      [class.inactivo]="entrenador.estado === 'Inactivo'">
+                      {{ entrenador.estado }}
+                    </span>
+                  </td>
+                  <td>{{ entrenador.especialidad }}</td>
+                  <td class="acciones">
+                    <button class="btn-accion btn-editar" type="button" (click)="editarEntrenador(entrenador)">✏️</button>
+                    <button class="btn-accion btn-eliminar" type="button" (click)="eliminarEntrenador(entrenador)">🗑️</button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <button class="btn-agregar" type="button" (click)="agregarEntrenador()">＋ Agregar</button>
+
+          <div class="pagination">
+            <button
+              class="page-btn"
+              type="button"
+              (click)="paginaAnteriorEntrenadores()"
+              [disabled]="paginaEntrenadores === 1">
+              ←
+            </button>
+
+            @for (pagina of paginasEntrenadores; track pagina) {
+              <button
+                type="button"
+                class="page-number"
+                [class.active-page]="paginaEntrenadores === pagina"
+                (click)="cambiarPaginaEntrenadores(pagina)">
+                {{ pagina }}
+              </button>
+            }
+
+            <button
+              class="page-btn"
+              type="button"
+              (click)="paginaSiguienteEntrenadores()"
+              [disabled]="paginaEntrenadores === totalPaginasEntrenadores">
+              →
+            </button>
+          </div>
+        </div>
+
+      </section>
+    }
+
   </main>
 </div>

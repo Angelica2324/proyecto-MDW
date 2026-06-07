@@ -18,7 +18,7 @@ import { PanelEntrenador } from './componente/panel-entrenador/panel-entrenador'
 export class App {
   protected readonly title = signal('proyecto-MDW');
 
-  pantallaActual = 'panelAdministrador';
+  pantallaActual = 'panelEntrenador';
 
   socioRegistrado = '';
   membresiaRegistrada = '';

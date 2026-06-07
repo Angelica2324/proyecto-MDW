@@ -41,61 +41,112 @@
   </section>
 
   <section class="card">
-    <h3>🕒 CLASES PROGRAMADAS</h3>
+    <div class="table-header">
+      <h3>🕒 CLASES PROGRAMADAS</h3>
+
+      <div class="search-box">
+        <span>🔍</span>
+        <input
+          type="text"
+          placeholder="Buscar clase..."
+          (input)="buscarClase($event)">
+      </div>
+    </div>
 
     <table>
       <thead>
         <tr>
+          <th>ID</th>
           <th>Clase</th>
-          <th>Horario</th>
-          <th>Cupos</th>
+          <th>Día de la semana</th>
+          <th>Hora inicio</th>
+          <th>Hora fin</th>
+          <th class="acciones-col">Acciones</th>
         </tr>
       </thead>
 
       <tbody>
-        @for (clase of clases; track clase.nombre) {
+        @for (clase of clasesFiltradas; track clase.id) {
           <tr>
+            <td>{{ clase.id }}</td>
             <td>{{ clase.nombre }}</td>
-            <td>🕒 {{ clase.horario }}</td>
-            <td>
-              <span class="cupos">👥 {{ clase.cupos }}</span>
+            <td>{{ clase.diaSemana }}</td>
+            <td>🕒 {{ clase.horaInicio }}</td>
+            <td>🕒 {{ clase.horaFin }}</td>
+            <td class="acciones">
+              <button type="button" class="btn-accion btn-editar" (click)="editarClase(clase)">
+                ✏️
+              </button>
+
+              <button type="button" class="btn-accion btn-eliminar" (click)="eliminarClase(clase)">
+                🗑️
+              </button>
             </td>
           </tr>
         }
       </tbody>
     </table>
+    <div class="actions">
+  <button class="btn-red" type="button" (click)="agregarClase()">
+    ＋ Agregar clase
+  </button>
+</div>
   </section>
 
   <section class="card">
-    <h3>🎯 RUTINAS ASIGNADAS</h3>
+    <div class="table-header">
+      <h3>🎯 RUTINAS ASIGNADAS</h3>
+
+      <div class="search-box">
+        <span>🔍</span>
+        <input
+          type="text"
+          placeholder="Buscar rutina..."
+          (input)="buscarRutina($event)">
+      </div>
+    </div>
 
     <table>
       <thead>
         <tr>
+          <th>ID</th>
           <th>Socio</th>
           <th>Rutina</th>
           <th>Objetivo</th>
+          <th>Descripción</th>
+          <th class="acciones-col">Acciones</th>
         </tr>
       </thead>
 
       <tbody>
-        @for (rutina of rutinas; track rutina.socio) {
+        @for (rutina of rutinasFiltradas; track rutina.id) {
           <tr>
+            <td>{{ rutina.id }}</td>
             <td>👤 {{ rutina.socio }}</td>
             <td>
               <span class="rutina-badge">{{ rutina.rutina }}</span>
             </td>
             <td>{{ rutina.objetivo }}</td>
+            <td class="descripcion-rutina">{{ rutina.descripcion }}</td>
+            <td class="acciones">
+              <button type="button" class="btn-accion btn-editar" (click)="editarRutina(rutina)">
+                ✏️
+              </button>
+
+              <button type="button" class="btn-accion btn-eliminar" (click)="eliminarRutina(rutina)">
+                🗑️
+              </button>
+            </td>
           </tr>
         }
       </tbody>
     </table>
 
     <div class="actions">
-      <button class="btn-red" type="button" (click)="crearRutina()">＋ Crear rutina</button>
-      <button class="btn-blue" type="button" (click)="agregarEjercicio()">▣ Agregar ejercicio</button>
-      <button class="btn-dark" type="button" (click)="verSocios()">👥 Ver socios</button>
-    </div>
+  <button class="btn-red" type="button" (click)="crearRutina()">
+    ＋ Crear rutina
+  </button>
+</div>
   </section>
 
 </main>

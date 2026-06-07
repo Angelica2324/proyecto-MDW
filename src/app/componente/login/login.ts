@@ -13,7 +13,7 @@ export class Login {
   @Output() volverInicio = new EventEmitter<void>();
   @Output() entrarPanelSocio = new EventEmitter<void>();
   @Output() entrarPanelEntrenador = new EventEmitter<void>();
-  @Output() entrarPanelAdmin = new EventEmitter<void>();
+  @Output() entrarPanelAdministrador = new EventEmitter<void>();
 
   correo: string = '';
   
@@ -40,7 +40,7 @@ export class Login {
         localStorage.setItem('usuario', JSON.stringify(usuario));
         switch(usuario.id_rol) {
           case 1:
-            this.entrarPanelAdmin.emit();
+            this.entrarPanelAdministrador.emit();
             break;
           case 2:
             this.entrarPanelEntrenador.emit();

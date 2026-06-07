@@ -37,7 +37,8 @@ export class PanelSocio implements OnInit{
     clases: [
       {
         nombre: 'No asignado',
-        hora: 'No asignado'
+        hora_inicio: 'No asignado',
+        hora_fin: 'No asignado'
       }
     ]
   };

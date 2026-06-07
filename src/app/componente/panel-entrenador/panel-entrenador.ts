@@ -27,14 +27,14 @@ export class PanelEntrenador {
   }
 
   crearRutina() {
-    alert('Función para crear rutina aún no implementada.');
+    alert('Aquí irá la función para crear rutina.');
   }
 
   agregarEjercicio() {
-    alert('Función para agregar ejercicio aún no implementada.');
+    alert('Aquí irá la función para agregar ejercicio.');
   }
 
   verSocios() {
-    alert('Función para ver socios aún no implementada.');
+    alert('Aquí irá la función para ver socios.');
   }
 }

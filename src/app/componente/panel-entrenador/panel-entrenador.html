@@ -57,7 +57,9 @@
           <tr>
             <td>{{ clase.nombre }}</td>
             <td>🕒 {{ clase.horario }}</td>
-            <td><span class="cupos">👥 {{ clase.cupos }}</span></td>
+            <td>
+              <span class="cupos">👥 {{ clase.cupos }}</span>
+            </td>
           </tr>
         }
       </tbody>
@@ -80,7 +82,9 @@
         @for (rutina of rutinas; track rutina.socio) {
           <tr>
             <td>👤 {{ rutina.socio }}</td>
-            <td><span class="rutina-badge">{{ rutina.rutina }}</span></td>
+            <td>
+              <span class="rutina-badge">{{ rutina.rutina }}</span>
+            </td>
             <td>{{ rutina.objetivo }}</td>
           </tr>
         }
@@ -88,9 +92,9 @@
     </table>
 
     <div class="actions">
-      <button class="btn-red" (click)="crearRutina()">＋ Crear rutina</button>
-      <button class="btn-blue" (click)="agregarEjercicio()">▣ Agregar ejercicio</button>
-      <button class="btn-dark" (click)="verSocios()">👥 Ver socios</button>
+      <button class="btn-red" type="button" (click)="crearRutina()">＋ Crear rutina</button>
+      <button class="btn-blue" type="button" (click)="agregarEjercicio()">▣ Agregar ejercicio</button>
+      <button class="btn-dark" type="button" (click)="verSocios()">👥 Ver socios</button>
     </div>
   </section>
 

@@ -5,18 +5,20 @@ import { Registro } from './componente/registro/registro';
 import { Login } from './componente/login/login';
 import { ConfirmacionRegistro } from './componente/comfirmacion-registro/comfirmacion-registro';
 import { PanelSocio } from './componente/panel-socio/panel-socio';
+import { PanelAdministrador } from './componente/panel-administrador/panel-administrador';
+import { PanelEntrenador } from './componente/panel-entrenador/panel-entrenador';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Principal, Registro, Login, ConfirmacionRegistro, PanelSocio],
+  imports: [Principal, Registro, Login, ConfirmacionRegistro, PanelSocio, PanelAdministrador, PanelEntrenador],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('proyecto-MDW');
 
-  pantallaActual = 'principal';
+  pantallaActual = 'panelEntrenador';
 
   socioRegistrado = '';
   membresiaRegistrada = '';
@@ -49,11 +51,11 @@ export class App {
     this.pantallaActual = 'panelSocio';
   }
 
-  irAPanelEntrenador() {
-  this.pantallaActual = 'panelEntrenador';
-}
+  irAPanelAdministrador() {
+    this.pantallaActual = 'panelAdministrador';
+  }
 
-irAPanelAdministrador() {
-  this.pantallaActual = 'panelAdministrador';
-}
+  irAPanelEntrenador() {
+    this.pantallaActual = 'panelEntrenador';
+  }
 }

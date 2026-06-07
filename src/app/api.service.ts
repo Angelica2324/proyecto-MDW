@@ -10,14 +10,39 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // Usuario
-  getUsuarios(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/usuario`);
-  }
+//rol
+getRoles(): Observable<any>{
+  return this.http.get(`${this.apiUrl}/rol`);
+}
 
-  crearUsuario(usuario: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuario`, usuario);
-  }
+crearRoles(rol:any): Observable<any>{
+return this.http.post(`${this.apiUrl}/rol`, rol);
+}
+
+eliminarRol(id:number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/rol/{id}`);
+}
+
+ // Usuario  
+getUsuarios(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/usuario`);
+}
+
+crearUsuario(usuario: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/usuario`, usuario);
+}
+
+actualizarUsuario(id: number, usuario: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/usuario/${id}`, usuario);
+}
+
+eliminarUsuario(id: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/usuario/${id}`);
+}
+  // Membresia
+getMembresias(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/membresia`);
+}
 
   // Clase
   getClases(): Observable<any> {

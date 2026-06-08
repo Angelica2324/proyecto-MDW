@@ -18,34 +18,46 @@
 
     <form class="registro-form">
 
-      <label>Nombre completo:</label>
+      <label>Primer nombre:</label>
       <div class="input-group">
         <span>👤</span>
-        <input #nombreSocio type="text" placeholder="Ingresa tu nombre completo">
+        <input [(ngModel)]="primer_nombre_usuario" name="primer_nombre_usuario" type="text" placeholder="Ingresa tu primer nombre">
+      </div>
+
+      <label>Segundo nombre:</label>
+      <div class="input-group">
+        <span>👤</span>
+        <input [(ngModel)]="segundo_nombre_usuario" name="segundo_nombre_usuario" type="text" placeholder="Ingresa tu segundo nombre">
+      </div>
+
+      <label>Apellidos:</label>
+      <div class="input-group">
+        <span>👤</span>
+        <input [(ngModel)]="apellidos_usuario" name="apellidos_usuario" type="text" placeholder="Ingresa tus apellidos">
       </div>
 
       <label>DNI:</label>
       <div class="input-group">
         <span>🪪</span>
-        <input type="text" placeholder="Ingresa tu DNI">
+        <input [(ngModel)]="documento_identidad" name="documento_identidad" type="text" placeholder="Ingresa tu DNI">
       </div>
 
       <label>Teléfono:</label>
       <div class="input-group">
         <span>📞</span>
-        <input type="text" placeholder="Ingresa tu teléfono">
+        <input [(ngModel)]="telefono" name="telefono" type="text" placeholder="Ingresa tu teléfono">
       </div>
 
       <label>Correo electrónico:</label>
       <div class="input-group">
         <span>✉️</span>
-        <input type="email" placeholder="Ingresa tu correo electrónico">
+        <input [(ngModel)]="email" name="email" type="email" placeholder="Ingresa tu correo electrónico">
       </div>
 
       <label>Tipo de membresía:</label>
       <div class="input-group">
         <span>💳</span>
-        <select #tipoMembresia>
+        <select [(ngModel)]="tipo_membresia" name="tipo_membresia">
           <option value="">Selecciona un plan</option>
           <option value="Mensual">Mensual</option>
           <option value="Trimestral">Trimestral</option>
@@ -53,16 +65,10 @@
         </select>
       </div>
 
-      <label>Usuario:</label>
-      <div class="input-group">
-        <span>👤</span>
-        <input type="text" placeholder="Crea tu nombre de usuario">
-      </div>
-
       <label>Contraseña:</label>
       <div class="input-group">
         <span>🔒</span>
-        <input type="password" placeholder="Crea tu contraseña">
+        <input [(ngModel)]="contrasena" name="contrasena" type="text" placeholder="Crea tu contraseña">
       </div>
 
       <div class="terminos">
@@ -73,7 +79,7 @@
       <button
         type="button"
         class="btn-registrar"
-        (click)="registrarSocio(nombreSocio.value, tipoMembresia.value)">
+        (click)="registrarSocio()" >
         👥 REGISTRAR SOCIO
       </button>
 

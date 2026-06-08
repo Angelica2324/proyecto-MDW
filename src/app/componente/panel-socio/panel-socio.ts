@@ -19,8 +19,8 @@ export class PanelSocio implements OnInit{
         const usuario = JSON.parse(usuarioGuardado);
         this.socio.nombre = usuario.primer_nombre_usuario;
         this.socio.estado= usuario.estado ? 'Activo' : 'Inactivo';
+        }
       }
-    }
 
   socio = {
     nombre: 'No asignado',

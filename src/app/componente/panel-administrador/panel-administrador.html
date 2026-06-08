@@ -145,8 +145,8 @@
             <tbody>
               @for (socio of sociosPaginados; track socio.id) {
                 <tr>
-                  <td>{{ socio.id }}</td>
-                  <td>{{ socio.nombre }}</td>
+                  <td>{{ socio.id_socio }}</td>
+                  <td>{{ socio.nombre }} {{socio.apellidos}}</td>
                   <td>
                     <span
                       class="estado"
@@ -231,7 +231,7 @@
             <tbody>
               @for (entrenador of entrenadoresPaginados; track entrenador.id) {
                 <tr>
-                  <td>{{ entrenador.id }}</td>
+                  <td>{{ entrenador.id}}</td>
                   <td>{{ entrenador.nombre }}</td>
                   <td>
                     <span

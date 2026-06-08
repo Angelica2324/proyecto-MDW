@@ -1,14 +1,38 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit} from '@angular/core';
+import { ApiService } from '../../api.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-panel-administrador',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,CommonModule],
   templateUrl: './panel-administrador.html',
   styleUrl: './panel-administrador.css'
 })
-export class PanelAdministrador {
+export class PanelAdministrador implements OnInit {
   @Output() cerrarSesion = new EventEmitter<void>();
+
+  socios: any[] = [];
+  usuarios: any[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+      ngOnInit(): void {
+      const usuarioGuardado = localStorage.getItem('usuario');
+      if (usuarioGuardado) {
+        const usuario = JSON.parse(usuarioGuardado);
+        this.administrador.nombre = usuario.primer_nombre_usuario + " " + usuario.segundo_nombre_usuario;
+        this.administrador.apellido = usuario.apellidos_usuario;
+        this.administrador.telefono = usuario.telefono;
+        this.administrador.correo = usuario.email ;
+        this.administrador.estado = usuario.estado ? 'Activo' : 'Inactivo';
+        this.administrador.fechaIngreso = usuario.fecha_registro;
+        }
+      this.cargarDatosDelasApis();
+      }
+
+     
 
   seccionActual = 'inicio';
 
@@ -26,16 +50,16 @@ export class PanelAdministrador {
     fechaIngreso: '07/06/2026'
   };
 
-  socios = [
-    { id: '01', nombre: 'Juan Pérez', estado: 'Activo', membresia: 'Mensual' },
-    { id: '02', nombre: 'Ana López', estado: 'Inactivo', membresia: 'Trimestral' },
-    { id: '03', nombre: 'Carlos Martín', estado: 'Activo', membresia: 'Anual' },
-    { id: '04', nombre: 'María García', estado: 'Activo', membresia: 'Mensual' },
-    { id: '05', nombre: 'Pedro Sánchez', estado: 'Inactivo', membresia: 'Semestral' },
-    { id: '06', nombre: 'Lucía Torres', estado: 'Activo', membresia: 'Mensual' },
-    { id: '07', nombre: 'Diego Ramos', estado: 'Activo', membresia: 'Trimestral' },
-    { id: '08', nombre: 'Sofía Herrera', estado: 'Inactivo', membresia: 'Anual' }
-  ];
+  // socios = [
+  //   { id: '01', nombre: 'Juan Pérez', estado: 'Activo', membresia: 'Mensual' },
+  //   { id: '02', nombre: 'Ana López', estado: 'Inactivo', membresia: 'Trimestral' },
+  //   { id: '03', nombre: 'Carlos Martín', estado: 'Activo', membresia: 'Anual' },
+  //   { id: '04', nombre: 'María García', estado: 'Activo', membresia: 'Mensual' },
+  //   { id: '05', nombre: 'Pedro Sánchez', estado: 'Inactivo', membresia: 'Semestral' },
+  //   { id: '06', nombre: 'Lucía Torres', estado: 'Activo', membresia: 'Mensual' },
+  //   { id: '07', nombre: 'Diego Ramos', estado: 'Activo', membresia: 'Trimestral' },
+  //   { id: '08', nombre: 'Sofía Herrera', estado: 'Inactivo', membresia: 'Anual' }
+  // ];
 
   entrenadores = [
     { id: '01', nombre: 'Carlos Ramos', estado: 'Activo', especialidad: 'Entrenamiento funcional' },
@@ -49,6 +73,67 @@ export class PanelAdministrador {
   paginaSocios = 1;
   paginaEntrenadores = 1;
   elementosPorPagina = 5;
+
+  cargarDatosDelasApis(){
+      this.cargarSocios();
+      this.cargarEntrenadores();
+      // this.cargarUsuarios();
+      // this.cargarRoles();
+      
+  } 
+
+cargarSocios(){
+  this.apiService.getUsuarios().subscribe((usuarios: any) => { 
+    const sociosFiltrados = usuarios.filter((usuario: any) => usuario.id_rol === 3);
+    
+    this.apiService.getSocios().subscribe((sociosData: any) => {
+      
+      this.apiService.getMembresias().subscribe((membresias: any) => {
+        
+        this.socios = sociosFiltrados.map((usuario: any) => {
+       
+          const socio = sociosData.find((s: any) => s.id_usuario === usuario.id_usuario);
+        
+          const membresia = membresias.find((m: any) => m.id_socio === socio?.id_socio);
+          
+          return {
+            id_socio: socio ? socio.id_socio : usuario.id_usuario,
+            nombre: `${usuario.primer_nombre_usuario} ${usuario.segundo_nombre_usuario}`,
+            apellidos: usuario.apellidos_usuario,
+            estado: usuario.estado ? 'Activo' : 'Inactivo',
+            email: usuario.email,
+            telefono: usuario.telefono,
+            membresia: membresia ? membresia.Tipo_membresia : 'Sin membresía'
+          };
+        });
+      });
+    });
+  });
+}
+
+cargarEntrenadores(){
+  this.apiService.getUsuarios().subscribe((usuarios: any) => { 
+    const entrenadoresFiltrados = usuarios.filter((usuario: any) => usuario.id_rol === 2);
+    
+    this.apiService.getEntrenadores().subscribe((entrenadoresData: any) => {
+      this.entrenadores = entrenadoresFiltrados.map((usuario: any) => {
+        const entrenadorInfo = entrenadoresData.find((e: any) => e.id_usuario === usuario.id_usuario);
+        
+        return {
+          id: entrenadorInfo ? entrenadorInfo.id_entrenador : '',
+          nombre: `${usuario.primer_nombre_usuario} ${usuario.segundo_nombre_usuario}`,
+          apellidos: usuario.apellidos_usuario,
+          estado: usuario.estado ? 'Activo' : 'Inactivo',
+          email: usuario.email,
+          telefono: usuario.telefono,
+          especialidad: entrenadorInfo ? entrenadorInfo.especialidad : 'Sin especialidad'
+        };
+      });
+    });
+  });
+}
+  
+ 
 
   cambiarSeccion(seccion: string) {
     this.seccionActual = seccion;

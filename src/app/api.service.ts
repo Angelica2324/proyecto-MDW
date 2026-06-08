@@ -39,9 +39,31 @@ actualizarUsuario(id: number, usuario: any): Observable<any> {
 eliminarUsuario(id: number): Observable<any> {
   return this.http.delete(`${this.apiUrl}/usuario/${id}`);
 }
+
+// socio
+getSocios():  Observable<any> {
+  return this.http.get(`${this.apiUrl}/socio`);
+}
+
+crearSocio(socio: any): Observable<any>{
+  return this.http.post(`${this.apiUrl}/socio`, socio);
+}
+
+eliminarSocio(id: number): Observable<any>{
+  return this.http.delete(`${this.apiUrl}/socio/${id}`);
+}
+
+// entrenador
+getEntrenadores(): Observable<any>{
+  return this.http.get(`${this.apiUrl}/entrenador`);
+}
+
   // Membresia
 getMembresias(): Observable<any> {
   return this.http.get(`${this.apiUrl}/membresia`);
+}
+crearMembresia(membresia: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/membresia`, membresia);
 }
 
   // Clase

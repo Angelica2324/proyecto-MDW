@@ -7,6 +7,7 @@ import { ConfirmacionRegistro } from './componente/comfirmacion-registro/comfirm
 import { PanelSocio } from './componente/panel-socio/panel-socio';
 import { PanelAdministrador } from './componente/panel-administrador/panel-administrador';
 import { PanelEntrenador } from './componente/panel-entrenador/panel-entrenador';
+import { EditarUsuario } from './componente/editar-usuario/editar-usuario';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ import { PanelEntrenador } from './componente/panel-entrenador/panel-entrenador'
 export class App {
   protected readonly title = signal('proyecto-MDW');
 
-  pantallaActual = 'panelEntrenador';
+  pantallaActual = 'principal';
 
   socioRegistrado = '';
   membresiaRegistrada = '';
@@ -35,6 +36,7 @@ export class App {
   irAInicio() {
     this.pantallaActual = 'principal';
   }
+
 
   mostrarConfirmacion(datos: { nombre: string; membresia: string }) {
     this.socioRegistrado = datos.nombre;

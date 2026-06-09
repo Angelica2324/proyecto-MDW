@@ -16,24 +16,22 @@ export class Login {
   @Output() entrarPanelAdministrador = new EventEmitter<void>();
 
   correo: string = '';
-  
   contrasena: string = '';
 
   constructor(private api: ApiService) { }
-
 
   volver() {
     this.volverInicio.emit();
   }
 
-   ingresar() {
+  ingresar() {
     console.log('Correo ingresado:', this.correo);
     console.log('Contraseña ingresada:', this.contrasena);
 
     this.api.getUsuarios().subscribe(usuarios => {
       const usuario = usuarios.find((u: any) => 
-        u.email.trim() === this.correo.trim() && 
-        u.contraseña.trim() === this.contrasena.trim()
+        u.email?.trim()?.toLowerCase() === this.correo.trim().toLowerCase() && 
+        u.contraseña?.trim() === this.contrasena.trim()
       );
 
       if (usuario) {
@@ -56,6 +54,4 @@ export class Login {
       }
     });
   }
-
-  
 }

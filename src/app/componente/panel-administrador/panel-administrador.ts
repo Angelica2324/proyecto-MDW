@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output, OnInit} from '@angular/core';
 import { ApiService } from '../../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { EditarUsuario } from '../editar-usuario/editar-usuario';
 
 @Component({
   selector: 'app-panel-administrador',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, EditarUsuario],
   templateUrl: './panel-administrador.html',
   styleUrl: './panel-administrador.css'
 })
@@ -15,6 +16,8 @@ export class PanelAdministrador implements OnInit {
 
   socios: any[] = [];
   usuarios: any[] = [];
+  mostrarEditar = false;
+  entrenadorSeleccionado = null;
 
   constructor(private apiService: ApiService) {}
 
@@ -244,7 +247,13 @@ cargarEntrenadores(){
   }
 
   editarEntrenador(entrenador: any) {
-    alert('Editar entrenador: ' + entrenador.nombre);
+    console.log('Entrenador seleccionado:', entrenador);
+    this.entrenadorSeleccionado =entrenador;
+    this.mostrarEditar = true;
+  }
+
+  cerrarEditar(){
+    this.mostrarEditar = false;
   }
 
   eliminarEntrenador(entrenador: any) {

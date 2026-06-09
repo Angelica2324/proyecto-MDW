@@ -1,3 +1,7 @@
+## comandos
+- ./mvnw clean : para borrar cache
+- ./mvnw spring-boot:run : para correr la app 
+
 # APIs del Proyecto
 
 ## Rol

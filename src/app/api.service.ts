@@ -58,6 +58,11 @@ getEntrenadores(): Observable<any>{
   return this.http.get(`${this.apiUrl}/entrenador`);
 }
 
+actualizarEntrenador(id: number, entrenador: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/entrenador/${id}`, entrenador);
+}
+
+
   // Membresia
 getMembresias(): Observable<any> {
   return this.http.get(`${this.apiUrl}/membresia`);

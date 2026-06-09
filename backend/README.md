@@ -1,6 +1,13 @@
-## comandos
+## Para poder probar las apis debes descargar postman desktop agent
+- enlace : https://www.postman.com/downloads/postman-agent/
+
+## comando para correr la bd
+- cd backend
 - ./mvnw clean : para borrar cache
 - ./mvnw spring-boot:run : para correr la app 
+
+## comando para correr el frontend
+- ng serve
 
 # APIs del Proyecto
 
@@ -20,6 +27,7 @@
 ## Entrenador 
 - GET : http://localhost:8080/entrenador
 - POST : http://localhost:8080/entrenador
+- put : http://localhost:8080/entrenador/{id}
 - DELETE : http://localhost:8080/entrenador/{id}
 
 ## Socio

@@ -62,6 +62,13 @@ actualizarEntrenador(id: number, entrenador: any): Observable<any> {
   return this.http.put(`${this.apiUrl}/entrenador/${id}`, entrenador);
 }
 
+eliminarEntrenador(id: number): Observable<any> {
+  return this.http.delete(`http://localhost:8080/entrenador/${id}`);
+}
+
+registrarEntrenadorCompleto(datos: any): Observable<any> {
+  return this.http.post('http://localhost:8080/entrenador/registro-completo', datos);
+}
 
   // Membresia
 getMembresias(): Observable<any> {
@@ -69,6 +76,10 @@ getMembresias(): Observable<any> {
 }
 crearMembresia(membresia: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/membresia`, membresia);
+}
+
+actualizarMembresia(id: number, membresia: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/membresia/${id}`, membresia);
 }
 
   // Clase

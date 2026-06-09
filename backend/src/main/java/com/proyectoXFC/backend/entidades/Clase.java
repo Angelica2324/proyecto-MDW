@@ -15,7 +15,7 @@ public class Clase {
     private String nombre_clase;
     private String descripcion;
     private String dias_de_la_semana;
-    private String hora_incio;
+    private String hora_inicio;
     private String hora_fin;
 
     public Clase(){}
@@ -61,11 +61,11 @@ public class Clase {
     }
 
     public String getHora_incio() {
-        return hora_incio;
+        return hora_inicio;
     }
 
     public void setHora_incio(String hora_incio) {
-        this.hora_incio = hora_incio;
+        this.hora_inicio = hora_incio;
     }
 
     public String getHora_fin() {

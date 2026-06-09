@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectoXFC.backend.entidades.Membresia;
+import com.proyectoXFC.backend.entidades.Rol;
 import com.proyectoXFC.backend.repositorios.RepositorioMembresia;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -29,6 +31,12 @@ public class controladorMembresia {
 
     @PostMapping
     public Membresia crearMembresia(@RequestBody Membresia membresia){
+        return repositorioMembresia.save(membresia);
+    }
+
+      @PutMapping("/{id}")
+    public Membresia actualizarMembresia(@PathVariable Long id, @RequestBody Membresia membresia){
+        membresia.setId_membresia(id);
         return repositorioMembresia.save(membresia);
     }
 

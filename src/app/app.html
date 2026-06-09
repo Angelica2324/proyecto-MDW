@@ -7,6 +7,7 @@
 
 @if (pantallaActual === 'registro') {
   <app-registro
+    (irLogin)="irALogin()" 
     (volverInicio)="irAInicio()"
     (registrar)="mostrarConfirmacion($event)">
   </app-registro>

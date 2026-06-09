@@ -1,7 +1,5 @@
 package com.proyectoXFC.backend.entidades;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +18,12 @@ public class Usuario {
     private String apellidos_usuario;
     private String tipo_documento;
     private String documento_identidad;
-    private LocalDate fecha_nacimiento;
+    private String fecha_nacimiento;
     private String email;
     private String contraseña;
     private String telefono;
     private Boolean estado;
-    private LocalDate fecha_registro;
+    private String fecha_registro;
     private Long id_rol;
     
     public Usuario(){}
@@ -66,10 +64,10 @@ public class Usuario {
     public void setDocumento_identidad(String documento_identidad) {
         this.documento_identidad = documento_identidad;
     }
-    public LocalDate getFecha_nacimiento() {
+    public String getFecha_nacimiento() {
         return fecha_nacimiento;
     }
-    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+    public void setFecha_nacimiento(String fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
     public String getEmail() {
@@ -96,10 +94,10 @@ public class Usuario {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    public LocalDate getFecha_registro() {
+    public String getFecha_registro() {
         return fecha_registro;
     }
-    public void setFecha_registro(LocalDate fecha_registro) {
+    public void setFecha_registro(String fecha_registro) {
         this.fecha_registro = fecha_registro;
     }
     public Long getId_rol() {

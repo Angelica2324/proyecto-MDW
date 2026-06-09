@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../api.service';
 
@@ -9,6 +9,9 @@ import { ApiService } from '../../api.service';
   templateUrl: './editar-usuario.html',
 })
 export class EditarUsuario implements OnInit {
+
+  @Output() actualizado = new EventEmitter<void>(); 
+  @Output() cerrar = new EventEmitter<void>();  
 
   @Input() entrenador: any;
   usuarioCompleto: any = {};
@@ -55,7 +58,7 @@ export class EditarUsuario implements OnInit {
       fecha_registro: this.usuarioCompleto.fecha_registro,
       id_rol: 2
     };
-   
+    
     this.apiService.actualizarUsuario(this.idUsuario, usuarioActualizado).subscribe({
       next: () => {
         const entrenadorActualizado = {
@@ -63,11 +66,19 @@ export class EditarUsuario implements OnInit {
           especialidad: this.usuarioCompleto.especialidad
         };
         this.apiService.actualizarEntrenador(this.idUsuario, entrenadorActualizado).subscribe({
-          next: () => alert('Guardado exitosamente'),
+          next: () => {
+            alert('Guardado exitosamente');
+            this.actualizado.emit(); 
+            this.cerrar.emit();  
+          },
           error: (err: any) => console.error('Error al actualizar entrenador:', err)
         });
       },
       error: (err: any) => console.error('Error al actualizar usuario:', err)
     });
+  }
+
+  cerrarEditar() {
+    this.cerrar.emit(); 
   }
 }

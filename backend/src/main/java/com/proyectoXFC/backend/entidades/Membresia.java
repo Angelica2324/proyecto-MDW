@@ -1,6 +1,5 @@
 package com.proyectoXFC.backend.entidades;
 
-import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +14,8 @@ public class Membresia {
     private Long id_socio;
     private Long id_entrenador;
     private String Tipo_membresia;
-    private LocalDate fecha_inicio;
-    private LocalDate fecha_vencimiento;
+    private String fecha_inicio;
+    private String fecha_vencimiento;
     private boolean estado_membresia;
     private double monto_total;
 
@@ -54,19 +53,19 @@ public class Membresia {
         Tipo_membresia = tipo_membresia;
     }
 
-    public LocalDate getFecha_inicio() {
+    public String getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(LocalDate fecha_inicio) {
+    public void setFecha_inicio(String fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public LocalDate getFecha_vencimiento() {
+    public String getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
-    public void setFecha_vencimiento(LocalDate fecha_vencimiento) {
+    public void setFecha_vencimiento(String fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 

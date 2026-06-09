@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class Registro {
   @Output() volverInicio = new EventEmitter<void>();
   @Output() registrar = new EventEmitter<{ nombre: string; membresia: string }>();
+@Output() irLogin = new EventEmitter<void>();
 
   apellidos_usuario: string = '';
   contrasena: string = '';
@@ -30,6 +31,10 @@ export class Registro {
   tipo_membresia: string = '';
 
   constructor(private apiService: ApiService) {}
+
+   irALogin(){
+    this.irLogin.emit();
+   }
 
    registrarSocio() {
   

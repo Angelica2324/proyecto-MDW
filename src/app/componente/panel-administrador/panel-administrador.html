@@ -60,10 +60,16 @@
               <span>{{ administrador.cargo }}</span>
             </div>
 
-            <div class="admin-status">
-              ✓ {{ administrador.estado }}
-            </div>
+            <div class="admin-status" [ngClass]="{
+                'status-activo': administrador.estado === 'Activo',
+                'status-inactivo': administrador.estado === 'Inactivo'
+              }">
+                ✓ {{ administrador.estado }}
+              </div>
+            
           </div>
+
+          
 
           <div class="admin-info-grid">
             <div class="info-box">
@@ -116,7 +122,8 @@
     }
 
     @if (seccionActual === 'socios') {
-      <section class="table-section">
+      @if (!mostrarAgregar){
+<section class="table-section">
 
         <div class="table-header">
           <h2>TABLA DE SOCIOS</h2>
@@ -201,8 +208,27 @@
         </div>
 
       </section>
+      }
+      
+        @if (mostrarAgregar) {
+            <div>
+              <app-agregar-socio     (cerrar)="mostrarAgregar = false; recargarDatos()" (registrar)="recargarDatos()"  (cambiarSeccion)="cambiarSeccion($event)">></app-agregar-socio>
+            </div>
+          }
     }
 
+        @if (mostrarEditarSocio) {
+                <div class="modal-overlay">
+                  <app-editar-socio 
+                    [socio]="socioSeleccionado"
+                    (actualizado)="recargarDatos()"
+                    (cerrar)="cerrarEditarSocio()">
+                  </app-editar-socio>
+                </div>
+              }
+
+
+@if (!mostrarAgregarEntrenador) {
     @if (seccionActual === 'entrenadores') {
       @if (!mostrarEditar) {
         <section class="table-section">
@@ -292,15 +318,19 @@
       
       
       @if (mostrarEditar){
-         <div class="container bg-secondary-subtle">
-          <div class="text-end p-3"> 
-            <button class="btn-close" (click)="cerrarEditar()"></button>
-          </div>
-         
-          <app-editar-usuario [entrenador]="entrenadorSeleccionado" ></app-editar-usuario>
+         <div class="container bg-secondary-subtle pt-3">
+          <app-editar-usuario [entrenador]="entrenadorSeleccionado "  (actualizado)="cerrarEditar()" (cerrar)="mostrarEditar = false; recargarDatos()"> ></app-editar-usuario>
        </div>
       }
       
+    }
+}
+  
+
+    @if (mostrarAgregarEntrenador) {
+      <div>
+        <app-agregar-entrenador></app-agregar-entrenador>
+      </div>
     }
 
   </main>

@@ -161,12 +161,21 @@
   position: absolute;
   right: 0;
   top: 10px;
-  background-color: #d8f5df;
-  color: #169b43;
   padding: 10px 18px;
   border-radius: 12px;
   font-weight: bold;
 }
+
+.status-activo{
+   background-color: #d8f5df;
+  color: #169b43;
+}
+
+.status-inactivo{
+  background-color: #f1cfd1;
+  color: #d62b3a;
+}
+
 
 .admin-info-grid {
   display: grid;

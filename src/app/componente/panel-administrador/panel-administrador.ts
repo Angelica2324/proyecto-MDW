@@ -1,13 +1,16 @@
-import { Component, EventEmitter, Output, OnInit} from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, ChangeDetectorRef} from '@angular/core';
 import { ApiService } from '../../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditarUsuario } from '../editar-usuario/editar-usuario';
+import { AgregarSocio } from "../agregar-socio/agregar-socio";
+import { EditarSocio } from '../editar-socio/editar-socio';
+import { AgregarEntrenador } from "../agregar-entrenador/agregar-entrenador";
 
 @Component({
   selector: 'app-panel-administrador',
   standalone: true,
-  imports: [FormsModule,CommonModule, EditarUsuario],
+  imports: [FormsModule, CommonModule, EditarUsuario, AgregarSocio, EditarSocio, AgregarEntrenador],
   templateUrl: './panel-administrador.html',
   styleUrl: './panel-administrador.css'
 })
@@ -17,9 +20,13 @@ export class PanelAdministrador implements OnInit {
   socios: any[] = [];
   usuarios: any[] = [];
   mostrarEditar = false;
+  mostrarAgregar = false;
   entrenadorSeleccionado = null;
+  mostrarEditarSocio = false;
+  socioSeleccionado = null;
+  mostrarAgregarEntrenador = false;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) {}
 
       ngOnInit(): void {
       const usuarioGuardado = localStorage.getItem('usuario');
@@ -43,14 +50,14 @@ export class PanelAdministrador implements OnInit {
   busquedaEntrenador = '';
 
   administrador = {
-    nombre: 'Kevin',
-    apellido: 'Quispe Salcedo',
+    nombre: '',
+    apellido: '',
     cargo: 'Administrador General',
     ubicacion: 'Lima, Perú',
-    telefono: '959 374 711',
-    correo: 'Kevin@xtremefitness.com',
-    estado: 'Activo',
-    fechaIngreso: '07/06/2026'
+    telefono: '',
+    correo: '',
+    estado: '',
+    fechaIngreso: ''
   };
 
   // socios = [
@@ -85,23 +92,27 @@ export class PanelAdministrador implements OnInit {
       
   } 
 
-cargarSocios(){
+cargarSocios() {
+
   this.apiService.getUsuarios().subscribe((usuarios: any) => { 
+      console.log('Usuarios:', usuarios);
+    console.log('Usuarios con rol 3:', usuarios.filter((u: any) => u.id_rol === 3));
     const sociosFiltrados = usuarios.filter((usuario: any) => usuario.id_rol === 3);
     
     this.apiService.getSocios().subscribe((sociosData: any) => {
+            console.log('Socios data:', sociosData);
       
       this.apiService.getMembresias().subscribe((membresias: any) => {
-        
+         console.log('Membresias:', membresias);
+
         this.socios = sociosFiltrados.map((usuario: any) => {
-       
           const socio = sociosData.find((s: any) => s.id_usuario === usuario.id_usuario);
-        
           const membresia = membresias.find((m: any) => m.id_socio === socio?.id_socio);
           
           return {
             id_socio: socio ? socio.id_socio : usuario.id_usuario,
-            nombre: `${usuario.primer_nombre_usuario} ${usuario.segundo_nombre_usuario}`,
+            id_usuario: usuario.id_usuario,
+            nombre: `${usuario.primer_nombre_usuario} ${usuario.segundo_nombre_usuario || ''}`,
             apellidos: usuario.apellidos_usuario,
             estado: usuario.estado ? 'Activo' : 'Inactivo',
             email: usuario.email,
@@ -109,21 +120,40 @@ cargarSocios(){
             membresia: membresia ? membresia.Tipo_membresia : 'Sin membresía'
           };
         });
+        
+        console.log('Socios cargados:', this.socios); // Verifica en consola
       });
     });
   });
 }
 
+recargarDatos() {
+  this.cargarSocios();
+  this.cargarEntrenadores();
+  this.cdr.detectChanges();
+
+}
+
+
 cargarEntrenadores(){
   this.apiService.getUsuarios().subscribe((usuarios: any) => { 
     const entrenadoresFiltrados = usuarios.filter((usuario: any) => usuario.id_rol === 2);
+        console.log('Entrenadores filtrados:', entrenadoresFiltrados);
     
     this.apiService.getEntrenadores().subscribe((entrenadoresData: any) => {
+            console.log('Entrenadores data desde API:', entrenadoresData);
+
       this.entrenadores = entrenadoresFiltrados.map((usuario: any) => {
         const entrenadorInfo = entrenadoresData.find((e: any) => e.id_usuario === usuario.id_usuario);
-        
+                console.log('EntrenadorInfo para usuario', usuario.id_usuario, ':', entrenadorInfo);
+
+
+                console.log('Buscando entrenador para id_usuario:', usuario.id_usuario);
+console.log('entrenadoresData completo:', entrenadoresData);
+
         return {
           id: entrenadorInfo ? entrenadorInfo.id_entrenador : '',
+          id_usuario: usuario.id_usuario,
           nombre: `${usuario.primer_nombre_usuario} ${usuario.segundo_nombre_usuario}`,
           apellidos: usuario.apellidos_usuario,
           estado: usuario.estado ? 'Activo' : 'Inactivo',
@@ -132,6 +162,9 @@ cargarEntrenadores(){
           especialidad: entrenadorInfo ? entrenadorInfo.especialidad : 'Sin especialidad'
         };
       });
+
+      console.log('Entrenadores final:', this.entrenadores);
+
     });
   });
 }
@@ -231,19 +264,27 @@ cargarEntrenadores(){
   }
 
   agregarSocio() {
-    alert('Aquí irá la función para agregar socio.');
+   this.mostrarAgregar = true ;
   }
+   
 
-  editarSocio(socio: any) {
-    alert('Editar socio: ' + socio.nombre);
-  }
+editarSocio(socio: any) {
+  console.log('Socio recibido:', socio);
+  this.socioSeleccionado = socio;
+  this.mostrarEditarSocio = true;
+}
+
+cerrarEditarSocio() {
+  this.mostrarEditarSocio = false;
+  this.recargarDatos();
+}
 
   eliminarSocio(socio: any) {
     alert('Eliminar socio: ' + socio.nombre);
   }
 
   agregarEntrenador() {
-    alert('Aquí irá la función para agregar entrenador.');
+   this.mostrarAgregarEntrenador= true;
   }
 
   editarEntrenador(entrenador: any) {
@@ -254,11 +295,27 @@ cargarEntrenadores(){
 
   cerrarEditar(){
     this.mostrarEditar = false;
+    this.recargarDatos(); 
   }
 
-  eliminarEntrenador(entrenador: any) {
-    alert('Eliminar entrenador: ' + entrenador.nombre);
+   eliminarEntrenador(entrenador: any) {
+  if (confirm(`¿Estás seguro de eliminar a ${entrenador.nombre}?`)) {
+    // Primero eliminar el entrenador
+    this.apiService.eliminarEntrenador(entrenador.id).subscribe({
+      next: () => {
+        // Luego eliminar el usuario
+        this.apiService.eliminarUsuario(entrenador.id_usuario).subscribe({
+          next: () => {
+            alert('Entrenador y usuario eliminados exitosamente');
+            this.cargarEntrenadores();
+          },
+          error: (err: any) => console.error('Error al eliminar usuario:', err)
+        });
+      },
+      error: (err: any) => console.error('Error al eliminar entrenador:', err)
+    });
   }
+}
 
   salir() {
     this.cerrarSesion.emit();

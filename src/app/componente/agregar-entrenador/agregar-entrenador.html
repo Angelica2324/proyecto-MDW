@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<section class="registro-section">
+  <div class="registro-card">
+
+    <div class="text-end">
+      <button class="btn-close" (click)="cerrar.emit()"></button>
+    </div>
+
+    <h3 class="text-center fw-bold fs-5">Registrar Entrenador</h3>
+    <div class="underline"></div>
+
+    <form class="registro-form pb-3 mb-4">
+
+      <div class="mb-2">
+        <label class="form-label">Primer nombre:</label>
+        <input class="form-control" [(ngModel)]="primer_nombre_usuario" name="primer_nombre_usuario" type="text" placeholder="Ingresa tu primer nombre">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Segundo nombre:</label>
+        <input class="form-control" [(ngModel)]="segundo_nombre_usuario" name="segundo_nombre_usuario" type="text" placeholder="Ingresa tu segundo nombre">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Apellidos:</label>
+        <input class="form-control" [(ngModel)]="apellidos_usuario" name="apellidos_usuario" type="text" placeholder="Ingresa tus apellidos">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">DNI:</label>
+        <input class="form-control" [(ngModel)]="documento_identidad" name="documento_identidad" type="text" placeholder="Ingresa tu DNI">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Teléfono:</label>
+        <input class="form-control" [(ngModel)]="telefono" name="telefono" type="text" placeholder="Ingresa tu teléfono">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Correo:</label>
+        <input class="form-control" [(ngModel)]="email" name="email" type="email" placeholder="Ingresa tu correo electrónico">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Especialidad:</label>
+        <input class="form-control" [(ngModel)]="especialidad" name="especialidad" type="text" placeholder="Ingresa tu especialidad">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Contraseña:</label>
+        <input class="form-control" [(ngModel)]="contrasena" name="contrasena" type="password" placeholder="Crea tu contraseña">
+      </div>
+
+      <button type="button" class="btn btn-primary w-100" (click)="registrarEntrenador()">
+        Agregar Entrenador
+      </button>
+
+    </form>
+  </div>
+</section>

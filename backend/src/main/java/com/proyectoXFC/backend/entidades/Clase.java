@@ -60,12 +60,12 @@ public class Clase {
         this.dias_de_la_semana = dias_de_la_semana;
     }
 
-    public String getHora_incio() {
+    public String getHora_inicio() {
         return hora_inicio;
     }
 
-    public void setHora_incio(String hora_incio) {
-        this.hora_inicio = hora_incio;
+    public void setHora_inicio(String hora_inicio) {
+        this.hora_inicio = hora_inicio;
     }
 
     public String getHora_fin() {

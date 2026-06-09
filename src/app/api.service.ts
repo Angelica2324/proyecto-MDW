@@ -82,12 +82,25 @@ actualizarMembresia(id: number, membresia: any): Observable<any> {
   return this.http.put(`${this.apiUrl}/membresia/${id}`, membresia);
 }
 
+// rutinas
+getRutinas(): Observable<any> {
+  return this.http.get('http://localhost:8080/rutina');
+}
+
   // Clase
   getClases(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/clase`);
-  }
+  return this.http.get('http://localhost:8080/clase');
+}
 
   crearClase(clase: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/clase`, clase);
   }
+
+  // ejercicios
+getEjercicios(): Observable<any> {
+  return this.http.get('http://localhost:8080/ejercicio');
 }
+
+
+}
+

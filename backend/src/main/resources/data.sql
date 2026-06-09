@@ -73,6 +73,17 @@ INSERT INTO clase (id_entrenador, nombre_clase, descripcion, dias_de_la_semana, 
 (1, 'Musculación', 'Entrenamiento con pesas y máquinas', 'Lunes a Viernes', '07:00', '08:30'),
 (2, 'Funcional', 'Entrenamiento con peso corporal', 'Martes y Jueves', '17:00', '18:00');
 
+ 
+
+-- Rutina para socio 3 (Pedro Ramírez) con entrenador 2 (María)
+INSERT INTO rutina (id_entrenador, id_socio, nombre_rutina, descripcion, objetivo, estado_rutina) VALUES 
+(2, 3, 'Rutina de piernas', 'Ejercicios enfocados en piernas cada 2 días', 'Aumentar peso', true),
+(1, 4, 'Rutina de brazos', 'Ejercicios para fortalecer brazos y hombros', 'Tonificación', true),
+(2, 5, 'Rutina de abdominales', 'Rutina para definir abdomen', 'Definición muscular', true),
+(1, 6, 'Rutina de espalda', 'Ejercicios para fortalecer espalda', 'Mejorar postura', false),
+(2, 1, 'Rutina full body', 'Entrenamiento completo del cuerpo', 'Condicionamiento general', true),
+(1, 2, 'Rutina de cardio', 'Ejercicios cardiovasculares', 'Resistencia', true);
+
 -- Trigger para evitar eliminar entrenadores con clases activas
 -- CREATE TRIGGER IF NOT EXISTS proteger_entrenador_con_clases
 -- BEFORE DELETE ON entrenador

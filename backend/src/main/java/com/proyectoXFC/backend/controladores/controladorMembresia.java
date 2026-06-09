@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectoXFC.backend.entidades.Membresia;
-import com.proyectoXFC.backend.entidades.Rol;
 import com.proyectoXFC.backend.repositorios.RepositorioMembresia;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

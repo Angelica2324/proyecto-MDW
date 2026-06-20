@@ -1,86 +1,673 @@
 <header class="navbar">
   <div class="logo">
-    🏋️ XTREME FITNESS CENTER
+    <span class="logo-icon">🏋️</span>
+    <span>XTREME FITNESS CENTER</span>
   </div>
 
+  <nav class="nav-menu">
+    <a href="#servicios">Servicios</a>
+    <a href="#planes">Planes</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
   <div class="nav-buttons">
-    <button class="btn btn-login" (click)="irALogin()">↪ Login</button>
-    <button class="btn btn-register" (click)="irARegistro()">👤 Registro</button>
+    <button class="btn btn-login" (click)="irALogin()">Iniciar sesión</button>
+    <button class="btn btn-register" (click)="irARegistro()">Registrarse</button>
   </div>
 </header>
 
 <main class="main-content">
 
-  <section class="hero-title">
-    <h1>TRANSFORMA TU CUERPO, MEJORA TU VIDA</h1>
-  </section>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">LIMA, PERÚ · DESDE 2013</p>
 
-  <section class="hero-banner">
-    <div class="banner-overlay">
-      <div class="banner-buttons">
-        <button class="btn-main btn-red" (click)="irARegistro()">👤 Registrarse</button>
-        <button class="btn-main btn-outline" (click)="irALogin()">↪ Iniciar sesión</button>
+      <h1>
+        CONSTRUYE<br>
+        TU MEJOR<br>
+        <span>VERSIÓN</span>
+      </h1>
+
+      <p class="hero-description">
+        Entrena con rutinas personalizadas, clases dinámicas y planes diseñados
+        para ayudarte a superar tus límites cada día.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn-main btn-primary" (click)="irARegistro()">
+          Empieza hoy
+        </button>
+
+        <button class="btn-main btn-secondary" (click)="irALogin()">
+          Iniciar sesión
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <strong>3200+</strong>
+          <span>Miembros</span>
+        </div>
+
+        <div>
+          <strong>45+</strong>
+          <span>Instructores</span>
+        </div>
+
+        <div>
+          <strong>5AM-11PM</strong>
+          <span>Horario</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="services">
-  <button type="button" class="service-item" (click)="abrirServicio('clases')">
-    <span>👥</span>
-    <p>Clases</p>
-  </button>
+  <section class="services" id="servicios">
+    <div class="section-header">
+      <p>LO QUE OFRECEMOS</p>
+      <h2>Servicios Xtreme</h2>
+    </div>
 
-  <div class="line"></div>
+    <div class="services-grid">
+      <button type="button" class="service-card" (click)="abrirServicio('clases')">
+        <span>👥</span>
+        <h3>Clases</h3>
+        <p>Sesiones grupales para entrenar con energía, disciplina y motivación.</p>
+      </button>
 
-  <button type="button" class="service-item" (click)="abrirServicio('rutinas')">
-    <span>📋</span>
-    <p>Rutinas</p>
-  </button>
+      <button type="button" class="service-card" (click)="abrirServicio('rutinas')">
+        <span>📋</span>
+        <h3>Rutinas</h3>
+        <p>Planes personalizados según tus objetivos físicos y nivel actual.</p>
+      </button>
 
-  <div class="line"></div>
+      <button type="button" class="service-card" (click)="abrirServicio('horarios')">
+        <span>📅</span>
+        <h3>Horarios</h3>
+        <p>Disponibilidad amplia para que puedas entrenar a tu propio ritmo.</p>
+      </button>
+    </div>
+  </section>
 
-  <button type="button" class="service-item" (click)="abrirServicio('membresias')">
-    <span>💳</span>
-    <p>Membresías</p>
-  </button>
+  <section class="plans" id="planes">
+    <div class="section-header">
+      <p>MEMBRESÍAS</p>
+      <h2>Elige tu plan</h2>
+    </div>
 
-  <div class="line"></div>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <h3>Básico</h3>
+        <h4>S/. 89 <span>/mes</span></h4>
 
-  <button type="button" class="service-item" (click)="abrirServicio('horarios')">
-    <span>📅</span>
-    <p>Horarios</p>
-  </button>
+        <ul>
+          <li>Acceso a sala principal</li>
+          <li>Uso de casilleros</li>
+          <li>Duchas disponibles</li>
+          <li>App de seguimiento</li>
+        </ul>
+
+        <button type="button" (click)="irARegistro()">Empezar ahora</button>
+      </div>
+
+      <div class="plan-card plan-popular">
+        <div class="popular-label">Más popular</div>
+
+        <h3>Pro</h3>
+        <h4>S/. 149 <span>/mes</span></h4>
+
+        <ul>
+          <li>Todo el plan básico</li>
+          <li>Clases grupales ilimitadas</li>
+          <li>Rutina personalizada</li>
+          <li>Orientación nutricional básica</li>
+        </ul>
+
+        <button type="button" (click)="irARegistro()">Empezar ahora</button>
+      </div>
+
+      <div class="plan-card">
+        <h3>Élite</h3>
+        <h4>S/. 249 <span>/mes</span></h4>
+
+        <ul>
+          <li>Todo el plan Pro</li>
+          <li>Sesiones con coach personal</li>
+          <li>Plan nutricional premium</li>
+          <li>Acceso VIP 24/7</li>
+        </ul>
+
+        <button type="button" (click)="irARegistro()">Empezar ahora</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="nosotros">
+    <div class="about-card">
+      <div class="about-image"></div>
+
+      <div class="about-info">
+        <p class="about-tag">QUIÉNES SOMOS</p>
+
+        <h2>
+          Más que un gimnasio,<br>
+          <span>una forma de vida</span>
+        </h2>
+
+        <p>
+          Desde 2013, Xtreme Fitness Center ha sido el espacio donde muchas
+          personas empezaron a cambiar su estilo de vida. No solo ofrecemos
+          entrenamientos, también motivación, disciplina y acompañamiento.
+        </p>
+
+        <div class="about-features">
+          <div>✅ Comunidad activa</div>
+          <div>✅ Equipos modernos</div>
+          <div>✅ Alta intensidad</div>
+          <div>✅ 7 días a la semana</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+  <div class="section-header center">
+    <p>ELLOS YA LO LOGRARON</p>
+    <h2>Historias reales</h2>
+  </div>
+
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card testimonial-pink">
+      <div class="stars">★★★★★</div>
+
+      <p>
+        “En 6 meses perdí 18 kg y gané músculo que nunca imaginé.
+        Los instructores realmente se preocupan por ti.”
+      </p>
+
+      <div class="testimonial-user">
+        <div class="testimonial-photo photo-keiko"></div>
+
+        <div>
+          <strong>Keiko Fujimori  </strong>
+          <span>Miembro desde 2021</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card testimonial-purple">
+      <div class="stars">★★★★★</div>
+
+      <p>
+        “Las clases grupales me cambiaron la vida. La energía del lugar
+        es incomparable. ¡Nunca falto!”
+      </p>
+
+      <div class="testimonial-user">
+        <div class="testimonial-photo photo-primera"></div>
+
+        <div>
+          <strong>Lucía Torres</strong>
+          <span>Miembro desde 2022</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card testimonial-orange">
+      <div class="stars">★★★★★</div>
+
+      <p>
+        “El plan élite vale cada sol. Mi coach personal diseñó una rutina
+        perfecta para mis objetivos.”
+      </p>
+
+      <div class="testimonial-user">
+        <div class="testimonial-photo photo-segundo"></div>
+
+        <div>
+          <strong>Roberto Sanches</strong>
+          <span>Miembro desde 2023</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+  <section class="cta" id="contacto">
+    <p>SIN PRETEXTOS</p>
+
+    <h2>
+      Hoy es el día.<br>
+      Tú decides.
+    </h2>
+
+    <span>
+      Regístrate ahora y empieza tu cambio con Xtreme Fitness Center.
+    </span>
+
+    <div class="cta-buttons">
+      <button type="button" (click)="irARegistro()">Registrarse gratis</button>
+      <a
+  class="whatsapp"
+  href="https://wa.me/51958374711?text=Hola,%20quiero%20más%20información%20sobre%20Xtreme%20Fitness%20Center"
+  target="_blank"
+>
+  WhatsApp
+</a>
+    </div>
+  </section>
 
 </main>
 
 @if (mostrarModalServicio) {
-  <div class="modal-servicio-fondo">
-    <div class="modal-servicio-card">
 
-      <button type="button" class="modal-servicio-x" (click)="cerrarModalServicio()">×</button>
+  @if (servicioActual === 'clases') {
+    <div class="modal-clases-fondo">
+      <div class="modal-clases-card">
 
-      <div class="modal-servicio-icono">
-        ℹ
+        <button type="button" class="modal-clases-x" (click)="cerrarModalServicio()">×</button>
+
+        <div class="modal-clases-header">
+          <p>XTREME FITNESS CENTER</p>
+          <h2>CLASES <span>DISPONIBLES</span></h2>
+        </div>
+
+        <div class="modal-clases-contenido">
+
+          <aside class="clases-menu">
+            <button
+              type="button"
+              class="clase-tab"
+              [class.active]="claseActiva === 'zumba'"
+              (click)="seleccionarClase('zumba')"
+            >
+              <span></span>
+              <div>
+                <strong>Zumba</strong>
+                <small>Baile & Cardio</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="clase-tab"
+              [class.active]="claseActiva === 'funcional'"
+              (click)="seleccionarClase('funcional')"
+            >
+              <span></span>
+              <div>
+                <strong>Funcional</strong>
+                <small>Fuerza & Resistencia</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="clase-tab"
+              [class.active]="claseActiva === 'cross'"
+              (click)="seleccionarClase('cross')"
+            >
+              <span></span>
+              <div>
+                <strong>Cross Training</strong>
+                <small>Circuitos Intensivos</small>
+              </div>
+            </button>
+          </aside>
+
+          <section class="clase-detalle">
+
+            <div
+              class="clase-banner"
+              [class.banner-zumba]="claseActiva === 'zumba'"
+              [class.banner-funcional]="claseActiva === 'funcional'"
+              [class.banner-cross]="claseActiva === 'cross'"
+            >
+              <div class="clase-nivel">
+                {{ claseSeleccionada.intensidad }}
+              </div>
+
+              <div class="clase-banner-info">
+                <div class="play-icon">▶</div>
+
+                <div>
+                  <h3>{{ claseSeleccionada.titulo }}</h3>
+                  <p>{{ claseSeleccionada.subtitulo }}</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="clase-descripcion">
+              {{ claseSeleccionada.descripcion }}
+            </p>
+
+            <div class="clase-info-grid">
+              <div class="clase-info-box">
+                <small>⏱ DURACIÓN</small>
+                <strong>{{ claseSeleccionada.duracion }}</strong>
+              </div>
+
+              <div class="clase-info-box">
+                <small>👥 INSTRUCTOR</small>
+                <strong>{{ claseSeleccionada.instructor }}</strong>
+              </div>
+
+              <div class="clase-info-box">
+                <small>⚡ INTENSIDAD</small>
+                <strong>{{ claseSeleccionada.intensidad }}</strong>
+              </div>
+            </div>
+
+            <div class="horarios-clase">
+              <h4>📅 HORARIOS DISPONIBLES</h4>
+
+              <div class="horario-item">
+                <span></span>
+                {{ claseSeleccionada.horario1 }}
+              </div>
+
+              <div class="horario-item">
+                <span></span>
+                {{ claseSeleccionada.horario2 }}
+              </div>
+            </div>
+
+            <div class="modal-clases-botones">
+              <button type="button" class="btn-reservar" (click)="irARegistro()">
+                RESERVAR CLASE
+              </button>
+
+              <button type="button" class="btn-cerrar-clase" (click)="cerrarModalServicio()">
+                CERRAR
+              </button>
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+    </div>
+  }
+
+  @else if (servicioActual === 'rutinas') {
+    <div class="modal-rutinas-fondo">
+      <div class="modal-rutinas-card">
+
+        <button type="button" class="modal-rutinas-x" (click)="cerrarModalServicio()">×</button>
+
+        <div class="modal-rutinas-header">
+          <p>XTREME FITNESS CENTER</p>
+          <h2>RUTINAS <span>PERSONALIZADAS</span></h2>
+        </div>
+
+        <div class="modal-rutinas-contenido">
+
+          <aside class="rutinas-menu">
+            <button
+              type="button"
+              class="rutina-tab"
+              [class.active]="rutinaActiva === 'masa'"
+              (click)="seleccionarRutina('masa')"
+            >
+              <span></span>
+              <div>
+                <strong>Ganar masa muscular</strong>
+                <small>Hipertrofia · Fuerza</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="rutina-tab"
+              [class.active]="rutinaActiva === 'peso'"
+              (click)="seleccionarRutina('peso')"
+            >
+              <span></span>
+              <div>
+                <strong>Bajar de peso</strong>
+                <small>Quema grasa · Cardio HIIT</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="rutina-tab"
+              [class.active]="rutinaActiva === 'definicion'"
+              (click)="seleccionarRutina('definicion')"
+            >
+              <span></span>
+              <div>
+                <strong>Definición</strong>
+                <small>Tonificación · Cardio moderado</small>
+              </div>
+            </button>
+          </aside>
+
+          <section class="rutina-detalle">
+
+            <div
+              class="rutina-banner"
+              [class.banner-masa]="rutinaActiva === 'masa'"
+              [class.banner-peso]="rutinaActiva === 'peso'"
+              [class.banner-definicion]="rutinaActiva === 'definicion'"
+            >
+              <div class="rutina-banner-info">
+                <div class="rutina-icon">🏋️</div>
+
+                <div>
+                  <h3>{{ rutinaSeleccionada.titulo }}</h3>
+                  <p>{{ rutinaSeleccionada.subtitulo }}</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="rutina-descripcion">
+              {{ rutinaSeleccionada.descripcion }}
+            </p>
+
+            <div class="rutina-info-grid">
+              <div class="rutina-info-box">
+                <small>⏱ DURACIÓN</small>
+                <strong>{{ rutinaSeleccionada.duracion }}</strong>
+              </div>
+
+              <div class="rutina-info-box">
+                <small>📅 FRECUENCIA</small>
+                <strong>{{ rutinaSeleccionada.frecuencia }}</strong>
+              </div>
+
+              <div class="rutina-info-box">
+                <small>⚡ PROGRAMA</small>
+                <strong>{{ rutinaSeleccionada.programa }}</strong>
+              </div>
+            </div>
+
+            <div class="ejercicios-rutina">
+              <h4>🔥 EJERCICIOS CLAVE</h4>
+
+              <div class="ejercicios-lista">
+                <span>{{ rutinaSeleccionada.ejercicio1 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio2 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio3 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio4 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio5 }}</span>
+              </div>
+            </div>
+
+            <div class="rutina-coach">
+              👥 {{ rutinaSeleccionada.coach }}
+            </div>
+
+            <div class="modal-rutinas-botones">
+              <button type="button" class="btn-solicitar-rutina" (click)="irARegistro()">
+                SOLICITAR RUTINA
+              </button>
+
+              <button type="button" class="btn-cerrar-rutina" (click)="cerrarModalServicio()">
+                CERRAR
+              </button>
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+    </div>
+  }
+  @else if (servicioActual === 'horarios') {
+  <div class="modal-horarios-fondo">
+    <div class="modal-horarios-card">
+
+      <button type="button" class="modal-horarios-x" (click)="cerrarModalServicio()">×</button>
+
+      <div class="modal-horarios-header">
+        <p>XTREME FITNESS CENTER</p>
+        <h2>HORARIOS <span>SEMANALES</span></h2>
       </div>
 
-      <h2>{{ tituloServicio }}</h2>
-      <div class="modal-servicio-linea"></div>
+      <div class="modal-horarios-contenido">
 
-      <p class="modal-servicio-mensaje">
-        {{ descripcionServicio }}
-      </p>
+        <aside class="horarios-menu">
 
-      <div class="modal-servicio-lista">
-        <p>{{ detalleServicio1 }}</p>
-        <p>{{ detalleServicio2 }}</p>
-        <p>{{ detalleServicio3 }}</p>
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'lunes'" (click)="seleccionarDia('lunes')">
+            <span>LUN</span>
+            <div>
+              <strong>Lunes</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'martes'" (click)="seleccionarDia('martes')">
+            <span>MAR</span>
+            <div>
+              <strong>Martes</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'miercoles'" (click)="seleccionarDia('miercoles')">
+            <span>MIÉ</span>
+            <div>
+              <strong>Miércoles</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'jueves'" (click)="seleccionarDia('jueves')">
+            <span>JUE</span>
+            <div>
+              <strong>Jueves</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'viernes'" (click)="seleccionarDia('viernes')">
+            <span>VIE</span>
+            <div>
+              <strong>Viernes</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'sabado'" (click)="seleccionarDia('sabado')">
+            <span>SÁB</span>
+            <div>
+              <strong>Sábado</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+          <button type="button" class="dia-tab" [class.active]="diaActivo === 'domingo'" (click)="seleccionarDia('domingo')">
+            <span>DOM</span>
+            <div>
+              <strong>Domingo</strong>
+              <small>3 clases disponibles</small>
+            </div>
+          </button>
+
+        </aside>
+
+        <section class="horario-detalle">
+
+          <div class="horario-dia-header" [style.--dia-color]="horarioSeleccionado.color">
+            <div class="dia-icon">📅</div>
+            <div>
+              <h3>{{ horarioSeleccionado.dia }}</h3>
+              <p>{{ horarioSeleccionado.total }}</p>
+            </div>
+          </div>
+
+          <div class="horario-lista">
+
+            @for (clase of horarioSeleccionado.clases; track clase.hora) {
+              <div class="horario-card" [style.--dia-color]="horarioSeleccionado.color">
+                <div class="horario-hora">
+                  {{ clase.hora }}
+                </div>
+
+                <div class="horario-clase">
+                  <strong>{{ clase.nombre }}</strong>
+                  <span>{{ clase.coach }}</span>
+                </div>
+
+                <div class="horario-sala">
+                  <strong>{{ clase.sala }}</strong>
+                  <span>👥 {{ clase.cupos }}</span>
+                </div>
+              </div>
+            }
+
+          </div>
+
+          <div class="modal-horarios-botones">
+            <button type="button" class="btn-inscribete" (click)="irARegistro()">
+              INSCRÍBETE YA!
+            </button>
+
+            <button type="button" class="btn-cerrar-horario" (click)="cerrarModalServicio()">
+              CERRAR
+            </button>
+          </div>
+
+        </section>
+
       </div>
-
-      <button type="button" class="modal-servicio-boton" (click)="cerrarModalServicio()">
-        CERRAR
-      </button>
-
     </div>
   </div>
+}
+
+  @else {
+    <div class="modal-servicio-fondo">
+      <div class="modal-servicio-card">
+
+        <button type="button" class="modal-servicio-x" (click)="cerrarModalServicio()">×</button>
+
+        <div class="modal-servicio-icono">
+          ℹ
+        </div>
+
+        <h2>{{ tituloServicio }}</h2>
+        <div class="modal-servicio-linea"></div>
+
+        <p class="modal-servicio-mensaje">
+          {{ descripcionServicio }}
+        </p>
+
+        <div class="modal-servicio-lista">
+          <p>{{ detalleServicio1 }}</p>
+          <p>{{ detalleServicio2 }}</p>
+          <p>{{ detalleServicio3 }}</p>
+        </div>
+
+        <button type="button" class="modal-servicio-boton" (click)="cerrarModalServicio()">
+          CERRAR
+        </button>
+
+      </div>
+    </div>
+  }
+
 }

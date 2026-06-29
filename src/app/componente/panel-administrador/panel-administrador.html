@@ -49,6 +49,7 @@
         <h2>INFORMACIÓN DEL ADMINISTRADOR</h2>
 
         <div class="admin-profile-card">
+
           <div class="admin-profile-header">
             <div class="admin-avatar">
               👨‍💼
@@ -60,16 +61,15 @@
               <span>{{ administrador.cargo }}</span>
             </div>
 
-            <div class="admin-status" [ngClass]="{
+            <div
+              class="admin-status"
+              [ngClass]="{
                 'status-activo': administrador.estado === 'Activo',
                 'status-inactivo': administrador.estado === 'Inactivo'
               }">
-                ✓ {{ administrador.estado }}
-              </div>
-            
+              ✓ {{ administrador.estado }}
+            </div>
           </div>
-
-          
 
           <div class="admin-info-grid">
             <div class="info-box">
@@ -92,6 +92,13 @@
               <strong>{{ administrador.fechaIngreso }}</strong>
             </div>
           </div>
+
+          <div class="perfil-acciones">
+            <button type="button" class="btn-editar-perfil">
+              ✎ EDITAR PERFIL
+            </button>
+          </div>
+
         </div>
 
         <section class="summary">
@@ -122,215 +129,261 @@
     }
 
     @if (seccionActual === 'socios') {
-      @if (!mostrarAgregar){
-<section class="table-section">
 
-        <div class="table-header">
-          <h2>TABLA DE SOCIOS</h2>
-
-          <div class="search-box">
-            <span>🔍</span>
-            <input
-              type="text"
-              placeholder="Buscar socio..."
-              (input)="buscarSocio($event)">
-          </div>
-        </div>
-
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>ESTADO</th>
-                <th>MEMBRESÍA</th>
-                <th class="acciones-col">ACCIONES</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              @for (socio of sociosPaginados; track socio.id) {
-                <tr>
-                  <td>{{ socio.id_socio }}</td>
-                  <td>{{ socio.nombre }} {{socio.apellidos}}</td>
-                  <td>
-                    <span
-                      class="estado"
-                      [class.activo]="socio.estado === 'Activo'"
-                      [class.inactivo]="socio.estado === 'Inactivo'">
-                      {{ socio.estado }}
-                    </span>
-                  </td>
-                  <td>{{ socio.membresia }}</td>
-                  <td class="acciones">
-                    <button class="btn-accion btn-editar" type="button" (click)="editarSocio(socio)">✏️</button>
-                    <button class="btn-accion btn-eliminar" type="button" (click)="eliminarSocio(socio)">🗑️</button>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-
-
-
-        <div class="table-footer">
-          <button class="btn-agregar" type="button" (click)="agregarSocio()">＋ Agregar</button>
-
-          <div class="pagination">
-            <button
-              class="page-btn"
-              type="button"
-              (click)="paginaAnteriorSocios()"
-              [disabled]="paginaSocios === 1">
-              ←
-            </button>
-
-            @for (pagina of paginasSocios; track pagina) {
-              <button
-                type="button"
-                class="page-number"
-                [class.active-page]="paginaSocios === pagina"
-                (click)="cambiarPaginaSocios(pagina)">
-                {{ pagina }}
-              </button>
-            }
-
-            <button
-              class="page-btn"
-              type="button"
-              (click)="paginaSiguienteSocios()"
-              [disabled]="paginaSocios === totalPaginasSocios">
-              →
-            </button>
-          </div>
-        </div>
-
-      </section>
-      }
-      
-        @if (mostrarAgregar) {
-            <div>
-              <app-agregar-socio     (cerrar)="mostrarAgregar = false; recargarDatos()" (registrar)="recargarDatos()"  (cambiarSeccion)="cambiarSeccion($event)">></app-agregar-socio>
-            </div>
-          }
-    }
-
-        @if (mostrarEditarSocio) {
-                <div class="modal-overlay">
-                  <app-editar-socio 
-                    [socio]="socioSeleccionado"
-                    (actualizado)="recargarDatos()"
-                    (cerrar)="cerrarEditarSocio()">
-                  </app-editar-socio>
-                </div>
-              }
-
-
-@if (!mostrarAgregarEntrenador) {
-    @if (seccionActual === 'entrenadores') {
-      @if (!mostrarEditar) {
+      @if (!mostrarAgregar) {
         <section class="table-section">
 
-        <div class="table-header">
-          <h2>TABLA DE ENTRENADORES</h2>
+          <div class="table-header">
+            <h2>TABLA DE SOCIOS</h2>
 
-          <div class="search-box">
-            <span>🔍</span>
-            <input
-              type="text"
-              placeholder="Buscar entrenador..."
-              (input)="buscarEntrenador($event)">
+            <div class="search-box">
+              <span>🔍</span>
+              <input
+                type="text"
+                placeholder="Buscar socio..."
+                (input)="buscarSocio($event)">
+            </div>
           </div>
-        </div>
 
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>ESTADO</th>
-                <th>ESPECIALIDAD</th>
-                <th class="acciones-col">ACCIONES</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              @for (entrenador of entrenadoresPaginados; track entrenador.id) {
+          <div class="table-wrapper">
+            <table>
+              <thead>
                 <tr>
-                  <td>{{ entrenador.id}}</td>
-                  <td>{{ entrenador.nombre }}</td>
-                  <td>
-                    <span
-                      class="estado"
-                      [class.activo]="entrenador.estado === 'Activo'"
-                      [class.inactivo]="entrenador.estado === 'Inactivo'">
-                      {{ entrenador.estado }}
-                    </span>
-                  </td>
-                  <td>{{ entrenador.especialidad }}</td>
-                  <td class="acciones">
-                    <button class="btn-accion btn-editar" type="button" (click)="editarEntrenador(entrenador)">✏️</button>
-                    <button class="btn-accion btn-eliminar" type="button" (click)="eliminarEntrenador(entrenador)">🗑️</button>
-                  </td>
+                  <th>ID</th>
+                  <th>NOMBRE</th>
+                  <th>ESTADO</th>
+                  <th>MEMBRESÍA</th>
+                  <th class="acciones-col">ACCIONES</th>
                 </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+              </thead>
 
-        <div class="table-footer">
-          <button class="btn-agregar" type="button" (click)="agregarEntrenador()">＋ Agregar</button>
+              <tbody>
+                @for (socio of sociosPaginados; track socio.id) {
+                  <tr>
+                    <td>{{ socio.id_socio }}</td>
+                    <td>{{ socio.nombre }} {{ socio.apellidos }}</td>
 
-          <div class="pagination">
-            <button
-              class="page-btn"
-              type="button"
-              (click)="paginaAnteriorEntrenadores()"
-              [disabled]="paginaEntrenadores === 1">
-              ←
-            </button>
+                    <td>
+                      <span
+                        class="estado"
+                        [class.activo]="socio.estado === 'Activo'"
+                        [class.inactivo]="socio.estado === 'Inactivo'">
+                        {{ socio.estado }}
+                      </span>
+                    </td>
 
-            @for (pagina of paginasEntrenadores; track pagina) {
-              <button
-                type="button"
-                class="page-number"
-                [class.active-page]="paginaEntrenadores === pagina"
-                (click)="cambiarPaginaEntrenadores(pagina)">
-                {{ pagina }}
-              </button>
-            }
+                    <td>{{ socio.membresia }}</td>
 
-            <button
-              class="page-btn"
-              type="button"
-              (click)="paginaSiguienteEntrenadores()"
-              [disabled]="paginaEntrenadores === totalPaginasEntrenadores">
-              →
-            </button>
+                    <td class="acciones">
+                      <button
+                        class="btn-accion btn-editar"
+                        type="button"
+                        (click)="editarSocio(socio)">
+                        ✏️
+                      </button>
+
+                      <button
+                        class="btn-accion btn-eliminar"
+                        type="button"
+                        (click)="eliminarSocio(socio)">
+                        🗑️
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </div>
-      </section>
-      }
-      
-      
-      
-      @if (mostrarEditar){
-         <div class="container bg-secondary-subtle pt-3">
-          <app-editar-usuario [entrenador]="entrenadorSeleccionado "  (actualizado)="cerrarEditar()" (cerrar)="mostrarEditar = false; recargarDatos()"> ></app-editar-usuario>
-       </div>
-      }
-      
-    }
-}
-  
 
-    @if (mostrarAgregarEntrenador) {
-      <div>
-        <app-agregar-entrenador></app-agregar-entrenador>
+          <div class="table-footer">
+            <button
+              class="btn-agregar"
+              type="button"
+              (click)="agregarSocio()">
+              ＋ Agregar
+            </button>
+
+            <div class="pagination">
+              <button
+                class="page-btn"
+                type="button"
+                (click)="paginaAnteriorSocios()"
+                [disabled]="paginaSocios === 1">
+                ←
+              </button>
+
+              @for (pagina of paginasSocios; track pagina) {
+                <button
+                  type="button"
+                  class="page-number"
+                  [class.active-page]="paginaSocios === pagina"
+                  (click)="cambiarPaginaSocios(pagina)">
+                  {{ pagina }}
+                </button>
+              }
+
+              <button
+                class="page-btn"
+                type="button"
+                (click)="paginaSiguienteSocios()"
+                [disabled]="paginaSocios === totalPaginasSocios">
+                →
+              </button>
+            </div>
+          </div>
+
+        </section>
+      }
+
+      @if (mostrarAgregar) {
+        <div>
+          <app-agregar-socio
+            (cerrar)="mostrarAgregar = false; recargarDatos()"
+            (registrar)="recargarDatos()"
+            (cambiarSeccion)="cambiarSeccion($event)">
+          </app-agregar-socio>
+        </div>
+      }
+
+    }
+
+    @if (mostrarEditarSocio) {
+      <div class="modal-overlay">
+        <app-editar-socio
+          [socio]="socioSeleccionado"
+          (actualizado)="recargarDatos()"
+          (cerrar)="cerrarEditarSocio()">
+        </app-editar-socio>
       </div>
+    }
+
+    @if (seccionActual === 'entrenadores') {
+
+      @if (!mostrarAgregarEntrenador) {
+
+        @if (!mostrarEditar) {
+          <section class="table-section">
+
+            <div class="table-header">
+              <h2>TABLA DE ENTRENADORES</h2>
+
+              <div class="search-box">
+                <span>🔍</span>
+                <input
+                  type="text"
+                  placeholder="Buscar entrenador..."
+                  (input)="buscarEntrenador($event)">
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>ESTADO</th>
+                    <th>ESPECIALIDAD</th>
+                    <th class="acciones-col">ACCIONES</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  @for (entrenador of entrenadoresPaginados; track entrenador.id) {
+                    <tr>
+                      <td>{{ entrenador.id }}</td>
+                      <td>{{ entrenador.nombre }}</td>
+
+                      <td>
+                        <span
+                          class="estado"
+                          [class.activo]="entrenador.estado === 'Activo'"
+                          [class.inactivo]="entrenador.estado === 'Inactivo'">
+                          {{ entrenador.estado }}
+                        </span>
+                      </td>
+
+                      <td>{{ entrenador.especialidad }}</td>
+
+                      <td class="acciones">
+                        <button
+                          class="btn-accion btn-editar"
+                          type="button"
+                          (click)="editarEntrenador(entrenador)">
+                          ✏️
+                        </button>
+
+                        <button
+                          class="btn-accion btn-eliminar"
+                          type="button"
+                          (click)="eliminarEntrenador(entrenador)">
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-footer">
+              <button
+                class="btn-agregar"
+                type="button"
+                (click)="agregarEntrenador()">
+                ＋ Agregar
+              </button>
+
+              <div class="pagination">
+                <button
+                  class="page-btn"
+                  type="button"
+                  (click)="paginaAnteriorEntrenadores()"
+                  [disabled]="paginaEntrenadores === 1">
+                  ←
+                </button>
+
+                @for (pagina of paginasEntrenadores; track pagina) {
+                  <button
+                    type="button"
+                    class="page-number"
+                    [class.active-page]="paginaEntrenadores === pagina"
+                    (click)="cambiarPaginaEntrenadores(pagina)">
+                    {{ pagina }}
+                  </button>
+                }
+
+                <button
+                  class="page-btn"
+                  type="button"
+                  (click)="paginaSiguienteEntrenadores()"
+                  [disabled]="paginaEntrenadores === totalPaginasEntrenadores">
+                  →
+                </button>
+              </div>
+            </div>
+
+          </section>
+        }
+
+        @if (mostrarEditar) {
+          <div class="container bg-secondary-subtle pt-3">
+            <app-editar-usuario
+              [entrenador]="entrenadorSeleccionado"
+              (actualizado)="cerrarEditar()"
+              (cerrar)="mostrarEditar = false; recargarDatos()">
+            </app-editar-usuario>
+          </div>
+        }
+
+      }
+
+      @if (mostrarAgregarEntrenador) {
+        <div>
+          <app-agregar-entrenador></app-agregar-entrenador>
+        </div>
+      }
+
     }
 
   </main>

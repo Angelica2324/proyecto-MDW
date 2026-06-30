@@ -1,88 +1,133 @@
-<header class="navbar">
-  <div class="logo">
-    🏋️ XTREME FITNESS CENTER
-  </div>
+<div class="registro-page">
 
-  <div class="nav-buttons">
-    <button class="btn btn-login" (click)="irALogin()">↪ Login</button>
-  </div>
-</header>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="brand-icon">⚡</span>
+      <span class="brand-name">XTREME FITNESS CENTER</span>
+    </div>
 
-<section class="registro-section">
-  <div class="registro-card">
+    <div class="navbar-actions">
+      <a class="btn-ghost" (click)="irLogin.emit()">
+        INICIAR SESIÓN
+      </a>
+    </div>
+  </nav>
 
-    <button type="button" class="btn-volver" (click)="volver()">← Volver al inicio</button>
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="registro-container">
 
-    <h2>REGISTRO DE NUEVO SOCIO</h2>
-    <div class="underline"></div>
+    <a class="btn-ghost" (click)="volverInicio.emit()">
+      VOLVER AL INICIO
+    </a>
 
-    <form class="registro-form">
+    <div class="registro-header">
+      <h1>REGISTRO DE <span class="highlight">NUEVO SOCIO</span></h1>
+      <div class="titulo-linea"></div>
+      <p class="subtitulo">Únete y construye tu mejor versión</p>
+    </div>
 
-      <label>Primer nombre:</label>
-      <div class="input-group">
-        <span>👤</span>
-        <input [(ngModel)]="primer_nombre_usuario" name="primer_nombre_usuario" type="text" placeholder="Ingresa tu primer nombre">
+    <div class="form-card">
+
+      <!-- NOMBRES -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>PRIMER NOMBRE</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input type="text" [(ngModel)]="primer_nombre_usuario" placeholder="Ingresa tu primer nombre" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>SEGUNDO NOMBRE</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input type="text" [(ngModel)]="segundo_nombre_usuario" placeholder="Ingresa tu segundo nombre" />
+          </div>
+        </div>
       </div>
 
-      <label>Segundo nombre:</label>
-      <div class="input-group">
-        <span>👤</span>
-        <input [(ngModel)]="segundo_nombre_usuario" name="segundo_nombre_usuario" type="text" placeholder="Ingresa tu segundo nombre">
+      <!-- APELLIDOS -->
+      <div class="form-group full-width">
+        <label>APELLIDOS</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" [(ngModel)]="apellidos_usuario" placeholder="Ingresa tus apellidos" />
+        </div>
       </div>
 
-      <label>Apellidos:</label>
-      <div class="input-group">
-        <span>👤</span>
-        <input [(ngModel)]="apellidos_usuario" name="apellidos_usuario" type="text" placeholder="Ingresa tus apellidos">
+      <!-- DNI Y TELEFONO -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>DNI</label>
+          <div class="input-wrapper">
+            <span class="input-icon">💳</span>
+            <input type="text" [(ngModel)]="documento_identidad" placeholder="Ingresa tu DNI" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>TELÉFONO</label>
+          <div class="input-wrapper">
+            <span class="input-icon">📞</span>
+            <input type="text" [(ngModel)]="telefono" placeholder="Ingresa tu teléfono" />
+          </div>
+        </div>
       </div>
 
-      <label>DNI:</label>
-      <div class="input-group">
-        <span>🪪</span>
-        <input [(ngModel)]="documento_identidad" name="documento_identidad" type="text" placeholder="Ingresa tu DNI">
+      <!-- EMAIL -->
+      <div class="form-group full-width">
+        <label>CORREO ELECTRÓNICO</label>
+        <div class="input-wrapper">
+          <span class="input-icon">✉️</span>
+          <input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo electrónico" />
+        </div>
       </div>
 
-      <label>Teléfono:</label>
-      <div class="input-group">
-        <span>📞</span>
-        <input [(ngModel)]="telefono" name="telefono" type="text" placeholder="Ingresa tu teléfono">
+      <!-- MEMBRESÍA -->
+      <div class="form-group full-width">
+        <label>TIPO DE MEMBRESÍA</label>
+        <div class="input-wrapper select-wrapper">
+          <span class="input-icon">💳</span>
+          <select [(ngModel)]="tipo_membresia">
+            <option value="" disabled selected>Selecciona un plan</option>
+            <option value="Mensual">Plan Básico</option>
+            <option value="Trimestral">Plan Premium</option>
+            <option value="Anual">Plan Elite</option>
+          </select>
+        </div>
       </div>
 
-      <label>Correo electrónico:</label>
-      <div class="input-group">
-        <span>✉️</span>
-        <input [(ngModel)]="email" name="email" type="email" placeholder="Ingresa tu correo electrónico">
+      <!-- CONTRASEÑA -->
+      <div class="form-group full-width">
+        <label>CONTRASEÑA</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" [(ngModel)]="contrasena" placeholder="Crea tu contraseña" />
+        </div>
       </div>
 
-      <label>Tipo de membresía:</label>
-      <div class="input-group">
-        <span>💳</span>
-        <select [(ngModel)]="tipo_membresia" name="tipo_membresia">
-          <option value="">Selecciona un plan</option>
-          <option value="Mensual">Mensual</option>
-          <option value="Trimestral">Trimestral</option>
-          <option value="Anual">Anual</option>
-        </select>
-      </div>
-
-      <label>Contraseña:</label>
-      <div class="input-group">
-        <span>🔒</span>
-        <input [(ngModel)]="contrasena" name="contrasena" type="text" placeholder="Crea tu contraseña">
-      </div>
-
+      <!-- TERMINOS -->
       <div class="terminos">
-        <input type="checkbox">
-        <p>Acepto los <a href="#">términos y condiciones</a></p>
+        <input type="checkbox" id="terminos" />
+        <label for="terminos">
+          Acepto los <span class="link-rojo">términos y condiciones</span>
+        </label>
       </div>
 
-      <button
-        type="button"
-        class="btn-registrar"
-        (click)="registrarSocio()" >
-        👥 REGISTRAR SOCIO
+      <!-- BOTON REGISTRAR -->
+      <button class="btn-registrar" (click)="registrarSocio()">
+        ⚡ REGISTRAR SOCIO
       </button>
 
-    </form>
+    </div>
+
+    <!-- LOGIN LINK -->
+    <p class="ya-cuenta">
+      ¿Ya tienes cuenta?
+      <a class="link-rojo" (click)="irLogin.emit()">Haz clic aquí</a>
+    </p>
+
   </div>
-</section>
+</div>

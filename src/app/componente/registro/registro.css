@@ -1,170 +1,370 @@
+
 :host {
-  display: block;
-  font-family: Arial, Helvetica, sans-serif;
+  --rojo: #e53935;
+  --rojo-hover: #c62828;
+  --fondo: #0d0d0d;
+  --fondo-card: #1a1a1a;
+  --fondo-input: #242424;
+  --borde-input: #333;
+  --texto: #ffffff;
+  --texto-placeholder: #666;
+  --texto-label: #aaaaaa;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+.registro-page {
+  min-height: 100vh;
+  color: var(--texto);
+  font-family: 'Segoe UI', sans-serif;
+
+  background: radial-gradient(circle at top, #0b1220 0%, #05070d 100%);
+}
+
+/* ================= NAVBAR ================= */
 
 .navbar {
-  height: 70px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dddddd;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 35px;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background-color: #111;
+  border-bottom: 1px solid #1e1e1e;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: #222222;
-}
-
-.nav-buttons {
+.navbar-brand {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--texto);
+  text-decoration: none;
 }
 
-.btn {
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+.brand-icon {
+  color: var(--rojo);
+  font-size: 18px;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 36px;
+}
+
+.navbar-links a {
+  color: var(--texto);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+  color: var(--rojo);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .btn-login {
-  background-color: white;
-  border: 1px solid #cccccc;
-  color: #333333;
+  color: var(--texto);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.registro-section {
-  background-color: #f3f3f3;
-  padding: 50px 20px;
-  min-height: calc(100vh - 70px);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+.btn-login:hover {
+  color: var(--rojo);
 }
 
-.registro-card {
-  width: 100%;
-  max-width: 760px;
-  background-color: white;
-  padding: 35px 40px;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+.btn-registrarse {
+  background-color: var(--rojo);
+  color: #fff;
+  padding: 8px 20px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-registrarse:hover {
+  background-color: var(--rojo-hover);
+}
+/* ================= BOTONES LINK (VOLVER / LOGIN) ================= */
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  border-radius: 10px;
+
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  background: rgba(255, 45, 45, 0.15);
+  border: 1px solid rgba(255, 45, 45, 0.35);
+
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+/* 🔥 ESTO ES LO QUE LO HACE “NOTABLE” */
+.btn-ghost:hover {
+  background: linear-gradient(90deg, #ff2d2d, #b91c1c);
+  box-shadow: 0 8px 25px rgba(255,45,45,0.4);
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ================= CONTENIDO ================= */
+
+.registro-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
 }
 
 .btn-volver {
-  background-color: transparent;
-  border: none;
-  color: #ef0000;
-  font-weight: bold;
-  font-size: 15px;
   cursor: pointer;
-  margin-bottom: 15px;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
-.registro-card h2 {
-  text-align: center;
-  font-size: 30px;
-  color: #202020;
+.btn-volver:hover {
+  color: #ff3b3b;
+  text-shadow: 0 0 8px rgba(255,0,0,0.4);
+}
+
+.registro-header {
+  margin-bottom: 40px;
+}
+
+.registro-header h1 {
+  font-size: 52px;
   font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
   letter-spacing: 1px;
-  margin: 0;
+  margin-bottom: 12px;
 }
 
-.underline {
-  width: 90px;
-  height: 4px;
-  background-color: #ef0000;
-  margin: 10px auto 30px;
-  border-radius: 5px;
+.highlight {
+  color: var(--rojo);
 }
 
-.registro-form {
+.subtitulo {
+  color: #aaa;
+  font-size: 15px;
+}
+
+/* ================= FORM ================= */
+
+.form-card {
+  background: rgba(17, 24, 39, 0.55);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 24px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.6);
 }
 
-.registro-form label {
-  font-weight: bold;
-  color: #555;
-  margin-top: 5px;
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.input-group {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--texto-label);
+}
+
+/* ================= INPUT ================= */
+
+.input-wrapper {
   display: flex;
   align-items: center;
-  border: 1px solid #d7d7d7;
+  background: rgba(2,6,23,0.7);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
   padding: 0 14px;
-  background-color: white;
+  transition: 0.2s;
 }
 
-.input-group span {
-  font-size: 18px;
+.input-wrapper:focus-within {
+  border-color: var(--rojo);
+  box-shadow: 0 0 0 2px rgba(229,57,53,0.15);
+}
+
+.input-icon {
   margin-right: 10px;
 }
 
-.input-group input,
-.input-group select {
-  width: 100%;
+.input-wrapper input,
+.input-wrapper select {
+  background: transparent;
   border: none;
   outline: none;
-  padding: 15px 5px;
-  font-size: 15px;
-  color: #333;
-  background-color: transparent;
+  color: var(--texto);
+  font-size: 14px;
+  width: 100%;
+  padding: 14px 0;
 }
 
-.input-group input::placeholder {
-  color: #aaa;
+.input-wrapper input::placeholder {
+  color: var(--texto-placeholder);
 }
+
+/* ================= SELECT (FIX DOBLE BORDE) ================= */
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(2,6,23,0.7);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0 14px;
+}
+
+.select-wrapper select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  appearance: none;
+  cursor: pointer;
+  padding: 14px 0;
+}
+.select-wrapper select {
+  background: rgba(2,6,23,0.85);
+  border-radius: 10px;
+  padding: 14px 10px;
+}
+
+.select-wrapper::after {
+  content: "⌄";
+  position: absolute;
+  right: 14px;
+  color: #ff2d2d;
+  pointer-events: none;
+}
+
+/* ================= TERMINOS ================= */
 
 .terminos {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 12px;
+  font-size: 14px;
+  color: #ccc;
 }
 
 .terminos input {
-  width: 18px;
-  height: 18px;
+  accent-color: var(--rojo);
+  cursor: pointer;
 }
 
-.terminos p {
-  margin: 0;
-  font-weight: bold;
-  color: #555;
-}
-
-.terminos a {
-  color: #ef0000;
-  font-weight: bold;
-}
+/* ================= BOTÓN ================= */
 
 .btn-registrar {
-  margin-top: 12px;
   width: 100%;
-  background-color: #ef0000;
-  color: white;
+  background: linear-gradient(90deg,#ff2d2d,#b91c1c);
+  color: #fff;
   border: none;
-  padding: 17px;
-  border-radius: 10px;
+  padding: 18px 20px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 6px 12px rgba(239,0,0,0.3);
+  border-radius: 10px;
+  transition: 0.3s ease;
 }
 
 .btn-registrar:hover {
-  background-color: #c90000;
+  transform: scale(1.02);
+}
+
+/* ================= FOOTER ================= */
+
+.ya-cuenta {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-top: 28px;
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .registro-header h1 {
+    font-size: 34px;
+  }
+
+  .form-card {
+    padding: 24px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= FIX DROPDOWN OPTIONS ================= */
+
+select option {
+  background-color: #0b1220 !important;
+  color: #ffffff !important;
+}
+
+/* hover de opciones (algunos navegadores) */
+select option:hover {
+  background-color: #ff2d2d !important;
+  color: #ffffff !important;
 }

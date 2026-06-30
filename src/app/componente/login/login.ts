@@ -14,6 +14,7 @@ export class Login {
   @Output() entrarPanelSocio = new EventEmitter<void>();
   @Output() entrarPanelEntrenador = new EventEmitter<void>();
   @Output() entrarPanelAdministrador = new EventEmitter<void>();
+  @Output() irRegistro = new EventEmitter<void>();
 
   correo: string = '';
   contrasena: string = '';

@@ -19,7 +19,7 @@ import { EditarUsuario } from './componente/editar-usuario/editar-usuario';
 export class App {
   protected readonly title = signal('proyecto-MDW');
 
-  pantallaActual = 'principal';
+  pantallaActual = 'panelAdministrador'; // Cambiar a 'principal' para iniciar en la pantalla principal
 
   socioRegistrado = '';
   membresiaRegistrada = '';

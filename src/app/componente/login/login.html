@@ -1,42 +1,52 @@
 <header class="navbar">
   <div class="logo">
-    🏋️ XTREME FITNESS CENTER
+    ⚡ XTREME FITNESS CENTER
   </div>
 
   <div class="nav-buttons">
-    <button class="btn btn-register">👤 Registro</button>
+    <button class="btn-register" (click)="irRegistro.emit()">
+  REGISTRO
+</button>
   </div>
 </header>
 
 <section class="login-section">
+
   <div class="login-card">
 
-    <button type="button" class="btn-volver" (click)="volver()">← Volver</button>
+    <button type="button" class="btn-volver" (click)="volver()">
+      ← VOLVER
+    </button>
 
-    <h2>INICIAR SESIÓN</h2>
+    <h2>INICIAR <span class="rojo">SESIÓN</span></h2>
     <div class="underline"></div>
+
+    <p class="sub">Accede a tu cuenta</p>
 
     <form class="login-form">
 
-      <label>Usuario / Correo:</label>
+      <label>USUARIO / CORREO</label>
       <div class="input-group">
         <span>✉️</span>
-        <input type="text" name="correo" [(ngModel)]="correo" placeholder="Ingresa tu correo o usuario">
+        <input type="text" name="correo" [(ngModel)]="correo"
+          placeholder="Ingresa tu correo o usuario">
       </div>
 
-      <label>Contraseña:</label>
+      <label>CONTRASEÑA</label>
       <div class="input-group">
         <span>🔒</span>
-        <input type="password" name="contrasena" [(ngModel)]="contrasena" placeholder="Ingresa tu contraseña">
+        <input type="password" name="contrasena" [(ngModel)]="contrasena"
+          placeholder="Ingresa tu contraseña">
       </div>
 
       <button type="button" class="btn-ingresar" (click)="ingresar()">
         ↪ INGRESAR
       </button>
 
-      <a href="#" class="olvide">¿Olvidaste tu contraseña?</a>
+      <a class="olvide">¿Olvidaste tu contraseña?</a>
 
     </form>
 
   </div>
+
 </section>

@@ -14,12 +14,13 @@
 }
 
 @if (pantallaActual === 'login') {
-  <app-login
-    (volverInicio)="irAInicio()"
-    (entrarPanelSocio)="irAPanelSocio()"
-    (entrarPanelEntrenador)="irAPanelEntrenador()"
-    (entrarPanelAdministrador)="irAPanelAdministrador()">
-  </app-login>
+<app-login
+  (volverInicio)="irAInicio()"
+  (irRegistro)="irARegistro()"
+  (entrarPanelSocio)="irAPanelSocio()"
+  (entrarPanelEntrenador)="irAPanelEntrenador()"
+  (entrarPanelAdministrador)="irAPanelAdministrador()">
+</app-login>
 }
 
 @if (pantallaActual === 'confirmacion') {

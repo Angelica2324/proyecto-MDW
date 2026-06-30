@@ -343,11 +343,9 @@
 
 .perfil-acciones {
   margin-top: 22px;
-  display: inline-flex;
   width: auto;
   height: auto;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .btn-editar-perfil {
@@ -594,6 +592,9 @@ tbody td:last-child {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  justify-content: flex-end;
+  
+
 }
 
 .editar-perfil-box h3 {

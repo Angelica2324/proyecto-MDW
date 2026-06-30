@@ -187,6 +187,9 @@ entrenadores = [
   paginaSocios = 1;
   paginaEntrenadores = 1;
   elementosPorPagina = 5;
+  totalSocios: number = 0;
+  sociosActivos: number = 0;
+  sociosInactivos: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -210,7 +213,7 @@ entrenadores = [
       }
     }
 
-    //this.cargarDatosDelasApis();
+    this.cargarDatosDelasApis();
   }
 
   cargarDatosDelasApis() {
@@ -247,6 +250,10 @@ entrenadores = [
             };
           });
 
+          // Calcular estadísticas
+        this.totalSocios = this.socios.length;
+        this.sociosActivos = this.socios.filter(s => s.estado === 'Activo').length;
+        this.sociosInactivos = this.socios.filter(s => s.estado === 'Inactivo').length;
           console.log('Socios cargados:', this.socios);
         });
       });
@@ -398,9 +405,53 @@ entrenadores = [
     this.recargarDatos();
   }
 
-  eliminarSocio(socio: any) {
-    alert('Eliminar socio: ' + socio.nombre);
+ eliminarSocio(socio: any) {
+  const confirmar = confirm(`¿Estás seguro de eliminar a ${socio.nombre} ${socio.apellidos || ''}?`);
+
+  if (!confirmar) {
+    return;
   }
+
+  const idSocio = Number(socio.id_socio);
+  const idUsuario = Number(socio.id_usuario);
+
+  if (!idSocio || !idUsuario) {
+    this.eliminarSocioVisualmente(socio);
+    return;
+  }
+
+  this.apiService.eliminarSocio(idSocio).subscribe({
+    next: () => {
+      this.apiService.eliminarUsuario(idUsuario).subscribe({
+        next: () => {
+          alert('Socio eliminado correctamente');
+          this.socios = this.socios.filter((item: any) =>
+            Number(item.id_socio) !== idSocio
+          );
+          this.recargarDatos();
+        },
+        error: (err: any) => {
+          console.error('Error al eliminar usuario:', err);
+          alert('No se pudo eliminar en backend, pero se eliminará visualmente para prueba.');
+          this.eliminarSocioVisualmente(socio);
+        }
+      });
+    },
+    error: (err: any) => {
+      console.error('Error al eliminar socio:', err);
+      alert('No se pudo eliminar en backend, pero se eliminará visualmente para prueba.');
+      this.eliminarSocioVisualmente(socio);
+    }
+  });
+}
+
+eliminarSocioVisualmente(socio: any) {
+  this.socios = this.socios.filter((item: any) =>
+    item !== socio &&
+    String(item.id_socio) !== String(socio.id_socio)
+  );
+  alert('Socio eliminado visualmente');
+}
 
   agregarEntrenador() {
     this.mostrarAgregarEntrenador = true;
@@ -500,26 +551,81 @@ cancelarEditarPerfil() {
 }
 
 guardarPerfil() {
-  this.administrador = { ...this.adminEditado };
 
-  if (isPlatformBrowser(this.platformId)) {
-    const usuarioGuardado = localStorage.getItem('usuario');
-
-    if (usuarioGuardado) {
-      const usuario = JSON.parse(usuarioGuardado);
-
-      usuario.primer_nombre_usuario = this.administrador.nombre;
-      usuario.apellidos_usuario = this.administrador.apellido;
-      usuario.telefono = this.administrador.telefono;
-      usuario.email = this.administrador.correo;
-      usuario.estado = true;
-      usuario.fecha_registro = this.administrador.fechaIngreso;
-
-      localStorage.setItem('usuario', JSON.stringify(usuario));
-    }
+   this.mostrarEditarPerfil = false;
+  // Validar campos obligatorios
+  if (!this.adminEditado.nombre || !this.adminEditado.apellido) {
+    alert('El nombre y apellido son obligatorios');
+    return;
   }
 
-  this.mostrarEditarPerfil = false;
+  // Validar formato de correo
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(this.adminEditado.correo)) {
+    alert('Por favor ingrese un correo electrónico válido');
+    return;
+  }
+
+  // Guardar localmente
+  this.administrador = { ...this.adminEditado };
+
+  // Obtener el ID del usuario desde localStorage
+  if (isPlatformBrowser(this.platformId)) {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    
+    if (usuarioGuardado) {
+      try {
+        const usuario = JSON.parse(usuarioGuardado);
+        const idUsuario = usuario.id_usuario || usuario.id;
+
+        // Preparar los datos para enviar a la API
+        const datosActualizar = {
+          primer_nombre_usuario: this.administrador.nombre.split(' ')[0] || this.administrador.nombre,
+          segundo_nombre_usuario: this.administrador.nombre.split(' ').slice(1).join(' ') || '',
+          apellidos_usuario: this.administrador.apellido,
+          tipo_documento: usuario.tipo_documento || 'dni',
+          documento_identidad: usuario.documento_identidad || '',
+          fecha_nacimiento: usuario.fecha_nacimiento || '2000-01-01',
+          email: this.administrador.correo,
+          contraseña: usuario.contraseña || '',
+          telefono: this.administrador.telefono,
+          estado: this.administrador.estado === 'Activo',
+          fecha_registro: this.administrador.fechaIngreso || usuario.fecha_registro,
+          id_rol: 1 // Siempre 1 para administrador
+        };
+ 
+        this.apiService.actualizarUsuario(idUsuario, datosActualizar).subscribe({
+          next: (respuesta) => {
+            console.log('Usuario actualizado correctamente:', respuesta);
+            
+            // Actualizar datos en localStorage
+            usuario.primer_nombre_usuario = datosActualizar.primer_nombre_usuario;
+            usuario.segundo_nombre_usuario = datosActualizar.segundo_nombre_usuario;
+            usuario.apellidos_usuario = datosActualizar.apellidos_usuario;
+            usuario.email = datosActualizar.email;
+            usuario.telefono = datosActualizar.telefono;
+            usuario.estado = datosActualizar.estado;
+            usuario.fecha_registro = datosActualizar.fecha_registro;
+            
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            
+            alert('Perfil actualizado correctamente');
+             
+          },
+          error: (error) => {
+            console.error('Error al actualizar usuario:', error);
+            alert('Error al actualizar el perfil. Por favor, intenta nuevamente.');
+          }
+        });
+
+      } catch (error) {
+        console.error('Error al procesar datos:', error);
+        alert('Error al procesar los datos');
+      }
+    } else {
+      alert('No se encontró información del usuario');
+    }
+  }
 }
 
   salir() {

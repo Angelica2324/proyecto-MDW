@@ -192,134 +192,138 @@
       </section>
     }
 
-    @if (seccionActual === 'socios') {
+@if (seccionActual === 'socios') {
 
-      @if (!mostrarAgregar) {
-        <section class="table-section">
+  @if (!mostrarAgregar) {
+    
+    @if (!mostrarEditarSocio) {
+      <section class="table-section">
 
-          <div class="table-header">
-            <h2>TABLA DE SOCIOS</h2>
+        <div class="table-header">
+          <h2>TABLA DE SOCIOS</h2>
 
-            <div class="search-box">
-              <span>🔍</span>
-              <input
-                type="text"
-                placeholder="Buscar socio..."
-                (input)="buscarSocio($event)">
-            </div>
+          <div class="search-box">
+            <span>🔍</span>
+            <input
+              type="text"
+              placeholder="Buscar socio..."
+              (input)="buscarSocio($event)">
           </div>
+        </div>
 
-          <div class="table-wrapper">
-            <table>
-              <thead>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>ESTADO</th>
+                <th>MEMBRESÍA</th>
+                <th class="acciones-col">ACCIONES</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (socio of sociosPaginados; track socio.id) {
                 <tr>
-                  <th>ID</th>
-                  <th>NOMBRE</th>
-                  <th>ESTADO</th>
-                  <th>MEMBRESÍA</th>
-                  <th class="acciones-col">ACCIONES</th>
+                  <td>{{ socio.id_socio }}</td>
+                  <td>{{ socio.nombre }} {{ socio.apellidos }}</td>
+
+                  <td>
+                    <span
+                      class="estado"
+                      [class.activo]="socio.estado === 'Activo'"
+                      [class.inactivo]="socio.estado === 'Inactivo'">
+                      {{ socio.estado }}
+                    </span>
+                  </td>
+
+                  <td>{{ socio.membresia }}</td>
+
+                  <td class="acciones">
+                    <button
+                      class="btn-accion btn-editar"
+                      type="button"
+                      (click)="editarSocio(socio)">
+                      ✏️
+                    </button>
+
+                    <button
+                      class="btn-accion btn-eliminar"
+                      type="button"
+                      (click)="eliminarSocio(socio)">
+                      🗑️
+                    </button>
+                  </td>
                 </tr>
-              </thead>
+              }
+            </tbody>
+          </table>
+        </div>
 
-              <tbody>
-                @for (socio of sociosPaginados; track socio.id) {
-                  <tr>
-                    <td>{{ socio.id_socio }}</td>
-                    <td>{{ socio.nombre }} {{ socio.apellidos }}</td>
+        <div class="table-footer">
+          <button
+            class="btn-agregar"
+            type="button"
+            (click)="agregarSocio()">
+            ＋ Agregar
+          </button>
 
-                    <td>
-                      <span
-                        class="estado"
-                        [class.activo]="socio.estado === 'Activo'"
-                        [class.inactivo]="socio.estado === 'Inactivo'">
-                        {{ socio.estado }}
-                      </span>
-                    </td>
-
-                    <td>{{ socio.membresia }}</td>
-
-                    <td class="acciones">
-                      <button
-                        class="btn-accion btn-editar"
-                        type="button"
-                        (click)="editarSocio(socio)">
-                        ✏️
-                      </button>
-
-                      <button
-                        class="btn-accion btn-eliminar"
-                        type="button"
-                        (click)="eliminarSocio(socio)">
-                        🗑️
-                      </button>
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-
-          <div class="table-footer">
+          <div class="pagination">
             <button
-              class="btn-agregar"
+              class="page-btn"
               type="button"
-              (click)="agregarSocio()">
-              ＋ Agregar
+              (click)="paginaAnteriorSocios()"
+              [disabled]="paginaSocios === 1">
+              ←
             </button>
 
-            <div class="pagination">
+            @for (pagina of paginasSocios; track pagina) {
               <button
-                class="page-btn"
                 type="button"
-                (click)="paginaAnteriorSocios()"
-                [disabled]="paginaSocios === 1">
-                ←
+                class="page-number"
+                [class.active-page]="paginaSocios === pagina"
+                (click)="cambiarPaginaSocios(pagina)">
+                {{ pagina }}
               </button>
+            }
 
-              @for (pagina of paginasSocios; track pagina) {
-                <button
-                  type="button"
-                  class="page-number"
-                  [class.active-page]="paginaSocios === pagina"
-                  (click)="cambiarPaginaSocios(pagina)">
-                  {{ pagina }}
-                </button>
-              }
-
-              <button
-                class="page-btn"
-                type="button"
-                (click)="paginaSiguienteSocios()"
-                [disabled]="paginaSocios === totalPaginasSocios">
-                →
-              </button>
-            </div>
+            <button
+              class="page-btn"
+              type="button"
+              (click)="paginaSiguienteSocios()"
+              [disabled]="paginaSocios === totalPaginasSocios">
+              →
+            </button>
           </div>
-
-        </section>
-      }
-
-      @if (mostrarAgregar) {
-        <div>
-          <app-agregar-socio
-            (cerrar)="mostrarAgregar = false; recargarDatos()"
-            (registrar)="recargarDatos()"
-            (cambiarSeccion)="cambiarSeccion($event)">
-          </app-agregar-socio>
         </div>
-      }
 
+      </section>
     }
 
     @if (mostrarEditarSocio) {
-      <div class="modal-overlay">
+      <div class="container bg-secondary-subtle pt-3">
         <app-editar-socio
           [socio]="socioSeleccionado"
-          (actualizado)="recargarDatos()"
-          (cerrar)="cerrarEditarSocio()">
+          (actualizado)="cerrarEditarSocio()"
+          (cerrar)="mostrarEditarSocio = false; recargarDatos()">
         </app-editar-socio>
       </div>
     }
+
+  }
+
+  @if (mostrarAgregar) {
+    <div>
+      <app-agregar-socio
+        (cerrar)="mostrarAgregar = false; recargarDatos()"
+        (registrar)="recargarDatos()"
+        (cambiarSeccion)="cambiarSeccion($event)">
+      </app-agregar-socio>
+    </div>
+  }
+
+}
 
     @if (seccionActual === 'entrenadores') {
 
@@ -433,10 +437,10 @@
         @if (mostrarEditar) {
           <div class="container bg-secondary-subtle pt-3">
             <app-editar-usuario
-  [entrenador]="entrenadorSeleccionado"
-  (actualizado)="cerrarEditar()"
-  (cerrar)="mostrarEditar = false; recargarDatos()">
-</app-editar-usuario>
+              [entrenador]="entrenadorSeleccionado"
+              (actualizado)="cerrarEditar()"
+              (cerrar)="mostrarEditar = false; recargarDatos()">
+            </app-editar-usuario>
           </div>
         }
 

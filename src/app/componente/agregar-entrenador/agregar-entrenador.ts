@@ -7,9 +7,11 @@ import { ApiService } from '../../api.service';
   selector: 'app-agregar-entrenador',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './agregar-entrenador.html'
+  templateUrl: './agregar-entrenador.html',
+  styleUrl: './agregar-entrenador.css'
 })
 export class AgregarEntrenador {
+
   @Output() cerrar = new EventEmitter<void>();
   @Output() actualizado = new EventEmitter<void>();
 
@@ -25,6 +27,19 @@ export class AgregarEntrenador {
   constructor(private apiService: ApiService) {}
 
   registrarEntrenador() {
+    if (
+      !this.primer_nombre_usuario ||
+      !this.apellidos_usuario ||
+      !this.documento_identidad ||
+      !this.telefono ||
+      !this.email ||
+      !this.especialidad ||
+      !this.contrasena
+    ) {
+      alert('Por favor completa todos los campos obligatorios.');
+      return;
+    }
+
     const datos = {
       primer_nombre_usuario: this.primer_nombre_usuario,
       segundo_nombre_usuario: this.segundo_nombre_usuario,
@@ -34,20 +49,37 @@ export class AgregarEntrenador {
       documento_identidad: this.documento_identidad,
       tipo_documento: 'DNI',
       contraseña: this.contrasena,
+      contrasena: this.contrasena,
       fecha_nacimiento: null,
       especialidad: this.especialidad
     };
 
     this.apiService.registrarEntrenadorCompleto(datos).subscribe({
-      next: (respuesta) => {
+      next: () => {
         alert('Entrenador registrado exitosamente');
+        this.limpiarFormulario();
         this.actualizado.emit();
         this.cerrar.emit();
       },
       error: (error) => {
         console.error('Error al registrar entrenador:', error);
-        alert('Error al registrar entrenador');
+        alert('No se pudo registrar el entrenador. Verifica que el backend esté activo.');
       }
     });
+  }
+
+  limpiarFormulario() {
+    this.primer_nombre_usuario = '';
+    this.segundo_nombre_usuario = '';
+    this.apellidos_usuario = '';
+    this.documento_identidad = '';
+    this.telefono = '';
+    this.email = '';
+    this.especialidad = '';
+    this.contrasena = '';
+  }
+
+  cerrarFormulario() {
+    this.cerrar.emit();
   }
 }

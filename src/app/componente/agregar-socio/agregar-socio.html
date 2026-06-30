@@ -1,70 +1,108 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<div class="agregar-socio-modal">
 
-<section class="registro-section">
-  <div class="registro-card">
+  <div class="agregar-socio-card">
 
-    <div class="text-end">
-    <button class="btn-close" (click)="cerrar.emit(); cambiarSeccion.emit('socios')">x</button>
+    <div class="agregar-socio-header">
+      <h3>REGISTRAR SOCIO</h3>
+
+      <button type="button" class="btn-cerrar" (click)="cerrarModal()">
+        ×
+      </button>
     </div>
 
-    <h3 class="text-center fw-bold fs-5">Registrar Socio</h3>
-    <div class="underline"></div>
-    
+    <form class="agregar-socio-form">
 
-    <form class="registro-form pb-3 mb-4">
+      <div class="form-grid">
 
-      <div class="mb-2">
-        <label class="form-label">Primer nombre:</label>
-        <input class="form-control" [(ngModel)]="primer_nombre_usuario" name="primer_nombre_usuario" type="text" placeholder="Ingresa tu primer nombre">
+        <div class="form-group">
+          <label>Primer nombre</label>
+          <input
+            type="text"
+            [(ngModel)]="primer_nombre_usuario"
+            name="primer_nombre_usuario"
+            placeholder="Ingresa el primer nombre">
+        </div>
+
+        <div class="form-group">
+          <label>Segundo nombre</label>
+          <input
+            type="text"
+            [(ngModel)]="segundo_nombre_usuario"
+            name="segundo_nombre_usuario"
+            placeholder="Ingresa el segundo nombre">
+        </div>
+
+        <div class="form-group">
+          <label>Apellidos</label>
+          <input
+            type="text"
+            [(ngModel)]="apellidos_usuario"
+            name="apellidos_usuario"
+            placeholder="Ingresa los apellidos">
+        </div>
+
+        <div class="form-group">
+          <label>DNI</label>
+          <input
+            type="text"
+            [(ngModel)]="documento_identidad"
+            name="documento_identidad"
+            placeholder="Ingresa el DNI">
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input
+            type="text"
+            [(ngModel)]="telefono"
+            name="telefono"
+            placeholder="Ingresa el teléfono">
+        </div>
+
+        <div class="form-group">
+          <label>Correo</label>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="Ingresa el correo electrónico">
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de membresía</label>
+          <select
+            [(ngModel)]="tipo_membresia"
+            name="tipo_membresia">
+            <option value="">Selecciona un plan</option>
+            <option value="Mensual">Mensual</option>
+            <option value="Trimestral">Trimestral</option>
+            <option value="Anual">Anual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input
+            type="password"
+            [(ngModel)]="contrasena"
+            name="contrasena"
+            placeholder="Crea una contraseña">
+        </div>
+
       </div>
 
-      <div class="mb-2">
-        <label class="form-label">Segundo nombre:</label>
-        <input class="form-control" [(ngModel)]="segundo_nombre_usuario" name="segundo_nombre_usuario" type="text" placeholder="Ingresa tu segundo nombre">
-      </div>
+      <div class="agregar-socio-actions">
+        <button type="button" class="btn-cancelar" (click)="cerrarModal()">
+          CANCELAR
+        </button>
 
-      <div class="mb-2">
-        <label class="form-label">Apellidos:</label>
-        <input class="form-control" [(ngModel)]="apellidos_usuario" name="apellidos_usuario" type="text" placeholder="Ingresa tus apellidos">
+        <button type="button" class="btn-guardar" (click)="registrarSocio()">
+          GUARDAR SOCIO
+        </button>
       </div>
-
-       <div class="mb-2">
-        <label class="form-label">DNI:</label>
-        <input class="form-control"[(ngModel)]="documento_identidad" name="documento_identidad" type="text" placeholder="Ingresa tu DNI">
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">Teléfono:</label>
-        <input class="form-control" [(ngModel)]="telefono" name="telefono" type="text" placeholder="Ingresa tu teléfono">
-      </div>
-
-       <div class="mb-2">
-        <label class="form-label">Correo:</label>
-        <input class="form-control" [(ngModel)]="email" name="email" type="email" placeholder="Ingresa tu correo electrónico">
-      </div>
-   
-      <div class="mb-2">
-          <label class="form-label">Tipo de membresía:</label>
-        <select class="form-control" [(ngModel)]="tipo_membresia" name="tipo_membresia">
-          <option  class="form-control" value="">Selecciona un plan</option>
-          <option  class="form-control" value="Mensual">Mensual</option>
-          <option  class="form-control" value="Trimestral">Trimestral</option>
-          <option  class="form-control" value="Anual">Anual</option>
-        </select>
-      </div>
-
-      <div class="mb-2">
-      <label class="form-label">Contraseña: </label> 
-        <input class="form-control" [(ngModel)]="contrasena" name="contrasena" type="text" placeholder="Crea tu contraseña">
-      </div>
-
-     <button
-        type="button"
-        class="btn btn-primary"
-        (click)="registrarSocio(); cambiarSeccion.emit('socios')">
-Guardar Socio
-</button>
 
     </form>
+
   </div>
-</section>
+
+</div>

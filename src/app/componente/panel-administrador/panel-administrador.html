@@ -94,10 +94,74 @@
           </div>
 
           <div class="perfil-acciones">
-            <button type="button" class="btn-editar-perfil">
-              ✎ EDITAR PERFIL
-            </button>
-          </div>
+  <button type="button" class="btn-editar-perfil" (click)="abrirEditarPerfil()">
+    ✎ EDITAR PERFIL
+  </button>
+  @if (mostrarEditarPerfil) {
+  <div class="editar-perfil-box">
+
+    <h3>EDITAR PERFIL DEL ADMINISTRADOR</h3>
+
+    <div class="editar-perfil-grid">
+
+      <div class="form-group-admin">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="adminEditado.nombre">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Apellido</label>
+        <input type="text" [(ngModel)]="adminEditado.apellido">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Cargo</label>
+        <input type="text" [(ngModel)]="adminEditado.cargo">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Ubicación</label>
+        <input type="text" [(ngModel)]="adminEditado.ubicacion">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Teléfono</label>
+        <input type="text" [(ngModel)]="adminEditado.telefono">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Correo</label>
+        <input type="email" [(ngModel)]="adminEditado.correo">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Fecha de ingreso</label>
+        <input type="date" [(ngModel)]="adminEditado.fechaIngreso">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Estado</label>
+        <select [(ngModel)]="adminEditado.estado">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="editar-perfil-acciones">
+      <button type="button" class="btn-guardar-perfil" (click)="guardarPerfil()">
+        GUARDAR CAMBIOS
+      </button>
+
+      <button type="button" class="btn-cancelar-perfil" (click)="cancelarEditarPerfil()">
+        CANCELAR
+      </button>
+    </div>
+
+  </div>
+}
+</div>
 
         </div>
 
@@ -292,7 +356,7 @@
                   @for (entrenador of entrenadoresPaginados; track entrenador.id) {
                     <tr>
                       <td>{{ entrenador.id }}</td>
-                      <td>{{ entrenador.nombre }}</td>
+                      <td>{{ entrenador.nombre }} {{ entrenador.apellidos }}</td>
 
                       <td>
                         <span
@@ -369,20 +433,23 @@
         @if (mostrarEditar) {
           <div class="container bg-secondary-subtle pt-3">
             <app-editar-usuario
-              [entrenador]="entrenadorSeleccionado"
-              (actualizado)="cerrarEditar()"
-              (cerrar)="mostrarEditar = false; recargarDatos()">
-            </app-editar-usuario>
+  [entrenador]="entrenadorSeleccionado"
+  (actualizado)="cerrarEditar()"
+  (cerrar)="mostrarEditar = false; recargarDatos()">
+</app-editar-usuario>
           </div>
         }
 
       }
 
-      @if (mostrarAgregarEntrenador) {
-        <div>
-          <app-agregar-entrenador></app-agregar-entrenador>
-        </div>
-      }
+@if (mostrarAgregarEntrenador) {
+  <div>
+    <app-agregar-entrenador
+      (cerrar)="mostrarAgregarEntrenador = false; recargarDatos()"
+      (actualizado)="mostrarAgregarEntrenador = false; recargarDatos()">
+    </app-agregar-entrenador>
+  </div>
+}
 
     }
 

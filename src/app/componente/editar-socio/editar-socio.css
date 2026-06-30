@@ -1,0 +1,177 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+}
+
+/* ================= MODAL EDITAR SOCIO ================= */
+
+.editar-socio-modal {
+  width: 100%;
+  min-height: 100%;
+  padding: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ================= TARJETA ================= */
+
+.editar-socio-card {
+  width: 760px;
+  max-width: 100%;
+  background: rgba(17, 24, 39, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+/* ================= HEADER ================= */
+
+.editar-socio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.editar-socio-header h3 {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.btn-cerrar {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 1;
+  transition: 0.25s ease;
+}
+
+.btn-cerrar:hover {
+  color: #ff2d2d;
+  transform: scale(1.1);
+}
+
+/* ================= FORMULARIO ================= */
+
+.editar-socio-form {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 13px 15px;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 15, 25, 0.95);
+  color: #ffffff;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input::placeholder {
+  color: #6b7280;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #ff2d2d;
+  box-shadow: 0 0 0 3px rgba(255, 45, 45, 0.12);
+}
+
+.form-group select option {
+  background: #111827;
+  color: #ffffff;
+}
+
+/* ================= BOTONES ================= */
+
+.editar-socio-actions {
+  margin-top: 26px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  border: none;
+  padding: 13px 22px;
+  border-radius: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-cancelar {
+  background: transparent;
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 45, 45, 0.45);
+}
+
+.btn-guardar {
+  background: linear-gradient(135deg, #ff2d2d, #b91c1c);
+  color: white;
+  box-shadow: 0 10px 22px rgba(255, 45, 45, 0.25);
+}
+
+.btn-cancelar:hover,
+.btn-guardar:hover {
+  transform: translateY(-2px);
+}
+
+.btn-guardar:hover {
+  box-shadow: 0 14px 28px rgba(255, 45, 45, 0.35);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 700px) {
+  .editar-socio-modal {
+    padding: 20px;
+  }
+
+  .editar-socio-card {
+    padding: 22px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .editar-socio-actions {
+    flex-direction: column;
+  }
+
+  .btn-cancelar,
+  .btn-guardar {
+    width: 100%;
+  }
+}

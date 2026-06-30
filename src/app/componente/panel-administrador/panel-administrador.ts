@@ -17,13 +17,64 @@ import { AgregarEntrenador } from "../agregar-entrenador/agregar-entrenador";
 export class PanelAdministrador implements OnInit {
   @Output() cerrarSesion = new EventEmitter<void>();
 
-  socios: any[] = [];
+  socios: any[] = [
+  {
+    id_socio: '01',
+    id_usuario: 201,
+    nombre: 'Juan Carlos',
+    apellidos: 'Pérez Ramos',
+    estado: 'Activo',
+    email: 'juan.perez@gmail.com',
+    telefono: '987654321',
+    membresia: 'Plan Premium'
+  },
+  {
+    id_socio: '02',
+    id_usuario: 202,
+    nombre: 'María Fernanda',
+    apellidos: 'López Torres',
+    estado: 'Activo',
+    email: 'maria.lopez@gmail.com',
+    telefono: '956789123',
+    membresia: 'Plan Básico'
+  },
+  {
+    id_socio: '03',
+    id_usuario: 203,
+    nombre: 'Luis Alberto',
+    apellidos: 'García Díaz',
+    estado: 'Inactivo',
+    email: 'luis.garcia@gmail.com',
+    telefono: '912345678',
+    membresia: 'Plan Elite'
+  },
+  {
+    id_socio: '04',
+    id_usuario: 204,
+    nombre: 'Camila',
+    apellidos: 'Ramírez Soto',
+    estado: 'Activo',
+    email: 'camila.ramirez@gmail.com',
+    telefono: '945678123',
+    membresia: 'Plan Premium'
+  },
+  {
+    id_socio: '05',
+    id_usuario: 205,
+    nombre: 'Andrés',
+    apellidos: 'Mendoza Flores',
+    estado: 'Inactivo',
+    email: 'andres.mendoza@gmail.com',
+    telefono: '978945612',
+    membresia: 'Plan Básico'
+  }
+];
   usuarios: any[] = [];
   mostrarEditar = false;
   mostrarAgregar = false;
-  entrenadorSeleccionado = null;
+  entrenadorSeleccionado: any = null;
   mostrarEditarSocio = false;
-  socioSeleccionado = null;
+  socioSeleccionado: any = null;
   mostrarAgregarEntrenador = false;
 
   seccionActual = 'inicio';
@@ -41,15 +92,97 @@ export class PanelAdministrador implements OnInit {
     estado: '',
     fechaIngreso: ''
   };
+  
+  mostrarEditarPerfil = false;
 
-  entrenadores = [
-    { id: '01', nombre: 'Carlos Ramos', estado: 'Activo', especialidad: 'Entrenamiento funcional' },
-    { id: '02', nombre: 'Miguel Torres', estado: 'Activo', especialidad: 'Musculación' },
-    { id: '03', nombre: 'Laura Méndez', estado: 'Activo', especialidad: 'Zumba' },
-    { id: '04', nombre: 'Diego Herrera', estado: 'Inactivo', especialidad: 'Cross Training' },
-    { id: '05', nombre: 'Andrea López', estado: 'Activo', especialidad: 'Cardio y resistencia' },
-    { id: '06', nombre: 'Pedro Castillo', estado: 'Inactivo', especialidad: 'HIIT' }
-  ];
+adminEditado = {
+  nombre: '',
+  apellido: '',
+  cargo: '',
+  ubicacion: '',
+  telefono: '',
+  correo: '',
+  estado: '',
+  fechaIngreso: ''
+};
+
+entrenadores = [
+  {
+    id: '01',
+    id_entrenador: '01',
+    id_usuario: 101,
+    primer_nombre_usuario: 'Carlos',
+    segundo_nombre_usuario: '',
+    apellidos_usuario: 'Ramos',
+    nombre: 'Carlos',
+    segundo_nombre: '',
+    apellidos: 'Ramos',
+    estado: 'Activo',
+    email: 'carlos.ramos@gmail.com',
+    telefono: '987654321',
+    especialidad: 'Entrenamiento funcional'
+  },
+  {
+    id: '02',
+    id_entrenador: '02',
+    id_usuario: 102,
+    primer_nombre_usuario: 'Miguel',
+    segundo_nombre_usuario: '',
+    apellidos_usuario: 'Torres',
+    nombre: 'Miguel',
+    segundo_nombre: '',
+    apellidos: 'Torres',
+    estado: 'Activo',
+    email: 'miguel.torres@gmail.com',
+    telefono: '956789123',
+    especialidad: 'Musculación'
+  },
+  {
+    id: '03',
+    id_entrenador: '03',
+    id_usuario: 103,
+    primer_nombre_usuario: 'Laura',
+    segundo_nombre_usuario: '',
+    apellidos_usuario: 'Méndez',
+    nombre: 'Laura',
+    segundo_nombre: '',
+    apellidos: 'Méndez',
+    estado: 'Activo',
+    email: 'laura.mendez@gmail.com',
+    telefono: '912345678',
+    especialidad: 'Zumba'
+  },
+  {
+    id: '04',
+    id_entrenador: '04',
+    id_usuario: 104,
+    primer_nombre_usuario: 'Diego',
+    segundo_nombre_usuario: '',
+    apellidos_usuario: 'Herrera',
+    nombre: 'Diego',
+    segundo_nombre: '',
+    apellidos: 'Herrera',
+    estado: 'Inactivo',
+    email: 'diego.herrera@gmail.com',
+    telefono: '945678123',
+    especialidad: 'Cross Training'
+  },
+  {
+    id: '05',
+    id_entrenador: '05',
+    id_usuario: 105,
+    primer_nombre_usuario: 'Andrea',
+    segundo_nombre_usuario: '',
+    apellidos_usuario: 'López',
+    nombre: 'Andrea',
+    segundo_nombre: '',
+    apellidos: 'López',
+    estado: 'Activo',
+    email: 'andrea.lopez@gmail.com',
+    telefono: '978945612',
+    especialidad: 'Cardio y resistencia'
+  }
+];
 
   paginaSocios = 1;
   paginaEntrenadores = 1;
@@ -72,12 +205,12 @@ export class PanelAdministrador implements OnInit {
         this.administrador.apellido = usuario.apellidos_usuario;
         this.administrador.telefono = usuario.telefono;
         this.administrador.correo = usuario.email;
-        this.administrador.estado = usuario.estado ? 'Activo' : 'Inactivo';
+        this.administrador.estado = 'Activo';
         this.administrador.fechaIngreso = usuario.fecha_registro;
       }
     }
 
-    this.cargarDatosDelasApis();
+    //this.cargarDatosDelasApis();
   }
 
   cargarDatosDelasApis() {
@@ -273,33 +406,121 @@ export class PanelAdministrador implements OnInit {
     this.mostrarAgregarEntrenador = true;
   }
 
-  editarEntrenador(entrenador: any) {
-    console.log('Entrenador seleccionado:', entrenador);
-    this.entrenadorSeleccionado = entrenador;
-    this.mostrarEditar = true;
-  }
+editarEntrenador(entrenador: any) {
+  console.log('Entrenador seleccionado:', entrenador);
+
+  this.entrenadorSeleccionado = {
+    id: entrenador.id,
+    id_entrenador: entrenador.id_entrenador || entrenador.id,
+    id_usuario: entrenador.id_usuario,
+
+    primer_nombre_usuario: entrenador.primer_nombre_usuario || entrenador.nombre || '',
+    segundo_nombre_usuario: entrenador.segundo_nombre_usuario || entrenador.segundo_nombre || '',
+    apellidos_usuario: entrenador.apellidos_usuario || entrenador.apellidos || '',
+
+    nombre: entrenador.nombre || entrenador.primer_nombre_usuario || '',
+    segundo_nombre: entrenador.segundo_nombre || entrenador.segundo_nombre_usuario || '',
+    apellidos: entrenador.apellidos || entrenador.apellidos_usuario || '',
+
+    email: entrenador.email || '',
+    telefono: entrenador.telefono || '',
+    estado: entrenador.estado || 'Activo',
+    especialidad: entrenador.especialidad || ''
+  };
+
+  this.mostrarEditar = true;
+}
 
   cerrarEditar() {
     this.mostrarEditar = false;
     this.recargarDatos();
   }
 
-  eliminarEntrenador(entrenador: any) {
-    if (confirm(`¿Estás seguro de eliminar a ${entrenador.nombre}?`)) {
-      this.apiService.eliminarEntrenador(entrenador.id).subscribe({
+eliminarEntrenador(entrenador: any) {
+  const confirmar = confirm(`¿Estás seguro de eliminar a ${entrenador.nombre} ${entrenador.apellidos || ''}?`);
+
+  if (!confirmar) {
+    return;
+  }
+
+  const idEntrenador = Number(entrenador.id_entrenador || entrenador.id);
+  const idUsuario = Number(entrenador.id_usuario);
+
+  // Si no tiene IDs reales, se elimina solo visualmente
+  if (!idEntrenador || !idUsuario) {
+    this.eliminarEntrenadorVisualmente(entrenador);
+    return;
+  }
+
+  this.apiService.eliminarEntrenador(idEntrenador).subscribe({
+    next: () => {
+      this.apiService.eliminarUsuario(idUsuario).subscribe({
         next: () => {
-          this.apiService.eliminarUsuario(entrenador.id_usuario).subscribe({
-            next: () => {
-              alert('Entrenador y usuario eliminados exitosamente');
-              this.cargarEntrenadores();
-            },
-            error: (err: any) => console.error('Error al eliminar usuario:', err)
-          });
+          alert('Entrenador eliminado correctamente');
+
+          this.entrenadores = this.entrenadores.filter((item: any) =>
+            Number(item.id_entrenador || item.id) !== idEntrenador
+          );
+
+          this.recargarDatos();
         },
-        error: (err: any) => console.error('Error al eliminar entrenador:', err)
+        error: (err: any) => {
+          console.error('Error al eliminar usuario:', err);
+
+          alert('No se pudo eliminar en backend, pero se eliminará visualmente para prueba.');
+          this.eliminarEntrenadorVisualmente(entrenador);
+        }
       });
+    },
+    error: (err: any) => {
+      console.error('Error al eliminar entrenador:', err);
+
+      alert('No se pudo eliminar en backend, pero se eliminará visualmente para prueba.');
+      this.eliminarEntrenadorVisualmente(entrenador);
+    }
+  });
+}
+
+eliminarEntrenadorVisualmente(entrenador: any) {
+  this.entrenadores = this.entrenadores.filter((item: any) =>
+    item !== entrenador &&
+    String(item.id) !== String(entrenador.id) &&
+    String(item.id_entrenador) !== String(entrenador.id_entrenador)
+  );
+
+  alert('Entrenador eliminado visualmente');
+}
+  abrirEditarPerfil() {
+  this.adminEditado = { ...this.administrador };
+  this.mostrarEditarPerfil = true;
+}
+
+cancelarEditarPerfil() {
+  this.mostrarEditarPerfil = false;
+}
+
+guardarPerfil() {
+  this.administrador = { ...this.adminEditado };
+
+  if (isPlatformBrowser(this.platformId)) {
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+
+      usuario.primer_nombre_usuario = this.administrador.nombre;
+      usuario.apellidos_usuario = this.administrador.apellido;
+      usuario.telefono = this.administrador.telefono;
+      usuario.email = this.administrador.correo;
+      usuario.estado = true;
+      usuario.fecha_registro = this.administrador.fechaIngreso;
+
+      localStorage.setItem('usuario', JSON.stringify(usuario));
     }
   }
+
+  this.mostrarEditarPerfil = false;
+}
 
   salir() {
     this.cerrarSesion.emit();

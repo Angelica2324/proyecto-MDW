@@ -321,65 +321,59 @@
 
 /* ================= BUTTONS ================= */
 
-.perfil-acciones {
-  margin-top: 22px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.btn-editar-perfil {
-  background: transparent;
-  border: 1px solid #ff2d2d;
-  color: #ff2d2d;
-  padding: 12px 22px;
+.btn-agregar {
+  background: linear-gradient(135deg, #ff2d2d, #b91c1c);
+  color: #ffffff;
+  border: none;
+  padding: 15px 28px;
+  border-radius: 14px;
+  font-size: 15px;
   font-weight: 900;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
   cursor: pointer;
   transition: 0.25s ease;
-}
-
-.btn-editar-perfil:hover {
-  background: rgba(255, 45, 45, 0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 0 12px rgba(255, 45, 45, 0.2);
-}
-.btn-agregar {
-  background: linear-gradient(90deg,#ff2d2d,#b91c1c);
-  color: white;
-  border: none;
-  padding: 14px 24px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+  box-shadow: 0 10px 22px rgba(255, 45, 45, 0.25);
 }
 
 .btn-agregar:hover {
-  transform: scale(1.05);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px rgba(255, 45, 45, 0.35);
 }
 
-/* ================= PERFIL ================= */
+/* ================= BOTÓN EDITAR PERFIL ================= */
+
 .perfil-acciones {
   margin-top: 22px;
-  display: flex;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  align-items: center;
   justify-content: flex-start;
 }
 
 .btn-editar-perfil {
+  width: auto !important;
+  height: auto !important;
+  min-width: auto !important;
+  min-height: auto !important;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
   background: transparent;
   border: 1px solid #ff2d2d;
   color: #ff2d2d;
 
   padding: 12px 22px;
+  font-size: 14px;
   font-weight: 900;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 
   cursor: pointer;
   transition: 0.25s ease;
-
-  border-radius: 0; /* importante para que sea igual a tu diseño */
+  border-radius: 0;
 }
 
 .btn-editar-perfil:hover {
@@ -387,6 +381,7 @@
   transform: translateY(-2px);
   box-shadow: 0 0 12px rgba(255, 45, 45, 0.2);
 }
+
 /* ================= TABLAS ADMIN - CORRECCIÓN VISUAL ================= */
 
 .table-section {
@@ -554,24 +549,6 @@ tbody td:last-child {
   flex-wrap: wrap;
 }
 
-.btn-agregar {
-  background: linear-gradient(135deg, #ff2d2d, #b91c1c);
-  color: #ffffff;
-  border: none;
-  padding: 15px 28px;
-  border-radius: 14px;
-  font-size: 15px;
-  font-weight: 900;
-  cursor: pointer;
-  transition: 0.25s ease;
-  box-shadow: 0 10px 22px rgba(255, 45, 45, 0.25);
-}
-
-.btn-agregar:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 26px rgba(255, 45, 45, 0.35);
-}
-
 .pagination {
   display: flex;
   align-items: center;
@@ -607,7 +584,111 @@ tbody td:last-child {
   cursor: not-allowed;
 }
 
-/* Responsive */
+/* ================= EDITAR PERFIL ADMIN ================= */
+
+.editar-perfil-box {
+  margin-top: 22px;
+  width: 560px;
+  max-width: 100%;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.editar-perfil-box h3 {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+}
+
+.editar-perfil-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 18px;
+}
+
+.form-group-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group-admin label {
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-group-admin input,
+.form-group-admin select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(17, 24, 39, 0.9);
+  color: #ffffff;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-group-admin input:focus,
+.form-group-admin select:focus {
+  border-color: #ff2d2d;
+  box-shadow: 0 0 0 3px rgba(255, 45, 45, 0.12);
+}
+
+.editar-perfil-acciones {
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+}
+
+.btn-guardar-perfil {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-cancelar-perfil {
+  background: transparent;
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 45, 45, 0.5);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-guardar-perfil:hover,
+.btn-cancelar-perfil:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= ESTADO ADMIN ================= */
+
+.status-activo {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.status-inactivo {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+/* ================= RESPONSIVE ================= */
+
 @media (max-width: 900px) {
   .table-section {
     margin: 20px;
@@ -630,5 +711,17 @@ tbody td:last-child {
 
   .pagination {
     justify-content: center;
+  }
+
+  .editar-perfil-box {
+    width: 100%;
+  }
+
+  .editar-perfil-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .editar-perfil-acciones {
+    flex-direction: column;
   }
 }

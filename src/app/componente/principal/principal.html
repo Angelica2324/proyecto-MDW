@@ -279,18 +279,19 @@
 
           <aside class="clases-menu">
             <button
+              *ngFor="let clase of clasesAPI"
               type="button"
               class="clase-tab"
-              [class.active]="claseActiva === 'zumba'"
-              (click)="seleccionarClase('zumba')"
+              [class.active]="claseActiva === clase"
+              (click)="seleccionarClase(clase)"
             >
               <span></span>
               <div>
-                <strong>Zumba</strong>
-                <small>Baile & Cardio</small>
+                <strong>{{clase.nombre_clase }}</strong>
+                <small>{{ clase.subtitulo || 'Clase' }}</small>
               </div>
             </button>
-
+<!-- 
             <button
               type="button"
               class="clase-tab"
@@ -315,17 +316,12 @@
                 <strong>Cross Training</strong>
                 <small>Circuitos Intensivos</small>
               </div>
-            </button>
+            </button> -->
           </aside>
 
           <section class="clase-detalle">
 
-            <div
-              class="clase-banner"
-              [class.banner-zumba]="claseActiva === 'zumba'"
-              [class.banner-funcional]="claseActiva === 'funcional'"
-              [class.banner-cross]="claseActiva === 'cross'"
-            >
+            <div class="clase-banner">
               <div class="clase-nivel">
                 {{ claseSeleccionada.intensidad }}
               </div>

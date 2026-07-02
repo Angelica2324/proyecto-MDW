@@ -13,12 +13,54 @@ public class Clase {
     private Long id_clase;
     private Long id_entrenador;
     private String nombre_clase;
+    private String subtitulo;
     private String descripcion;
+    private String intensidad;
     private String dias_de_la_semana;
-    private String hora_inicio;
-    private String hora_fin;
-
+    private String hora_1;
+    private String hora_2;
+    private String Duración;
+    private String imagen;
+    
     public Clase(){}
+
+    
+
+    public String getSubtitulo() {
+        return subtitulo;
+    }
+
+
+
+    public void setSubtitulo(String subtitulo) {
+        this.subtitulo = subtitulo;
+    }
+
+
+
+    public String getIntensidad() {
+        return intensidad;
+    }
+
+
+
+    public void setIntensidad(String intensidad) {
+        this.intensidad = intensidad;
+    }
+
+
+
+    public String getDuración() {
+        return Duración;
+    }
+
+
+
+    public void setDuración(String duración) {
+        Duración = duración;
+    }
+
+
 
     public Long getId_clase() {
         return id_clase;
@@ -60,19 +102,31 @@ public class Clase {
         this.dias_de_la_semana = dias_de_la_semana;
     }
 
-    public String getHora_inicio() {
-        return hora_inicio;
+    public String getHora_1() {
+        return hora_1;
     }
 
-    public void setHora_inicio(String hora_inicio) {
-        this.hora_inicio = hora_inicio;
+    public void setHora_1(String hora_inicio) {
+        this.hora_1 = hora_inicio;
     }
 
-    public String getHora_fin() {
-        return hora_fin;
+    public String getHora_2() {
+        return hora_2;
     }
 
-    public void setHora_fin(String hora_fin) {
-        this.hora_fin = hora_fin;
+    public void setHora_2(String hora_fin) {
+        this.hora_2 = hora_fin;
+    }
+
+
+
+    public String getImagen() {
+        return imagen;
+    }
+
+
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

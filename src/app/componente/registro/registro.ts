@@ -102,12 +102,11 @@ export class Registro {
               next: (respuestaMembresia) => {
 
                 console.log('Todo registrado exitosamente');
-
-                this.mostrarConfirmacion.emit({
-  nombre: this.primer_nombre_usuario + ' ' + this.apellidos_usuario,
-  membresia: this.tipo_membresia
-});
-
+      
+               alert(`USUARIO CREADO CORRECTAMENTE ✅ :
+                nombre: ${this.primer_nombre_usuario} ${this.apellidos_usuario},
+                membresia: ${this.tipo_membresia}`);
+                this.volverInicio.emit();
               },
               error: (error) => {
                 console.error('Error al crear membresía:', error);

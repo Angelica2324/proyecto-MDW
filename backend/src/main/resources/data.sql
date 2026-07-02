@@ -63,7 +63,7 @@ INSERT INTO membresia (tipo_membresia, estado_membresia, fecha_inicio, fecha_ven
 ('Anual', 1, date('now'), date('now', '+1 year'), 1, 12, 500.00);
 
 
-INSERT INTO clase (id_entrenador, nombre_clase, descripcion, dias_de_la_semana, hora_inicio, hora_fin) VALUES 
+INSERT INTO clase (id_entrenador, nombre_clase, descripcion, dias_de_la_semana, hora_1, hora_2) VALUES 
 (1, 'Spinning', 'Clase en bicicletas estáticas', 'Martes y Jueves', '10:30', '11:20'),
 (1, 'Yoga', 'Clase de relajación y estiramientos', 'Lunes y Miércoles', '09:00', '10:00'),
 (2, 'CrossFit', 'Entrenamiento funcional de alta intensidad', 'Lunes, Miércoles y Viernes', '18:00', '19:30'),
@@ -124,8 +124,8 @@ SELECT
     c.nombre_clase,
     c.descripcion,
     c.dias_de_la_semana,
-    c.hora_inicio,
-    c.hora_fin,
+    c.hora_1,
+    c.hora_2,
     u.primer_nombre_usuario || ' ' || u.apellidos_usuario as nombre_entrenador,
     u.email as email_entrenador
 FROM clase c

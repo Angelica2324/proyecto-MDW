@@ -76,17 +76,30 @@ export class PanelSocio implements OnInit {
         });
         
         this.apiService.getClases().subscribe((clases: any[]) => {
-          this.socio.clases = clases.map((clase: any) => ({
-            nombre: clase.nombre_clase || 'Clase',
-            hora_inicio: clase.hora_inicio || '--:--',
-            hora_fin: clase.hora_fin || '--:--'
-          }));
-          
-          if (this.socio.clases.length === 0) {
-            this.socio.clases = [{ nombre: 'No asignado', hora_inicio: '--:--', hora_fin: '--:--' }];
-          }
-          this.cdr.detectChanges();
-        });
+  this.socio.clases = clases.map((clase: any) => ({
+    nombre: clase.nombre_clase || 'Clase',
+    hora_1: clase.hora_1 || '--:--',
+    hora_2: clase.hora_2 || '--:--',
+    dias: clase.dias_de_la_semana || 'No especificado',
+    descripcion: clase.descripcion || 'Sin descripción',
+    intensidad: clase.intensidad || 'Media',
+    duracion: clase.Duración || '60 min'
+  }));
+  
+  if (this.socio.clases.length === 0) {
+    this.socio.clases = [{ 
+      nombre: 'No asignado', 
+      hora_1: '--:--', 
+      hora_2: '--:--',
+      dias: '--',
+      descripcion: 'Sin clases',
+      intensidad: '--',
+      duracion: '--'
+    }];
+  }
+  this.cdr.detectChanges();
+});
+
       }
     });
   }

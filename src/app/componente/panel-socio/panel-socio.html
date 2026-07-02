@@ -59,29 +59,48 @@
     </div>
 
     @for (rutina of socio.rutinas; track rutina.dia) {
-      <div class="rutina-item">
+      <div class="dato-box">
         <span class="dia">{{ rutina.dia }}</span>
         <strong>{{ rutina.entrenamiento }}</strong>
       </div>
     }
   </section>
 
-  <section class="card">
-    <h3>🕒 HORARIOS DE CLASES</h3>
+<section class="card">
+  <div class="card-header">
+    <h3>🕒 MIS CLASES</h3>
+    <span class="badge">{{ socio.clases.length }} clases</span>
+  </div>
 
-    @for (clase of socio.clases; track clase.nombre) {
-      <div class="clase-item">
-        <div class="clase-nombre">
-          <span class="circulo">{{ clase.nombre.charAt(0) }}</span>
-          <strong>{{ clase.nombre }}</strong>
+  @if (socio.clases.length > 0 && socio.clases[0].nombre !== 'No asignado') {
+    <div class="clases-grid">
+      @for (clase of socio.clases; track clase.nombre) {
+        <div class="dato-box">
+          
+          <div class="clase-info">
+            <strong class="clase-nombre">{{ clase.nombre }}</strong>
+            <span class="clase-dias">{{ clase.dias || 'Lunes a Viernes' }}</span>
+            
+            <div class="clase-horarios">
+              <span class="hora">🕐 {{ clase.hora_1 }}</span>
+              <span class="hora">🕐 {{ clase.hora_2 }}</span>
+            </div>
+            
+            <div class="clase-detalles">
+              <span class="detalle">📋 {{ clase.descripcion || 'Sin descripción' }}</span>
+              <span class="detalle">⚡ {{ clase.intensidad || 'Media' }}</span>
+            </div>
+          </div>
         </div>
-
-        <div class="hora">
-          🕒 {{ clase.hora_inicio }}
-          🕒 {{ clase.hora_fin }}
-        </div>
-      </div>
-    }
-  </section>
+      }
+    </div>
+  } @else {
+    <div class="sin-clases">
+      <span>📭</span>
+      <p>No tienes clases asignadas</p>
+      <small>Consulta con tu entrenador para inscribirte</small>
+    </div>
+  }
+</section>
 
 </main>

@@ -1,7 +1,20 @@
+
+
 :host {
   display: block;
   font-family: Arial, Helvetica, sans-serif;
+  --colorFuente: rgb(255, 255, 255);
+  --azul: #3b82f6;
+  --fondo1:#0f172a;
+  --fondo2:#162034;
+  --subtitulo: #9d9b9b;
+  --fondoDegradado: linear-gradient(to right, var(--fondo1), var(--fondo2));
+  --borde:  border: 1px solid rgba(255, 255, 255, 0.05);
+  --fondoPrincipal:#0D131F;
 }
+
+/* rgba(30, 41, 59, 0.80);
+rgba(30, 41, 59, 0.82); */
 
 * {
   box-sizing: border-box;
@@ -9,24 +22,25 @@
 
 .navbar {
   height: 70px;
-  background-color: white;
-  border-bottom: 1px solid #dddddd;
+  background:  var(--fondo1);
+  border-bottom: 1px solid rgba(30, 41, 59, 0.82);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 35px;
+  color :var(--colorFuente) ;
 }
 
 .logo {
   font-size: 22px;
   font-weight: bold;
-  color: #222;
+  color: var(--colorFuente);
 }
 
 .btn-cerrar {
   border: none;
   background-color: transparent;
-  color: #333;
+  color: var(--colorFuente);
   font-weight: bold;
   cursor: pointer;
   font-size: 15px;
@@ -34,7 +48,7 @@
 
 .panel-section {
   min-height: calc(100vh - 70px);
-  background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
+  background: var(--fondoPrincipal);
   padding: 35px 20px;
 }
 
@@ -42,27 +56,27 @@
   text-align: center;
   font-size: 30px;
   font-weight: 900;
-  color: #202020;
   margin: 0;
+  color: var(--colorFuente);
 }
 
 .underline {
   width: 90px;
   height: 4px;
-  background-color: #ef0000;
+  background-color: var(--azul);
   margin: 10px auto 30px;
   border-radius: 5px;
 }
 
 .card {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto 25px;
-  background-color: white;
-  border-radius: 14px;
-  padding: 28px 32px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
+
 
 .socio-card {
   position: relative;
@@ -73,12 +87,13 @@
   align-items: center;
   gap: 18px;
   margin-bottom: 25px;
+  color: var(--colorFuente);
 }
 
 .avatar {
   width: 60px;
   height: 60px;
-  background-color: #ff4a16;
+  background-color: var(--azul);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -89,14 +104,14 @@
 
 .bienvenido {
   margin: 0;
-  color: #666;
+  color: var(--subtitulo);
   font-size: 13px;
 }
 
 .socio-info h2 {
   margin: 5px 0 0;
   font-size: 24px;
-  color: #111;
+  color: var(--colorFuente);
 }
 
 .estado {
@@ -112,8 +127,9 @@
 }
 
 .estado-activo {
-  background-color: #ccffd9;
-  color: #008f3a;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.35);
 }
 
 .datos-grid {
@@ -123,39 +139,46 @@
 }
 
 .dato-box {
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  padding: 18px;
+  background-color:var(--fondo1);
+  color: var(--colorFuente);
   display: flex;
   align-items: center;
   gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 22px;
+  flex: 1;
+  min-width: 220px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
 }
 
+
 .dato-box span {
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .dato-box p {
   margin: 0;
   font-size: 13px;
-  color: #666;
+  color: var(--subtitulo);
 }
 
 .dato-box strong {
-  font-size: 15px;
-  color: #111;
+  font-size: 20px;
+  color: var(--colorFuente);
 }
 
 .card h3 {
   margin: 0 0 25px;
   font-size: 22px;
   font-weight: 900;
-  color: #111;
+  color: var(--colorFuente);
 }
 
 .objetivo-box {
-  background: linear-gradient(to right, #fff0f0, #fff7ea);
-  border-left: 5px solid #ef0000;
+  background: var(--fondoDegradado);
+  border-left: 5px solid var(--azul);
   border-radius: 10px;
   padding: 18px;
   margin-bottom: 20px;
@@ -163,17 +186,17 @@
 
 .objetivo-box p {
   margin: 0 0 8px;
-  color: #666;
+  color: var(--subtitulo);
   font-size: 14px;
 }
 
 .objetivo-box strong {
   font-size: 17px;
-  color: #111;
+  color: var(--colorFuente);
 }
 
 .rutina-item {
-  background-color: #f7f7f7;
+  background-color:var(--fondo1);
   border-radius: 10px;
   padding: 16px;
   margin-bottom: 13px;
@@ -184,7 +207,7 @@
 
 .dia {
   min-width: 110px;
-  background-color: #ef0000;
+  background-color: var(--azul);
   color: white;
   padding: 9px 18px;
   border-radius: 8px;
@@ -193,13 +216,15 @@
 }
 
 .clase-item {
-  background-color: #f7f7f7;
+  background-color: var(--fondoDegradado);
   border-radius: 10px;
   padding: 16px 20px;
   margin-bottom: 13px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  color: var(--colorFuente);
 }
 
 .clase-nombre {
@@ -221,11 +246,116 @@
 }
 
 .hora {
-  background-color: white;
+  background-color: var(--fondo2);
+  font-size: 3rem;
   border-radius: 10px;
   padding: 10px 22px;
   font-weight: bold;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.badge {
+  background: #0D131F;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.clases-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dato-box:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.clase-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: #0D131F;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.clase-info {
+  flex: 1;
+}
+
+.clase-nombre {
+  font-size: 16px;
+  color: #0D131F;
+}
+
+.clase-dias {
+  display: block;
+  font-size: 13px;
+  color: var(--subtitulo);
+  margin-top: 2px;
+}
+
+.clase-horarios {
+  display: flex;
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.clase-detalles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.detalle {
+  font-size: 12px;
+  color: var(--subtitulo);
+  background: var(--fondo2);
+  padding: 2px 10px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px;
+}
+
+.sin-clases {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--subtitulo);
+}
+
+.sin-clases span {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.sin-clases p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.sin-clases small {
+  font-size: 13px;
+  color: var(--subtitulo);
 }
 
 @media (max-width: 768px) {

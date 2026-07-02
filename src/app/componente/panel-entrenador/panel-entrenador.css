@@ -1,16 +1,28 @@
 :host {
   display: block;
   font-family: Arial, Helvetica, sans-serif;
+   --colorFuente: rgb(255, 255, 255);
+  --azul: #3b82f6;
+  --fondo1:#0f172a;
+  --fondo2:#162034;
+  --subtitulo: #9d9b9b;
+  --fondoDegradado: linear-gradient(to right, var(--fondo1), var(--fondo2));
+  --borde: 1px solid rgba(255, 255, 255, 0.05);
+  --fondoPrincipal:#0D131F;
 }
+
+/* rgba(30, 41, 59, 0.80);
+rgba(30, 41, 59, 0.82); */
 
 * {
   box-sizing: border-box;
+  background-color: white;
 }
 
 .navbar {
   height: 70px;
-  background-color: white;
-  border-bottom: 1px solid #dddddd;
+  background-color: var(--fondo1);
+  border-bottom: var(--borde);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,13 +32,14 @@
 .logo {
   font-size: 22px;
   font-weight: bold;
-  color: #222222;
+  color: var(--colorFuente);
+  background: var(--fondo1);
 }
 
 .btn-cerrar {
   border: none;
   background-color: transparent;
-  color: #333333;
+  color: var(--colorFuente);
   font-weight: bold;
   cursor: pointer;
   font-size: 15px;
@@ -35,13 +48,14 @@
 }
 
 .btn-cerrar:hover {
-  background-color: #ffe5e5;
+  background-color: #efd3d36d;
   color: #ef0000;
+  border: 1px solid #ef0000 ;
 }
 
 .entrenador-section {
   min-height: calc(100vh - 70px);
-  background: linear-gradient(to bottom, #f5f5f5, #e5e5e5);
+  background: var(--fondoPrincipal);
   padding: 35px 24px;
 }
 
@@ -49,26 +63,30 @@
   text-align: center;
   font-size: 30px;
   font-weight: 900;
-  color: #202020;
+  color: var(--colorFuente);
   margin: 0;
+  background: var(--fondoPrincipal);
 }
 
 .underline {
   width: 90px;
   height: 4px;
-  background-color: #ef0000;
+  background-color: var(--azul);
   margin: 10px auto 30px;
   border-radius: 5px;
 }
 
+.info{
+  background: var(--fondo1);
+}
+
 .card {
-  width: 100%;
-  max-width: 1250px;
-  margin: 0 auto 28px;
-  background-color: white;
-  border-radius: 14px;
-  padding: 28px 32px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .entrenador-card {
@@ -79,7 +97,9 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  margin-bottom: 22px;
+  margin-bottom: 25px;
+  color: var(--colorFuente);
+  background: var(--fondo1);
 }
 
 .avatar {
@@ -96,50 +116,57 @@
 
 .entrenador-info p {
   margin: 0;
-  color: #666666;
+  color: var(--subtitulo);
   font-weight: bold;
+  background: var(--fondo1);
 }
 
 .entrenador-info h2 {
   margin: 5px 0 0;
   font-size: 26px;
-  color: #111111;
+  color: var(--colorFuente);
+  background: var(--fondo1);
 }
 
 .estado {
   position: absolute;
   top: 30px;
   right: 32px;
-  background-color: #d7ffe4;
-  color: #008f3a;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.35);
   padding: 10px 18px;
   border-radius: 10px;
   font-weight: bold;
 }
 
 .especialidad-box {
-  background: linear-gradient(to right, #eef4ff, #eaffff);
+  background: var(--fondoDegradado);
   border-left: 5px solid #1266f1;
   border-radius: 10px;
   padding: 18px;
   display: flex;
   align-items: center;
   gap: 15px;
+  border: var(--borde);
 }
 
 .especialidad-box span {
   font-size: 25px;
+  background: none;
 }
 
 .especialidad-box p {
   margin: 0;
-  color: #666666;
+  color: var(--subtitulo);
   font-weight: bold;
+  background: var(--fondo1);
 }
 
 .especialidad-box strong {
   font-size: 18px;
-  color: #111111;
+  color: var(--colorFuente);
+  background: var(--fondo1);
 }
 
 .table-header {
@@ -148,24 +175,30 @@
   align-items: center;
   gap: 18px;
   margin-bottom: 22px;
+  background: var(--fondo1);
 }
 
 .table-header h3 {
   margin: 0;
   font-size: 22px;
   font-weight: 900;
-  color: #111111;
+  color: var(--colorFuente);
+  background: var(--fondo1);
+}
+
+span{
+  background: var(--fondo2);
 }
 
 .search-box {
   width: 280px;
-  border: 1px solid #dddddd;
+  border: var(--borde);
   border-radius: 10px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #ffffff;
+  background-color: var(--fondo2);
 }
 
 .search-box input {
@@ -173,29 +206,34 @@
   outline: none;
   width: 100%;
   font-size: 14px;
+ background: var(--fondo2);
+ color: var(--subtitulo);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 22px;
+  border: var(--borde);
+  background-color: var(--fondo2);
 }
 
 th,
 td {
   text-align: left;
   padding: 16px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: var(--borde);
+  background: var(--fondo2);
 }
 
 th {
-  color: #666666;
+  color: var(--subtitulo);
   font-size: 13px;
   text-transform: uppercase;
 }
 
 td {
-  color: #333333;
+  color: var(--colorFuente);
   font-weight: bold;
   vertical-align: middle;
 }
@@ -222,25 +260,26 @@ td {
 }
 
 .btn-editar {
-  background-color: #4db6d6;
+  background-color: #2f9bbc;
 }
 
 .btn-eliminar {
-  background-color: #e04b59;
+  background-color: #d83c4b;
 }
 
 .rutina-badge {
-  background-color: #f3ddff;
-  color: #9d2dea;
+  background-color: #b85ee82a;
+  color: #921ce1;
   padding: 8px 18px;
   border-radius: 20px;
   font-weight: bold;
+  border: 1px solid #921ce1 ;
 }
 
 .descripcion-rutina {
   max-width: 350px;
   line-height: 1.5;
-  color: #444444;
+  color: var(--subtitulo);
   font-weight: 600;
 }
 
@@ -248,6 +287,7 @@ td {
   display: flex;
   gap: 14px;
   margin-top: 24px;
+  background: var(--fondo1);
 }
 
 .actions button {

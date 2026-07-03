@@ -187,6 +187,46 @@ entrenadores = [
   paginaSocios = 1;
   paginaEntrenadores = 1;
   elementosPorPagina = 5;
+  membresiasPanel = [
+  {
+    nombre: 'Básico',
+    precio: 89,
+    tipo: 'Mensual',
+    beneficios: [
+      'Acceso a sala principal',
+      'Uso de casilleros',
+      'Duchas disponibles',
+      'App de seguimiento'
+    ],
+    popular: false
+  },
+  {
+    nombre: 'Pro',
+    precio: 149,
+    tipo: 'Mensual',
+    beneficios: [
+      'Todo el plan Básico',
+      'Clases grupales ilimitadas',
+      'Rutina personalizada',
+      'Orientación nutricional básica'
+    ],
+    popular: true
+  },
+  {
+    nombre: 'Élite',
+    precio: 249,
+    tipo: 'Mensual',
+    beneficios: [
+      'Todo el plan Pro',
+      'Sesiones con coach personal',
+      'Plan nutricional premium',
+      'Acceso VIP 24/7'
+    ],
+    popular: false
+  }
+];
+
+clasesPanel: any[] = [];
   totalSocios: number = 0;
   sociosActivos: number = 0;
   sociosInactivos: number = 0;
@@ -626,6 +666,394 @@ guardarPerfil() {
       alert('No se encontró información del usuario');
     }
   }
+}
+/* ================= FORMULARIO MEMBRESÍAS CON BACKEND ================= */
+
+mostrarFormularioMembresia = false;
+modoMembresia: 'agregar' | 'editar' = 'agregar';
+membresiaSeleccionada: any = null;
+
+formMembresia: any = {
+  nombre: '',
+  precio: 0,
+  tipo: 'Mensual',
+  beneficiosTexto: '',
+  popular: false
+};
+
+agregarMembresia() {
+  this.modoMembresia = 'agregar';
+  this.membresiaSeleccionada = null;
+
+  this.formMembresia = {
+    nombre: '',
+    precio: 0,
+    tipo: 'Mensual',
+    beneficiosTexto: '',
+    popular: false
+  };
+
+  this.mostrarFormularioMembresia = true;
+}
+
+editarMembresia(membresia: any) {
+  this.modoMembresia = 'editar';
+  this.membresiaSeleccionada = membresia;
+
+  this.formMembresia = {
+    nombre: membresia.nombre || '',
+    precio: membresia.precio || 0,
+    tipo: membresia.tipo || 'Mensual',
+    beneficiosTexto: Array.isArray(membresia.beneficios)
+      ? membresia.beneficios.join('\n')
+      : '',
+    popular: membresia.popular || false
+  };
+
+  this.mostrarFormularioMembresia = true;
+}
+
+guardarMembresia() {
+  if (!this.formMembresia.nombre || !this.formMembresia.precio || !this.formMembresia.tipo) {
+    alert('Completa los datos de la membresía.');
+    return;
+  }
+
+  const beneficiosArray = this.formMembresia.beneficiosTexto
+    .split('\n')
+    .map((item: string) => item.trim())
+    .filter((item: string) => item !== '');
+
+  const membresiaBackend = {
+    nombre: this.formMembresia.nombre,
+    nombre_plan: this.formMembresia.nombre,
+
+    tipo: this.formMembresia.tipo,
+    tipo_membresia: this.formMembresia.tipo,
+    Tipo_membresia: this.formMembresia.tipo,
+
+    precio: Number(this.formMembresia.precio),
+    monto_total: Number(this.formMembresia.precio),
+
+    beneficios: beneficiosArray,
+    descripcion: beneficiosArray.join('\n'),
+
+    popular: this.formMembresia.popular,
+    estado_membresia: true,
+
+    fecha_inicio: new Date().toISOString().split('T')[0],
+    fecha_vencimiento: this.calcularFechaVencimientoPanel(this.formMembresia.tipo),
+
+    id_socio: null,
+    id_entrenador: null
+  };
+
+  if (this.modoMembresia === 'agregar') {
+    this.apiService.crearMembresia(membresiaBackend).subscribe({
+      next: () => {
+        alert('Membresía guardada en la base de datos.');
+        this.cargarMembresiasPanel();
+        this.cancelarMembresia();
+      },
+      error: (error: any) => {
+        console.error('Error al guardar membresía:', error);
+        alert('No se pudo guardar la membresía en el backend.');
+      }
+    });
+  } else {
+    const id = Number(
+      this.membresiaSeleccionada.id_membresia ||
+      this.membresiaSeleccionada.id ||
+      this.membresiaSeleccionada.idMembresia
+    );
+
+    if (!id) {
+      alert('No se encontró el ID de la membresía para editar.');
+      return;
+    }
+
+    this.apiService.actualizarMembresia(id, membresiaBackend).subscribe({
+      next: () => {
+        alert('Membresía actualizada en la base de datos.');
+        this.cargarMembresiasPanel();
+        this.cancelarMembresia();
+      },
+      error: (error: any) => {
+        console.error('Error al editar membresía:', error);
+        alert('No se pudo editar la membresía en el backend.');
+      }
+    });
+  }
+}
+
+eliminarMembresia(membresia: any) {
+  const confirmar = confirm(`¿Deseas eliminar la membresía ${membresia.nombre}?`);
+
+  if (!confirmar) {
+    return;
+  }
+
+  const id = Number(
+    membresia.id_membresia ||
+    membresia.id ||
+    membresia.idMembresia
+  );
+
+  if (!id) {
+    alert('No se encontró el ID de la membresía para eliminar.');
+    return;
+  }
+
+  this.apiService.eliminarMembresia(id).subscribe({
+    next: () => {
+      alert('Membresía eliminada de la base de datos.');
+      this.cargarMembresiasPanel();
+    },
+    error: (error: any) => {
+      console.error('Error al eliminar membresía:', error);
+      alert('No se pudo eliminar la membresía en el backend.');
+    }
+  });
+}
+
+cancelarMembresia() {
+  this.mostrarFormularioMembresia = false;
+  this.membresiaSeleccionada = null;
+}
+
+cargarMembresiasPanel() {
+  this.apiService.getMembresias().subscribe({
+    next: (data: any) => {
+      this.membresiasPanel = data.map((m: any) => ({
+        id: m.id || m.id_membresia || m.idMembresia,
+        id_membresia: m.id_membresia || m.id || m.idMembresia,
+
+        nombre: m.nombre || m.nombre_plan || m.tipo_membresia || m.Tipo_membresia || 'Membresía',
+        precio: m.precio || m.monto_total || 0,
+        tipo: m.tipo || m.tipo_membresia || m.Tipo_membresia || 'Mensual',
+
+        beneficios: Array.isArray(m.beneficios)
+          ? m.beneficios
+          : m.descripcion
+            ? String(m.descripcion).split('\n')
+            : ['Acceso al gimnasio'],
+
+        popular: m.popular || false
+      }));
+    },
+    error: (error: any) => {
+      console.error('Error al cargar membresías:', error);
+    }
+  });
+}
+
+calcularFechaVencimientoPanel(tipoMembresia: string): string {
+  const fecha = new Date();
+
+  if (tipoMembresia === 'Mensual') {
+    fecha.setMonth(fecha.getMonth() + 1);
+  }
+
+  if (tipoMembresia === 'Trimestral') {
+    fecha.setMonth(fecha.getMonth() + 3);
+  }
+
+  if (tipoMembresia === 'Anual') {
+    fecha.setMonth(fecha.getMonth() + 12);
+  }
+
+  return fecha.toISOString().split('T')[0];
+}
+
+
+/* ================= FORMULARIO CLASES CON BACKEND ================= */
+
+mostrarFormularioClase = false;
+modoClase: 'agregar' | 'editar' = 'agregar';
+claseSeleccionada: any = null;
+
+formClase: any = {
+  nombre_clase: '',
+  subtitulo: '',
+  descripcion: '',
+  dias_de_la_semana: '',
+  hora_1: '',
+  hora_2: '',
+  intensidad: '',
+  Duracion: '',
+  imagen: '',
+  id_entrenador: 1
+};
+
+agregarClase() {
+  this.modoClase = 'agregar';
+  this.claseSeleccionada = null;
+
+  this.formClase = {
+    nombre_clase: '',
+    subtitulo: '',
+    descripcion: '',
+    dias_de_la_semana: '',
+    hora_1: '',
+    hora_2: '',
+    intensidad: '',
+    Duracion: '',
+    imagen: '',
+    id_entrenador: 1
+  };
+
+  this.mostrarFormularioClase = true;
+}
+
+editarClase(clase: any) {
+  this.modoClase = 'editar';
+  this.claseSeleccionada = clase;
+
+  this.formClase = {
+    nombre_clase: clase.nombre_clase || clase.nombre || '',
+    subtitulo: clase.subtitulo || '',
+    descripcion: clase.descripcion || '',
+    dias_de_la_semana: clase.dias_de_la_semana || clase.dias || '',
+    hora_1: clase.hora_1 || '',
+    hora_2: clase.hora_2 || '',
+    intensidad: clase.intensidad || '',
+    Duracion: clase.Duracion || clase.duracion || '',
+    imagen: clase.imagen || '',
+    id_entrenador: clase.id_entrenador || 1
+  };
+
+  this.mostrarFormularioClase = true;
+}
+
+guardarClase() {
+  if (
+    !this.formClase.nombre_clase ||
+    !this.formClase.descripcion ||
+    !this.formClase.dias_de_la_semana ||
+    !this.formClase.hora_1 ||
+    !this.formClase.hora_2 ||
+    !this.formClase.id_entrenador
+  ) {
+    alert('Completa los datos obligatorios de la clase.');
+    return;
+  }
+
+  const claseBackend = {
+    nombre_clase: this.formClase.nombre_clase,
+    subtitulo: this.formClase.subtitulo || null,
+    descripcion: this.formClase.descripcion,
+    dias_de_la_semana: this.formClase.dias_de_la_semana,
+    hora_1: this.formClase.hora_1,
+    hora_2: this.formClase.hora_2,
+    intensidad: this.formClase.intensidad || null,
+    Duracion: this.formClase.Duracion || null,
+    imagen: this.formClase.imagen || null,
+    id_entrenador: Number(this.formClase.id_entrenador)
+  };
+
+  if (this.modoClase === 'agregar') {
+    this.apiService.crearClase(claseBackend).subscribe({
+      next: () => {
+        alert('Clase guardada en la base de datos.');
+        this.cargarClasesPanel();
+        this.cancelarClase();
+      },
+      error: (error: any) => {
+        console.error('Error al guardar clase:', error);
+        alert('No se pudo guardar la clase en el backend.');
+      }
+    });
+  } else {
+    const id = Number(
+      this.claseSeleccionada.id_clase ||
+      this.claseSeleccionada.id ||
+      this.claseSeleccionada.idClase
+    );
+
+    if (!id) {
+      alert('No se encontró el ID de la clase para editar.');
+      return;
+    }
+
+    this.apiService.actualizarClase(id, claseBackend).subscribe({
+      next: () => {
+        alert('Clase actualizada en la base de datos.');
+        this.cargarClasesPanel();
+        this.cancelarClase();
+      },
+      error: (error: any) => {
+        console.error('Error al editar clase:', error);
+        alert('No se pudo editar la clase en el backend.');
+      }
+    });
+  }
+}
+
+eliminarClase(clase: any) {
+  const confirmar = confirm(`¿Deseas eliminar la clase ${clase.nombre}?`);
+
+  if (!confirmar) {
+    return;
+  }
+
+  const id = Number(
+    clase.id_clase ||
+    clase.id ||
+    clase.idClase
+  );
+
+  if (!id) {
+    alert('No se encontró el ID de la clase para eliminar.');
+    return;
+  }
+
+  this.apiService.eliminarClase(id).subscribe({
+    next: () => {
+      alert('Clase eliminada de la base de datos.');
+      this.cargarClasesPanel();
+    },
+    error: (error: any) => {
+      console.error('Error al eliminar clase:', error);
+      alert('No se pudo eliminar la clase en el backend.');
+    }
+  });
+}
+
+cancelarClase() {
+  this.mostrarFormularioClase = false;
+  this.claseSeleccionada = null;
+}
+
+cargarClasesPanel() {
+  this.apiService.getClases().subscribe({
+    next: (data: any) => {
+      this.clasesPanel = data.map((c: any) => ({
+        id: c.id_clase || c.id || c.idClase,
+        id_clase: c.id_clase || c.id || c.idClase,
+
+        nombre: c.nombre_clase || 'Clase',
+        nombre_clase: c.nombre_clase || 'Clase',
+        subtitulo: c.subtitulo || '',
+        descripcion: c.descripcion || '',
+        dias: c.dias_de_la_semana || '',
+        dias_de_la_semana: c.dias_de_la_semana || '',
+        hora: c.hora_1 && c.hora_2 ? `${c.hora_1} - ${c.hora_2}` : '',
+        hora_1: c.hora_1 || '',
+        hora_2: c.hora_2 || '',
+        intensidad: c.intensidad || '',
+        Duracion: c.Duracion || c.duracion || '',
+        imagen: c.imagen || '',
+        id_entrenador: c.id_entrenador || 1,
+
+        entrenador: `Entrenador ID: ${c.id_entrenador || 1}`,
+        nivel: c.intensidad || 'Sin intensidad',
+        cupos: 0
+      }));
+    },
+    error: (error: any) => {
+      console.error('Error al cargar clases:', error);
+    }
+  });
 }
 
   salir() {

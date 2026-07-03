@@ -6,101 +6,121 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
+
   private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
-//rol
-getRoles(): Observable<any>{
-  return this.http.get(`${this.apiUrl}/rol`);
-}
+  /* ================= ROL ================= */
 
-crearRoles(rol:any): Observable<any>{
-return this.http.post(`${this.apiUrl}/rol`, rol);
-}
+  getRoles(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/rol`);
+  }
 
-eliminarRol(id:number): Observable<any> {
-  return this.http.delete(`${this.apiUrl}/rol/{id}`);
-}
+  crearRoles(rol: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/rol`, rol);
+  }
 
- // Usuario  
-getUsuarios(): Observable<any> {
-  return this.http.get(`${this.apiUrl}/usuario`);
-}
+  eliminarRol(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/rol/${id}`);
+  }
 
-crearUsuario(usuario: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/usuario`, usuario);
-}
+  /* ================= USUARIO ================= */
 
-actualizarUsuario(id: number, usuario: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/usuario/${id}`, usuario);
-}
+  getUsuarios(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/usuario`);
+  }
 
-eliminarUsuario(id: number): Observable<any> {
-  return this.http.delete(`${this.apiUrl}/usuario/${id}`);
-}
+  crearUsuario(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario`, usuario);
+  }
 
-// socio
-getSocios():  Observable<any> {
-  return this.http.get(`${this.apiUrl}/socio`);
-}
+  actualizarUsuario(id: number, usuario: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuario/${id}`, usuario);
+  }
 
-crearSocio(socio: any): Observable<any>{
-  return this.http.post(`${this.apiUrl}/socio`, socio);
-}
+  eliminarUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/usuario/${id}`);
+  }
 
-eliminarSocio(id: number): Observable<any>{
-  return this.http.delete(`${this.apiUrl}/socio/${id}`);
-}
+  /* ================= SOCIO ================= */
 
-// entrenador
-getEntrenadores(): Observable<any>{
-  return this.http.get(`${this.apiUrl}/entrenador`);
-}
+  getSocios(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/socio`);
+  }
 
-actualizarEntrenador(id: number, entrenador: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/entrenador/${id}`, entrenador);
-}
+  crearSocio(socio: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/socio`, socio);
+  }
 
-eliminarEntrenador(id: number): Observable<any> {
-  return this.http.delete(`http://localhost:8080/entrenador/${id}`);
-}
+  eliminarSocio(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/socio/${id}`);
+  }
 
-registrarEntrenadorCompleto(datos: any): Observable<any> {
-  return this.http.post('http://localhost:8080/entrenador/registro-completo', datos);
-}
+  /* ================= ENTRENADOR ================= */
 
-  // Membresia
-getMembresias(): Observable<any> {
-  return this.http.get(`${this.apiUrl}/membresia`);
-}
-crearMembresia(membresia: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/membresia`, membresia);
-}
+  getEntrenadores(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/entrenador`);
+  }
 
-actualizarMembresia(id: number, membresia: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/membresia/${id}`, membresia);
-}
+  actualizarEntrenador(id: number, entrenador: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/entrenador/${id}`, entrenador);
+  }
 
-// rutinas
-getRutinas(): Observable<any> {
-  return this.http.get('http://localhost:8080/rutina');
-}
+  eliminarEntrenador(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/entrenador/${id}`);
+  }
 
-  // Clase
+  registrarEntrenadorCompleto(datos: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/entrenador/registro-completo`, datos);
+  }
+
+  /* ================= MEMBRESÍA ================= */
+
+  getMembresias(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/membresia`);
+  }
+
+  crearMembresia(membresia: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/membresia`, membresia);
+  }
+
+  actualizarMembresia(id: number, membresia: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/membresia/${id}`, membresia);
+  }
+
+  eliminarMembresia(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/membresia/${id}`);
+  }
+
+  /* ================= CLASE ================= */
+
   getClases(): Observable<any> {
-  return this.http.get('http://localhost:8080/clase');
-}
+    return this.http.get(`${this.apiUrl}/clase`);
+  }
 
   crearClase(clase: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/clase`, clase);
   }
 
-  // ejercicios
-getEjercicios(): Observable<any> {
-  return this.http.get('http://localhost:8080/ejercicio');
+  actualizarClase(id: number, clase: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/clase/${id}`, clase);
+  }
+
+  eliminarClase(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/clase/${id}`);
+  }
+
+  /* ================= RUTINA ================= */
+
+  getRutinas(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/rutina`);
+  }
+
+  /* ================= EJERCICIO ================= */
+
+  getEjercicios(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/ejercicio`);
+  }
+
 }
-
-
-}
-

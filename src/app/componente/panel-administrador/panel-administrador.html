@@ -30,6 +30,22 @@
         (click)="cambiarSeccion('entrenadores')">
         🏋️ Entrenadores
       </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.active]="seccionActual === 'membresias'"
+        (click)="cambiarSeccion('membresias')">
+        💳 Membresías
+      </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.active]="seccionActual === 'clases'"
+        (click)="cambiarSeccion('clases')">
+        📅 Clases
+      </button>
     </nav>
 
     <button type="button" class="logout" (click)="salir()">
@@ -83,7 +99,7 @@
             </div>
 
             <div class="info-box">
-              <span>✉️ Correo; </span>
+              <span>✉️ Correo: </span>
               <strong>{{ administrador.correo }}</strong>
             </div>
 
@@ -93,78 +109,76 @@
             </div>
           </div>
 
-          <!-- acciones  -->
           <div class="perfil-acciones">
-              <button type="button" class="btn-editar-perfil" (click)="abrirEditarPerfil()">
-                ✎ EDITAR PERFIL
-              </button>
-              @if (mostrarEditarPerfil) {
-              <div class="editar-perfil-box">
-
-                <h3>EDITAR PERFIL DEL ADMINISTRADOR</h3>
-
-                <div class="editar-perfil-grid">
-
-                  <div class="form-group-admin">
-                    <label>Nombre</label>
-                    <input type="text" [(ngModel)]="adminEditado.nombre">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Apellido</label>
-                    <input type="text" [(ngModel)]="adminEditado.apellido">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Cargo</label>
-                    <input type="text" [(ngModel)]="adminEditado.cargo">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Ubicación</label>
-                    <input type="text" [(ngModel)]="adminEditado.ubicacion">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Teléfono</label>
-                    <input type="text" [(ngModel)]="adminEditado.telefono">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Correo</label>
-                    <input type="email" [(ngModel)]="adminEditado.correo">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Fecha de ingreso</label>
-                    <input type="date" [(ngModel)]="adminEditado.fechaIngreso">
-                  </div>
-
-                  <div class="form-group-admin">
-                    <label>Estado</label>
-                    <select [(ngModel)]="adminEditado.estado">
-                      <option value="Activo">Activo</option>
-                      <option value="Inactivo">Inactivo</option>
-                    </select>
-                  </div>
-
-                </div>
-
-                <div class="editar-perfil-acciones">
-                  <button type="button" class="btn-guardar-perfil" (click)="guardarPerfil()">
-                    GUARDAR CAMBIOS
-                  </button>
-
-                  <button type="button" class="btn-cancelar-perfil" (click)="cancelarEditarPerfil()">
-                    CANCELAR
-                  </button>
-                </div>
-
-             </div>
-}
+            <button type="button" class="btn-editar-perfil" (click)="abrirEditarPerfil()">
+              ✎ EDITAR PERFIL
+            </button>
           </div>
- 
 
+          @if (mostrarEditarPerfil) {
+            <div class="editar-perfil-box">
+
+              <h3>EDITAR PERFIL DEL ADMINISTRADOR</h3>
+
+              <div class="editar-perfil-grid">
+
+                <div class="form-group-admin">
+                  <label>Nombre</label>
+                  <input type="text" [(ngModel)]="adminEditado.nombre">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Apellido</label>
+                  <input type="text" [(ngModel)]="adminEditado.apellido">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Cargo</label>
+                  <input type="text" [(ngModel)]="adminEditado.cargo">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Ubicación</label>
+                  <input type="text" [(ngModel)]="adminEditado.ubicacion">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Teléfono</label>
+                  <input type="text" [(ngModel)]="adminEditado.telefono">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Correo</label>
+                  <input type="email" [(ngModel)]="adminEditado.correo">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Fecha de ingreso</label>
+                  <input type="date" [(ngModel)]="adminEditado.fechaIngreso">
+                </div>
+
+                <div class="form-group-admin">
+                  <label>Estado</label>
+                  <select [(ngModel)]="adminEditado.estado">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <div class="editar-perfil-acciones">
+                <button type="button" class="btn-guardar-perfil" (click)="guardarPerfil()">
+                  GUARDAR CAMBIOS
+                </button>
+
+                <button type="button" class="btn-cancelar-perfil" (click)="cancelarEditarPerfil()">
+                  CANCELAR
+                </button>
+              </div>
+
+            </div>
+          }
 
         </div>
 
@@ -195,138 +209,138 @@
       </section>
     }
 
-@if (seccionActual === 'socios') {
+    @if (seccionActual === 'socios') {
 
-  @if (!mostrarAgregar) {
-    
-    @if (!mostrarEditarSocio) {
-      <section class="table-section">
+      @if (!mostrarAgregar) {
 
-        <div class="table-header">
-          <h2>TABLA DE SOCIOS</h2>
+        @if (!mostrarEditarSocio) {
+          <section class="table-section">
 
-          <div class="search-box">
-            <span>🔍</span>
-            <input
-              type="text"
-              placeholder="Buscar socio..."
-              (input)="buscarSocio($event)">
-          </div>
-        </div>
+            <div class="table-header">
+              <h2>TABLA DE SOCIOS</h2>
 
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>ESTADO</th>
-                <th>MEMBRESÍA</th>
-                <th class="acciones-col">ACCIONES</th>
-              </tr>
-            </thead>
+              <div class="search-box">
+                <span>🔍</span>
+                <input
+                  type="text"
+                  placeholder="Buscar socio..."
+                  (input)="buscarSocio($event)">
+              </div>
+            </div>
 
-            <tbody>
-              @for (socio of sociosPaginados; track socio.id_usuario) {
-                <tr>
-                  <td>{{ socio.id_socio }}</td>
-                  <td>{{ socio.nombre }} {{ socio.apellidos }}</td>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>ESTADO</th>
+                    <th>MEMBRESÍA</th>
+                    <th class="acciones-col">ACCIONES</th>
+                  </tr>
+                </thead>
 
-                  <td>
-                    <span
-                      class="estado"
-                      [class.activo]="socio.estado === 'Activo'"
-                      [class.inactivo]="socio.estado === 'Inactivo'">
-                      {{ socio.estado }}
-                    </span>
-                  </td>
+                <tbody>
+                  @for (socio of sociosPaginados; track socio.id_usuario) {
+                    <tr>
+                      <td>{{ socio.id_socio }}</td>
+                      <td>{{ socio.nombre }} {{ socio.apellidos }}</td>
 
-                  <td>{{ socio.membresia }}</td>
+                      <td>
+                        <span
+                          class="estado"
+                          [class.activo]="socio.estado === 'Activo'"
+                          [class.inactivo]="socio.estado === 'Inactivo'">
+                          {{ socio.estado }}
+                        </span>
+                      </td>
 
-                  <td class="acciones">
-                    <button
-                      class="btn-accion btn-editar"
-                      type="button"
-                      (click)="editarSocio(socio)">
-                      ✏️
-                    </button>
+                      <td>{{ socio.membresia }}</td>
 
-                    <button
-                      class="btn-accion btn-eliminar"
-                      type="button"
-                      (click)="eliminarSocio(socio)">
-                      🗑️
-                    </button>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+                      <td class="acciones">
+                        <button
+                          class="btn-accion btn-editar"
+                          type="button"
+                          (click)="editarSocio(socio)">
+                          ✏️
+                        </button>
 
-        <div class="table-footer">
-          <button
-            class="btn-agregar"
-            type="button"
-            (click)="agregarSocio()">
-            ＋ Agregar
-          </button>
+                        <button
+                          class="btn-accion btn-eliminar"
+                          type="button"
+                          (click)="eliminarSocio(socio)">
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
 
-          <div class="pagination">
-            <button
-              class="page-btn"
-              type="button"
-              (click)="paginaAnteriorSocios()"
-              [disabled]="paginaSocios === 1">
-              ←
-            </button>
-
-            @for (pagina of paginasSocios; track pagina) {
+            <div class="table-footer">
               <button
+                class="btn-agregar"
                 type="button"
-                class="page-number"
-                [class.active-page]="paginaSocios === pagina"
-                (click)="cambiarPaginaSocios(pagina)">
-                {{ pagina }}
+                (click)="agregarSocio()">
+                ＋ Agregar
               </button>
-            }
 
-            <button
-              class="page-btn"
-              type="button"
-              (click)="paginaSiguienteSocios()"
-              [disabled]="paginaSocios === totalPaginasSocios">
-              →
-            </button>
+              <div class="pagination">
+                <button
+                  class="page-btn"
+                  type="button"
+                  (click)="paginaAnteriorSocios()"
+                  [disabled]="paginaSocios === 1">
+                  ←
+                </button>
+
+                @for (pagina of paginasSocios; track pagina) {
+                  <button
+                    type="button"
+                    class="page-number"
+                    [class.active-page]="paginaSocios === pagina"
+                    (click)="cambiarPaginaSocios(pagina)">
+                    {{ pagina }}
+                  </button>
+                }
+
+                <button
+                  class="page-btn"
+                  type="button"
+                  (click)="paginaSiguienteSocios()"
+                  [disabled]="paginaSocios === totalPaginasSocios">
+                  →
+                </button>
+              </div>
+            </div>
+
+          </section>
+        }
+
+        @if (mostrarEditarSocio) {
+          <div>
+            <app-editar-socio
+              [socio]="socioSeleccionado"
+              (actualizado)="cerrarEditarSocio()"
+              (cerrar)="mostrarEditarSocio = false; recargarDatos()">
+            </app-editar-socio>
           </div>
+        }
+
+      }
+
+      @if (mostrarAgregar) {
+        <div>
+          <app-agregar-socio
+            (cerrar)="mostrarAgregar = false; recargarDatos()"
+            (registrar)="recargarDatos()"
+            (cambiarSeccion)="cambiarSeccion($event)">
+          </app-agregar-socio>
         </div>
+      }
 
-      </section>
     }
-
-    @if (mostrarEditarSocio) {
-      <div class="container bg-secondary-subtle pt-3">
-        <app-editar-socio
-          [socio]="socioSeleccionado"
-          (actualizado)="cerrarEditarSocio()"
-          (cerrar)="mostrarEditarSocio = false; recargarDatos()">
-        </app-editar-socio>
-      </div>
-    }
-
-  }
-
-  @if (mostrarAgregar) {
-    <div>
-      <app-agregar-socio
-        (cerrar)="mostrarAgregar = false; recargarDatos()"
-        (registrar)="recargarDatos()"
-        (cambiarSeccion)="cambiarSeccion($event)">
-      </app-agregar-socio>
-    </div>
-  }
-
-}
 
     @if (seccionActual === 'entrenadores') {
 
@@ -438,7 +452,7 @@
         }
 
         @if (mostrarEditar) {
-          <div class="container bg-secondary-subtle pt-3">
+          <div>
             <app-editar-usuario
               [entrenador]="entrenadorSeleccionado"
               (actualizado)="cerrarEditar()"
@@ -449,16 +463,316 @@
 
       }
 
-@if (mostrarAgregarEntrenador) {
-  <div>
-    <app-agregar-entrenador
-      (cerrar)="mostrarAgregarEntrenador = false; recargarDatos()"
-      (actualizado)="mostrarAgregarEntrenador = false; recargarDatos()">
-    </app-agregar-entrenador>
+      @if (mostrarAgregarEntrenador) {
+        <div>
+          <app-agregar-entrenador
+            (cerrar)="mostrarAgregarEntrenador = false; recargarDatos()"
+            (actualizado)="mostrarAgregarEntrenador = false; recargarDatos()">
+          </app-agregar-entrenador>
+        </div>
+      }
+
+    }
+
+    @if (seccionActual === 'membresias') {
+      <section class="membresias-section">
+
+        <div class="section-header">
+          <h2>MEMBRESÍAS</h2>
+
+         <button type="button" class="btn-agregar" (click)="agregarMembresia()">
+  ＋ Agregar
+</button>
+        </div>
+        @if (mostrarFormularioMembresia) {
+  <div class="admin-form-box">
+
+    <div class="admin-form-header">
+      <h3>
+        {{ modoMembresia === 'agregar' ? 'AGREGAR MEMBRESÍA' : 'EDITAR MEMBRESÍA' }}
+      </h3>
+
+      <button type="button" class="btn-cerrar-form" (click)="cancelarMembresia()">
+        ×
+      </button>
+    </div>
+
+    <div class="admin-form-grid">
+
+      <div class="form-group-admin">
+        <label>Nombre del plan</label>
+        <input type="text" [(ngModel)]="formMembresia.nombre" placeholder="Ejemplo: Básico">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Precio</label>
+        <input type="number" [(ngModel)]="formMembresia.precio" placeholder="Ejemplo: 89">
+      </div>
+
+      <div class="form-group-admin">
+        <label>Tipo</label>
+        <select [(ngModel)]="formMembresia.tipo">
+          <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Anual">Anual</option>
+        </select>
+      </div>
+
+      <div class="form-group-admin">
+        <label>¿Más popular?</label>
+        <select [(ngModel)]="formMembresia.popular">
+          <option [ngValue]="false">No</option>
+          <option [ngValue]="true">Sí</option>
+        </select>
+      </div>
+
+      <div class="form-group-admin form-full">
+        <label>Beneficios</label>
+        <textarea
+          [(ngModel)]="formMembresia.beneficiosTexto"
+          placeholder="Escribe un beneficio por línea">
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="admin-form-actions">
+      <button type="button" class="btn-cancelar-perfil" (click)="cancelarMembresia()">
+        CANCELAR
+      </button>
+
+      <button type="button" class="btn-guardar-perfil" (click)="guardarMembresia()">
+        GUARDAR
+      </button>
+    </div>
+
   </div>
 }
 
+        <div class="membresias-grid">
+          @for (membresia of membresiasPanel; track membresia.nombre) {
+            <div class="membresia-card" [class.popular]="membresia.popular">
+
+              @if (membresia.popular) {
+                <div class="popular-badge">MÁS POPULAR</div>
+              }
+
+              <div class="membresia-top">
+                <h3>{{ membresia.nombre }}</h3>
+                <span>☆</span>
+              </div>
+
+              <div class="precio">
+                S/. {{ membresia.precio }}
+                <small>/mes</small>
+              </div>
+
+              <ul>
+                @for (beneficio of membresia.beneficios; track beneficio) {
+                  <li>✓ {{ beneficio }}</li>
+                }
+              </ul>
+
+              <div class="membresia-footer">
+                <div class="acciones">
+                  <button type="button" class="btn-accion btn-editar" (click)="editarMembresia(membresia)">
+  ✎
+</button>
+
+<button type="button" class="btn-accion btn-eliminar" (click)="eliminarMembresia(membresia)">
+  🗑
+</button>
+                </div>
+
+                <span>{{ membresia.tipo }}</span>
+              </div>
+
+            </div>
+          }
+        </div>
+
+      </section>
     }
+
+@if (seccionActual === 'clases') {
+  <section class="clases-section">
+
+    <div class="section-header">
+      <h2>CLASES</h2>
+
+      <button type="button" class="btn-agregar" (click)="agregarClase()">
+        ＋ Agregar
+      </button>
+    </div>
+
+    @if (mostrarFormularioClase) {
+      <div class="admin-form-box">
+
+        <div class="admin-form-header">
+          <h3>
+            {{ modoClase === 'agregar' ? 'AGREGAR CLASE' : 'EDITAR CLASE' }}
+          </h3>
+
+          <button type="button" class="btn-cerrar-form" (click)="cancelarClase()">
+            ×
+          </button>
+        </div>
+
+        <div class="admin-form-grid">
+
+          <div class="form-group-admin">
+            <label>Nombre de la clase</label>
+            <input
+              type="text"
+              [(ngModel)]="formClase.nombre_clase"
+              placeholder="Ejemplo: Girando">
+          </div>
+
+          <div class="form-group-admin">
+            <label>Subtítulo</label>
+            <input
+              type="text"
+              [(ngModel)]="formClase.subtitulo"
+              placeholder="Ejemplo: Cardio sobre bicicleta">
+          </div>
+
+          <div class="form-group-admin form-full">
+            <label>Descripción</label>
+            <textarea
+              [(ngModel)]="formClase.descripcion"
+              placeholder="Ejemplo: Clase en bicicletas estáticas">
+            </textarea>
+          </div>
+
+          <div class="form-group-admin">
+            <label>Días de la semana</label>
+            <input
+              type="text"
+              [(ngModel)]="formClase.dias_de_la_semana"
+              placeholder="Ejemplo: Martes y Jueves">
+          </div>
+
+          <div class="form-group-admin">
+            <label>Hora inicio</label>
+            <input
+              type="time"
+              [(ngModel)]="formClase.hora_1">
+          </div>
+
+          <div class="form-group-admin">
+            <label>Hora fin</label>
+            <input
+              type="time"
+              [(ngModel)]="formClase.hora_2">
+          </div>
+
+          <div class="form-group-admin">
+            <label>Intensidad</label>
+            <select [(ngModel)]="formClase.intensidad">
+              <option value="">Sin intensidad</option>
+              <option value="Baja">Baja</option>
+              <option value="Media">Media</option>
+              <option value="Alta">Alta</option>
+            </select>
+          </div>
+
+          <div class="form-group-admin">
+            <label>Duración</label>
+            <input
+              type="text"
+              [(ngModel)]="formClase.Duracion"
+              placeholder="Ejemplo: 50 minutos">
+          </div>
+
+          <div class="form-group-admin">
+            <label>ID Entrenador</label>
+            <input
+              type="number"
+              [(ngModel)]="formClase.id_entrenador"
+              placeholder="Ejemplo: 1">
+          </div>
+
+          <div class="form-group-admin form-full">
+            <label>Imagen</label>
+            <input
+              type="text"
+              [(ngModel)]="formClase.imagen"
+              placeholder="URL o nombre de imagen">
+          </div>
+
+        </div>
+
+        <div class="admin-form-actions">
+          <button type="button" class="btn-cancelar-perfil" (click)="cancelarClase()">
+            CANCELAR
+          </button>
+
+          <button type="button" class="btn-guardar-perfil" (click)="guardarClase()">
+            GUARDAR
+          </button>
+        </div>
+
+      </div>
+    }
+
+    @if (clasesPanel.length === 0) {
+      <div class="empty-box">
+        <h3>No hay clases registradas</h3>
+        <p>Cuando registres una clase desde el formulario, aparecerá aquí.</p>
+      </div>
+    }
+
+    @if (clasesPanel.length > 0) {
+      <div class="clases-lista">
+        @for (clase of clasesPanel; track clase.id_clase) {
+          <div class="clase-card">
+
+            <div class="clase-info">
+              <div class="barra"></div>
+
+              <div>
+                <h3>{{ clase.nombre_clase }}</h3>
+                <p>{{ clase.descripcion }}</p>
+              </div>
+            </div>
+
+            <div class="clase-detalle">
+              <span>⏰ {{ clase.hora_1 }} - {{ clase.hora_2 }}</span>
+            </div>
+
+            <div class="clase-detalle">
+              <span>📅 {{ clase.dias_de_la_semana }}</span>
+            </div>
+
+            <div class="clase-nivel">
+              <span
+                [class.nivel-avanzado]="clase.intensidad === 'Alta'"
+                [class.nivel-principiante]="clase.intensidad === 'Baja'"
+                [class.nivel-intermedio]="clase.intensidad === 'Media'"
+                [class.nivel-todos]="!clase.intensidad">
+                {{ clase.intensidad || 'General' }}
+              </span>
+
+              <small>ID Entrenador: {{ clase.id_entrenador }}</small>
+            </div>
+
+            <div class="acciones">
+              <button type="button" class="btn-accion btn-editar" (click)="editarClase(clase)">
+                ✎
+              </button>
+
+              <button type="button" class="btn-accion btn-eliminar" (click)="eliminarClase(clase)">
+                🗑
+              </button>
+            </div>
+
+          </div>
+        }
+      </div>
+    }
+
+  </section>
+}
 
   </main>
 </div>

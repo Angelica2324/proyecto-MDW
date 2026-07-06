@@ -213,8 +213,8 @@
 
       @if (!mostrarAgregar) {
 
-        @if (!mostrarEditarSocio) {
-          <section class="table-section">
+        @if (!mostrarEditarSocio && !mostrarTablaMembresiasSocio) {
+  <section class="table-section">
 
             <div class="table-header">
               <h2>TABLA DE SOCIOS</h2>
@@ -258,6 +258,13 @@
                       <td>{{ socio.membresia }}</td>
 
                       <td class="acciones">
+                        <button
+    class="btn-accion btn-ver"
+    type="button"
+    title="Ver membresía"
+    (click)="verMembresiasSocio(socio)">
+    👁️
+  </button>
                         <button
                           class="btn-accion btn-editar"
                           type="button"
@@ -317,6 +324,69 @@
 
           </section>
         }
+@if (mostrarTablaMembresiasSocio) {
+  <section class="table-section">
+
+    <div class="table-header">
+      <div>
+        <h2>MEMBRESÍA DEL SOCIO</h2>
+        <p class="subtitulo-tabla">
+          {{ socioMembresiaSeleccionado.nombre }} {{ socioMembresiaSeleccionado.apellidos }}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="btn-volver"
+        (click)="cerrarTablaMembresiasSocio()">
+        ← Volver
+      </button>
+    </div>
+
+    @if (cargandoMembresiasSocio) {
+      <div class="empty-box">
+        <h3>Cargando membresías...</h3>
+        <p>Estamos consultando la información del socio en la base de datos.</p>
+      </div>
+    }
+
+    @if (!cargandoMembresiasSocio && membresiasDelSocio.length === 0) {
+      <div class="empty-box">
+        <h3>No hay membresías registradas</h3>
+        <p>Este socio no tiene membresía asociada en la base de datos.</p>
+      </div>
+    }
+
+    @if (!cargandoMembresiasSocio && membresiasDelSocio.length > 0) {
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID MEMBRESÍA</th>
+              <th>TIPO MEMBRESÍA</th>
+              <th>FECHA INICIO</th>
+              <th>FECHA VENCIMIENTO</th>
+              <th>MONTO TOTAL</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (membresia of membresiasDelSocio; track membresia.id_membresia) {
+              <tr>
+                <td>{{ membresia.id_membresia }}</td>
+                <td>{{ membresia.Tipo_membresia }}</td>
+                <td>{{ membresia.fecha_inicio }}</td>
+                <td>{{ membresia.fecha_vencimiento }}</td>
+                <td>S/. {{ membresia.monto_total }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+  </section>
+}
 
         @if (mostrarEditarSocio) {
           <div>

@@ -95,7 +95,7 @@
   color: var(--azul);
 }
 
-.btn-registrarse {
+.btn-registrar {
   background-color: var(--azul);
   color: #fff;
   padding: 8px 20px;
@@ -103,9 +103,10 @@
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  border-radius: 10px;
 }
 
-.btn-registrarse:hover {
+.btn-registrar:hover {
   background-color: var(--azul-hover);
 }
 /* ================= BOTONES LINK (VOLVER / LOGIN) ================= */
@@ -310,25 +311,31 @@
   cursor: pointer;
 }
 
-/* ================= BOTÓN ================= */
 
-.btn-registrar {
-  width: 100%;
-  background: linear-gradient(90deg, var(--azul), var(--azul-hover));
-  color: #fff;
-  border: none;
-  padding: 18px 20px;
-  font-size: 16px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
+.resumen-membresia {
+  background: #3d3d3d;
   border-radius: 10px;
-  transition: 0.3s ease;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ff6b6b33;
 }
 
-.btn-registrar:hover {
-  transform: scale(1.02);
+.resumen-membresia p {
+  color: #ddd;
+  margin: 8px 0;
+}
+
+.resumen-membresia strong {
+  color: #fff;
+}
+
+.error-mensaje {
+  background: #ff6b6b33;
+  color: #ff6b6b;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 15px 0;
+  text-align: center;
 }
 
 /* ================= FOOTER ================= */
@@ -369,11 +376,4 @@ select option {
 select option:hover {
   background-color: var(--azul) !important;
   color: #ffffff !important;
-}
-
-
-/* =================== alertas ========================= */
-
-.mensajealert{
-  color: red;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -123,4 +123,33 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/ejercicio`);
   }
 
+    /* ================= VERIFICAR SI EMAIL Y/O DNI YA EXISTEN  ================= */
+
+   // Verificar si el email ya existe
+  verificarEmail(email: string): Observable<boolean> {
+    return this.getUsuarios().pipe(
+      map((usuarios: any[]) => {
+        return usuarios.some((usuario: any) => 
+          usuario.email.toLowerCase() === email.toLowerCase()
+        );
+      })
+    );
+  }
+
+  // Verificar si el DNI ya existe
+  verificarDNI(dni: string): Observable<boolean> {
+    return this.getUsuarios().pipe(
+      map((usuarios: any[]) => {
+        return usuarios.some((usuario: any) => 
+          usuario.documento_identidad === dni
+        );
+      })
+    );
+  }
+
+  // Registrar nuevo usuario
+  registrarUsuario(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario`, usuario);
+  }
 }
+

@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-
 import { Principal } from './componente/principal/principal';
 import { Registro } from './componente/registro/registro';
 import { Login } from './componente/login/login';
@@ -7,20 +6,21 @@ import { ConfirmacionRegistro } from './componente/comfirmacion-registro/comfirm
 import { PanelSocio } from './componente/panel-socio/panel-socio';
 import { PanelAdministrador } from './componente/panel-administrador/panel-administrador';
 import { PanelEntrenador } from './componente/panel-entrenador/panel-entrenador';
-import { EditarUsuario } from './componente/editar-usuario/editar-usuario';
+import { Pago } from "./componente/pago/pago";
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Principal, Registro, Login, ConfirmacionRegistro, PanelSocio, PanelAdministrador, PanelEntrenador],
+  imports: [Principal, Registro, Login, ConfirmacionRegistro, PanelSocio, PanelAdministrador, PanelEntrenador,Pago],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('proyecto-MDW');
 
-  pantallaActual = 'panelAdministrador'; // Cambiar a 'principal' para iniciar en la pantalla principal
-
+  pantallaActual = 'principal'; // Cambiar a 'principal' para iniciar en la pantalla principal
+  datosPago: any = null;
   socioRegistrado = '';
   membresiaRegistrada = '';
   estadoRegistrado = 'Activo';
@@ -35,8 +35,14 @@ export class App {
 
   irAInicio() {
     this.pantallaActual = 'principal';
+    this.datosPago = null;
   }
 
+  irPago(datosRegistro: any){
+    console.log(' Datos recibidos en AppComponent:', datosRegistro);
+    this.datosPago = datosRegistro;
+    this.pantallaActual = 'pago';
+  }
 
   mostrarConfirmacion(datos: { nombre: string; membresia: string }) {
     this.socioRegistrado = datos.nombre;
@@ -60,4 +66,6 @@ export class App {
   irAPanelEntrenador() {
     this.pantallaActual = 'panelEntrenador';
   }
+
+
 }

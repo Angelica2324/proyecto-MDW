@@ -5,13 +5,25 @@
   </app-principal>
 }
 
+@if (pantallaActual === 'pago'){
+  <app-pago 
+    [datosRegistro]="datosPago"
+    (volverInicio)="irAInicio()"
+    (irLogin)="irALogin()"
+    (pagoExitoso)="irALogin()"
+    (pagoExitoso)="irALogin()">
+  </app-pago>
+}
+
 @if (pantallaActual === 'registro') {
   <app-registro
     (irLogin)="irALogin()" 
     (volverInicio)="irAInicio()"
-    (registrar)="mostrarConfirmacion($event)">
+   (irPago)="irPago($event)">
   </app-registro>
 }
+
+
 
 @if (pantallaActual === 'login') {
 <app-login

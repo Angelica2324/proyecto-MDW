@@ -58,32 +58,49 @@
       </div>
 
       <!-- DNI Y TELEFONO -->
-      <div class="form-row">
-        <div class="form-group">
-          <label>DNI</label>
-          <div class="input-wrapper">
-            <span class="input-icon">💳</span>
-            <input type="text" [(ngModel)]="documento_identidad" placeholder="Ingresa tu DNI" />
-          </div>
-        </div>
+<div class="form-row">
+  <div class="form-group">
+    <label>DNI</label>
+    <div class="input-wrapper">
+      <span class="input-icon">💳</span>
+      <input 
+        type="text" 
+        [(ngModel)]="documento_identidad" 
+        placeholder="Ingresa tu DNI" 
+        maxlength="8"
+        (input)="dniInvalido = false; dniEnUso = false"
+      />
+      <!-- Mensajes de error -->
+      <span class="mensajealert" *ngIf="dniInvalido">⚠️ El DNI debe tener 8 dígitos.</span>
+      <span class="mensajealert" *ngIf="dniEnUso">⚠️ Este DNI ya está en uso.</span>
+    </div>
+  </div>
 
-        <div class="form-group">
-          <label>TELÉFONO</label>
-          <div class="input-wrapper">
-            <span class="input-icon">📞</span>
-            <input type="text" [(ngModel)]="telefono" placeholder="Ingresa tu teléfono" />
-          </div>
-        </div>
-      </div>
+  <div class="form-group">
+    <label>TELÉFONO</label>
+    <div class="input-wrapper">
+      <span class="input-icon">📞</span>
+      <input type="text" [(ngModel)]="telefono" placeholder="Ingresa tu teléfono" />
+    </div>
+  </div>
+</div>
 
-      <!-- EMAIL -->
-      <div class="form-group full-width">
-        <label>CORREO ELECTRÓNICO</label>
-        <div class="input-wrapper">
-          <span class="input-icon">✉️</span>
-          <input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo electrónico" />
-        </div>
-      </div>
+<!-- EMAIL -->
+<div class="form-group full-width">
+  <label>CORREO ELECTRÓNICO</label>
+  <div class="input-wrapper">
+    <span class="input-icon">✉️</span>
+    <input 
+      type="email" 
+      [(ngModel)]="email" 
+      placeholder="Ingresa tu correo electrónico"
+      (input)="emailInvalido = false; emailEnUso = false"
+    />
+    <!-- Mensajes de error -->
+    <span class="mensajealert" *ngIf="emailInvalido">⚠️ Ingrese un correo electrónico válido.</span>
+    <span class="mensajealert" *ngIf="emailEnUso">⚠️ Este correo ya está en uso.</span>
+  </div>
+</div>
 
       <!-- MEMBRESÍA -->
       <div class="form-group full-width">
@@ -129,5 +146,5 @@
       <a class="link-rojo" (click)="irLogin.emit()">Haz clic aquí</a>
     </p>
 
-  </div>
+  </div> 
 </div>

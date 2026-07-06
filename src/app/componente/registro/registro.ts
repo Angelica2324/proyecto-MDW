@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs'; // 👈 IMPORTANTE
 
 @Component({
   selector: 'app-registro',
@@ -11,12 +13,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './registro.css'
 })
 export class Registro {
-
   @Output() volverInicio = new EventEmitter<void>();
   @Output() registrar = new EventEmitter<{ nombre: string; membresia: string }>();
   @Output() irLogin = new EventEmitter<void>();
   @Output() mostrarConfirmacion = new EventEmitter<any>();
+  @Output() irPago = new EventEmitter<any>();
 
+  // Campos del formulario
   apellidos_usuario: string = '';
   contrasena: string = '';
   documento_identidad: string = '';
@@ -32,101 +35,134 @@ export class Registro {
   tipo_documento: string = '';
   tipo_membresia: string = '';
 
-  constructor(private apiService: ApiService) {}
+  // Variables para controlar errores
+  dniEnUso: boolean = false;
+  emailEnUso: boolean = false;
+  dniInvalido: boolean = false;
+  emailInvalido: boolean = false;
+
+  datosRegistro: any = null;
+
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   irALogin() {
     this.irLogin.emit();
   }
 
-  registrarSocio() {
-    if (
-  !this.primer_nombre_usuario ||
-  !this.apellidos_usuario ||
-  !this.documento_identidad ||
-  !this.telefono ||
-  !this.email ||
-  !this.contrasena ||
-  !this.tipo_membresia
-) {
-  alert('Por favor complete todos los campos');
-  return;
-}
+  // Validar formato DNI (8 dígitos)
+  validarFormatoDNI(): boolean {
+    const dniRegex = /^[0-9]{8}$/;
+    return dniRegex.test(this.documento_identidad);
+  }
 
-    const nuevoUsuario = {
-      primer_nombre_usuario: this.primer_nombre_usuario,
-      segundo_nombre_usuario: this.segundo_nombre_usuario,
-      apellidos_usuario: this.apellidos_usuario,
-      email: this.email,
-      telefono: this.telefono,
-      documento_identidad: this.documento_identidad,
-      tipo_documento: 'DNI',
-      contraseña: this.contrasena,
-      fecha_nacimiento: this.fecha_nacimiento,
-      fecha_registro: new Date().toISOString().split('T')[0],
-      id_rol: 3,
-      estado: true
+  // Validar formato Email
+  validarFormatoEmail(): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(this.email);
+  }
+
+  // ✅ CORRECTO - Usando ApiService
+  async verificarDNIExistente(): Promise<boolean> {
+    try {
+      const existe = await firstValueFrom(this.apiService.verificarDNI(this.documento_identidad));
+      this.dniEnUso = existe;
+      return existe;
+    } catch (error) {
+      console.error('Error al verificar DNI:', error);
+      return false;
+    }
+  }
+
+  // ✅ CORRECTO - Usando ApiService
+  async verificarEmailExistente(): Promise<boolean> {
+    try {
+      const existe = await firstValueFrom(this.apiService.verificarEmail(this.email));
+      this.emailEnUso = existe;
+      return existe;
+    } catch (error) {
+      console.error('Error al verificar Email:', error);
+      return false;
+    }
+  }
+
+  // ✅ CORRECTO - Método principal
+  async registrarSocio() {
+    // Validar campos vacíos
+    if (
+      !this.primer_nombre_usuario ||
+      !this.apellidos_usuario ||
+      !this.documento_identidad ||
+      !this.telefono ||
+      !this.email ||
+      !this.contrasena ||
+      !this.tipo_membresia
+    ) {
+      alert('Por favor complete todos los campos');
+      return;
+    }
+
+    // Validar formato DNI
+    if (!this.validarFormatoDNI()) {
+      this.dniInvalido = true;
+      alert('El DNI debe tener exactamente 8 dígitos');
+      return;
+    }
+
+    // Validar formato Email
+    if (!this.validarFormatoEmail()) {
+      this.emailInvalido = true;
+      alert('Ingrese un correo electrónico válido');
+      return;
+    }
+
+    // Verificar si el DNI ya existe
+    const dniExiste = await this.verificarDNIExistente();
+    if (dniExiste) {
+      this.dniEnUso = true;
+      alert('Este DNI ya está registrado en el sistema');
+      return;
+    }
+
+    // Verificar si el Email ya existe
+    const emailExiste = await this.verificarEmailExistente();
+    if (emailExiste) {
+      this.emailEnUso = true;
+      alert('Este correo electrónico ya está registrado');
+      return;
+    }
+
+    // Guardar datos temporalmente
+    this.datosRegistro = {
+      usuario: {
+        primer_nombre_usuario: this.primer_nombre_usuario,
+        segundo_nombre_usuario: this.segundo_nombre_usuario,
+        apellidos_usuario: this.apellidos_usuario,
+        email: this.email,
+        telefono: this.telefono,
+        documento_identidad: this.documento_identidad,
+        tipo_documento: 'DNI',
+        contraseña: this.contrasena,
+        fecha_nacimiento: this.fecha_nacimiento || new Date().toISOString().split('T')[0],
+        fecha_registro: new Date().toISOString().split('T')[0],
+        id_rol: 3,
+        estado: true
+      },
+      membresia: this.tipo_membresia,
+      monto: this.calcularMonto(this.tipo_membresia)
     };
 
-    this.apiService.crearUsuario(nuevoUsuario).subscribe({
-      next: (respuestaUsuario: any) => {
+    console.log('✅ Emitiendo irPago con datos:', this.datosRegistro);
+    this.irPago.emit(this.datosRegistro);
+  }
 
-        const idUsuario = respuestaUsuario.id_usuario;
-        console.log('Usuario creado con ID:', idUsuario);
-
-        const nuevoSocio = {
-          id_usuario: idUsuario
-        };
-
-        this.apiService.crearSocio(nuevoSocio).subscribe({
-          next: (respuestaSocio: any) => {
-
-            const idSocio = respuestaSocio.id_socio;
-            console.log('Socio creado con ID:', idSocio);
-
-            let montoTotal = 0;
-            if (this.tipo_membresia === 'Mensual') montoTotal = 70;
-            else if (this.tipo_membresia === 'Trimestral') montoTotal = 150;
-            else if (this.tipo_membresia === 'Anual') montoTotal = 500;
-
-            const nuevaMembresia = {
-              Tipo_membresia: this.tipo_membresia,
-              estado_membresia: true,
-              fecha_inicio: new Date().toISOString().split('T')[0],
-              fecha_vencimiento: this.calcularFechaVencimiento(this.tipo_membresia),
-              id_entrenador: 1,
-              id_socio: idSocio,
-              monto_total: montoTotal
-            };
-
-            this.apiService.crearMembresia(nuevaMembresia).subscribe({
-              next: (respuestaMembresia) => {
-
-                console.log('Todo registrado exitosamente');
-      
-               alert(`USUARIO CREADO CORRECTAMENTE ✅ :
-                nombre: ${this.primer_nombre_usuario} ${this.apellidos_usuario},
-                membresia: ${this.tipo_membresia}`);
-                this.volverInicio.emit();
-              },
-              error: (error) => {
-                console.error('Error al crear membresía:', error);
-                alert('Error al crear membresía');
-              }
-            });
-
-          },
-          error: (error) => {
-            console.error('Error al crear socio:', error);
-            alert('Error al crear socio');
-          }
-        });
-
-      },
-      error: (error) => {
-        console.error('Error al crear usuario:', error);
-        alert('Error al crear usuario');
-      }
-    });
+  calcularMonto(tipoMembresia: string): number {
+    if (tipoMembresia === 'Mensual') return 70;
+    else if (tipoMembresia === 'Trimestral') return 150;
+    else if (tipoMembresia === 'Anual') return 500;
+    return 0;
   }
 
   calcularFechaVencimiento(tipoMembresia: string): string {

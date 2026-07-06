@@ -12,6 +12,70 @@ import { ApiService } from '../../api.service';
 export class PanelSocio implements OnInit {
   @Output() cerrarSesion = new EventEmitter<void>();
 
+
+  // Datos estáticos
+  rutinaActiva: 'masa' | 'peso' | 'definicion' = 'masa';
+  diaActivo: 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo' = 'lunes';
+
+   tituloServicio = '';
+  descripcionServicio = '';
+  detalleServicio1 = '';
+  detalleServicio2 = '';
+  detalleServicio3 = '';
+
+  rutinasGym = {
+    masa: {
+      titulo: 'Ganar masa muscular',
+      subtitulo: 'Hipertrofia · Fuerza',
+      descripcion: 'Programa enfocado en aumentar masa muscular mediante ejercicios de fuerza, progresión de cargas y descanso adecuado.',
+      duracion: '60 min',
+      frecuencia: '4–5 días/semana',
+      programa: '12 semanas',
+      ejercicio1: 'Press banca',
+      ejercicio2: 'Sentadillas',
+      ejercicio3: 'Peso muerto',
+      ejercicio4: 'Dominadas',
+      ejercicio5: 'Curl bíceps',
+      coach: 'Coach Rodrigo V.'
+    },
+    peso: {
+      titulo: 'Bajar de peso',
+      subtitulo: 'Quema grasa · Cardio HIIT',
+      descripcion: 'Rutina diseñada para maximizar la quema calórica combinando cardio de alta intensidad con ejercicios funcionales.',
+      duracion: '45–60 min',
+      frecuencia: '4–5 días/semana',
+      programa: '10 semanas',
+      ejercicio1: 'Burpees',
+      ejercicio2: 'Sprints en cinta',
+      ejercicio3: 'Sentadillas con salto',
+      ejercicio4: 'Plancha dinámica',
+      ejercicio5: 'Remo en máquina',
+      coach: 'Coach Valeria M.'
+    },
+    definicion: {
+      titulo: 'Definición',
+      subtitulo: 'Tonificación · Cardio moderado',
+      descripcion: 'Plan orientado a reducir grasa corporal y mantener masa muscular mediante ejercicios controlados y entrenamiento constante.',
+      duracion: '50 min',
+      frecuencia: '5 días/semana',
+      programa: '8 semanas',
+      ejercicio1: 'Press militar',
+      ejercicio2: 'Zancadas',
+      ejercicio3: 'Abdominales',
+      ejercicio4: 'Cuerda',
+      ejercicio5: 'Elevaciones laterales',
+      coach: 'Coach Andrés G.'
+    }
+  };
+
+  get rutinaSeleccionada() {
+    return this.rutinasGym[this.rutinaActiva];
+  }
+
+   seleccionarRutina(rutina: 'masa' | 'peso' | 'definicion') {
+    this.rutinaActiva = rutina;
+  }
+
   socio = {
     id_usuario: 0,
     id_socio: 0,
@@ -34,12 +98,27 @@ export class PanelSocio implements OnInit {
     if (usuarioGuardado) {
       const usuario = JSON.parse(usuarioGuardado);
       this.socio.id_usuario = usuario.id_usuario;
-      this.socio.nombre = usuario.primer_nombre_usuario || 'Usuario';
+      this.socio.nombre = usuario.primer_nombre_usuario + " " + usuario.segundo_nombre_usuario || 'Usuario';
       this.socio.estado = usuario.estado ? 'Activo' : 'Inactivo';
       
       this.cargarDatosSocio();
     }
   }
+
+
+confirmarAsistencia(clase: any) {
+  if (clase.confirmada) return;
+
+  clase.confirmada = true;
+
+  console.log(`Asistencia confirmada para: ${clase.nombre}`);
+  
+}
+
+desconfirmarAsistencia(clase: any) {
+  clase.confirmada = false;
+  console.log(`Asistencia cancelada para: ${clase.nombre}`);
+}
 
   cargarDatosSocio() {
     this.apiService.getSocios().subscribe((socios: any[]) => {

@@ -50,46 +50,248 @@
 
   </section>
 
-  <section class="card">
-    <h3>🎯 RUTINA ASIGNADA</h3>
+  <!-- <section class="card2">
+     <div >
+      <div class="modal-rutinas-card">
 
-    <div class="objetivo-box">
-      <p>Objetivo:</p>
-      <strong>{{ socio.objetivoRutina }}</strong>
+        <div class="modal-rutinas-header">
+          <h2>RUTINAS <span>PERSONALIZADAS</span></h2>
+        </div>
+
+        <div class="modal-rutinas-contenido">
+
+          <aside class="rutinas-menu">
+            <button
+              type="button"
+              class="rutina-tab"
+              [class.active]="rutinaActiva === 'masa'"
+              (click)="seleccionarRutina('masa')"
+            >
+              <span></span>
+              <div>
+                <strong>Ganar masa muscular</strong>
+                <small>Hipertrofia · Fuerza</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="rutina-tab"
+              [class.active]="rutinaActiva === 'peso'"
+              (click)="seleccionarRutina('peso')"
+            >
+              <span></span>
+              <div>
+                <strong>Bajar de peso</strong>
+                <small>Quema grasa · Cardio HIIT</small>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="rutina-tab"
+              [class.active]="rutinaActiva === 'definicion'"
+              (click)="seleccionarRutina('definicion')"
+            >
+              <span></span>
+              <div>
+                <strong>Definición</strong>
+                <small>Tonificación · Cardio moderado</small>
+              </div>
+            </button>
+          </aside>
+
+          <section class="rutina-detalle">
+
+            <div
+              class="rutina-banner"
+              [class.banner-masa]="rutinaActiva === 'masa'"
+              [class.banner-peso]="rutinaActiva === 'peso'"
+              [class.banner-definicion]="rutinaActiva === 'definicion'"
+            >
+              <div class="rutina-banner-info">
+                <div class="rutina-icon">🏋️</div>
+
+                <div>
+                  <h3>{{ rutinaSeleccionada.titulo }}</h3>
+                  <p>{{ rutinaSeleccionada.subtitulo }}</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="rutina-descripcion">
+              {{ rutinaSeleccionada.descripcion }}
+            </p>
+
+            <div class="rutina-info-grid">
+              <div class="rutina-info-box">
+                <small>⏱ DURACIÓN</small>
+                <strong>{{ rutinaSeleccionada.duracion }}</strong>
+              </div>
+
+              <div class="rutina-info-box">
+                <small>📅 FRECUENCIA</small>
+                <strong>{{ rutinaSeleccionada.frecuencia }}</strong>
+              </div>
+
+              <div class="rutina-info-box">
+                <small>⚡ PROGRAMA</small>
+                <strong>{{ rutinaSeleccionada.programa }}</strong>
+              </div>
+            </div>
+
+            <div class="ejercicios-rutina">
+              <h4>🔥 EJERCICIOS CLAVE</h4>
+
+              <div class="ejercicios-lista">
+                <span>{{ rutinaSeleccionada.ejercicio1 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio2 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio3 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio4 }}</span>
+                <span>{{ rutinaSeleccionada.ejercicio5 }}</span>
+              </div>
+            </div>
+
+            <div class="rutina-coach">
+              👥 {{ rutinaSeleccionada.coach }}
+            </div>
+
+          </section>
+
+        </div>
+      </div>
     </div>
 
-    @for (rutina of socio.rutinas; track rutina.dia) {
+    
+
+    <!-- @for (rutina of socio.rutinas; track rutina.dia) {
       <div class="dato-box">
         <span class="dia">{{ rutina.dia }}</span>
         <strong>{{ rutina.entrenamiento }}</strong>
+      </div> -->
+    <!-- } -->
+  <!-- </section> --> 
+
+  <section class="card">
+  <div class="card-header">
+    <h3>🏋️ MIS RUTINAS</h3>
+    <span class="badge">Personalizadas</span>
+  </div>
+
+  <div class="rutinas-tabs">
+    <button type="button" class="rutina-tab-unificado"
+      [class.active]="rutinaActiva === 'masa'"
+      (click)="seleccionarRutina('masa')">
+      <strong>Masa: </strong>
+      <small>Hipertrofia</small>
+    </button>
+    <button type="button" class="rutina-tab-unificado"
+      [class.active]="rutinaActiva === 'peso'"
+      (click)="seleccionarRutina('peso')">
+      <strong>Peso: </strong>
+      <small>Quema grasa</small>
+    </button>
+    <button type="button" class="rutina-tab-unificado"
+      [class.active]="rutinaActiva === 'definicion'"
+      (click)="seleccionarRutina('definicion')">
+      <strong>Definición: </strong>
+      <small>Tonificación</small>
+    </button>
+  </div>
+
+  <div class="rutina-detalle-unificado">
+    <div class="datos-grid rutina-grid">
+          <div class="dato-box">
+                <span>📋</span>
+                <div>
+                    <p>{{ rutinaSeleccionada.titulo }}</p>
+                    <strong>{{ rutinaSeleccionada.subtitulo }}</strong>
+                </div>
+           </div>
+      <div class="dato-box">
+        <span>⏱</span>
+        <div>
+          <p>Duración</p>
+          <strong>{{ rutinaSeleccionada.duracion }}</strong>
+        </div>
       </div>
-    }
-  </section>
+      <div class="dato-box">
+        <span>📅</span>
+        <div>
+          <p>Frecuencia</p>
+          <strong>{{ rutinaSeleccionada.frecuencia }}</strong>
+        </div>
+      </div>
+      <div class="dato-box">
+        <span>⚡</span>
+        <div>
+          <p>Programa</p>
+          <strong>{{ rutinaSeleccionada.programa }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="ejercicios-unificado">
+      <p class="subtitulo">Ejercicios clave:</p>
+      <div class="clase-detalles">
+        <span class="detalle">{{ rutinaSeleccionada.ejercicio1 }}</span>
+        <span class="detalle">{{ rutinaSeleccionada.ejercicio2 }}</span>
+        <span class="detalle">{{ rutinaSeleccionada.ejercicio3 }}</span>
+        <span class="detalle">{{ rutinaSeleccionada.ejercicio4 }}</span>
+        <span class="detalle">{{ rutinaSeleccionada.ejercicio5 }}</span>
+      </div>
+    </div>
+
+    <div class="dato-box" style="margin-top: 15px;">
+      <span>👥</span>
+      <div>
+        <p>Coach</p>
+        <strong>{{ rutinaSeleccionada.coach }}</strong>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="card">
   <div class="card-header">
-    <h3>🕒 MIS CLASES</h3>
+    <h3> CLASES DISPONIBLES</h3>
     <span class="badge">{{ socio.clases.length }} clases</span>
   </div>
 
   @if (socio.clases.length > 0 && socio.clases[0].nombre !== 'No asignado') {
     <div class="clases-grid">
       @for (clase of socio.clases; track clase.nombre) {
-        <div class="dato-box">
+        <div class="dato-box clase-item-unificado">
           
           <div class="clase-info">
-            <strong class="clase-nombre">{{ clase.nombre }}</strong>
-            <span class="clase-dias">{{ clase.dias || 'Lunes a Viernes' }}</span>
-            
-            <div class="clase-horarios">
-              <span class="hora">🕐 {{ clase.hora_1 }}</span>
-              <span class="hora">🕐 {{ clase.hora_2 }}</span>
+             
+            <div>
+                <strong class="clase-nombre">{{ clase.nombre }}</strong>
+                <span class="clase-dias">{{ clase.dias || 'Lunes a Viernes' }}</span>
+              
+                <div class="clase-horarios">
+                  <span class="hora">🕐 {{ clase.hora_1 }}</span>
+                  <span class="hora">🕐 {{ clase.hora_2 }}</span>
+                </div>
+                
+                <div class="clase-detalles">
+                  <span class="detalle">📋 {{ clase.descripcion || 'Sin descripción' }}</span>
+                  <span class="detalle">⚡ {{ clase.intensidad || 'Media' }}</span>
+                </div>
             </div>
-            
-            <div class="clase-detalles">
-              <span class="detalle">📋 {{ clase.descripcion || 'Sin descripción' }}</span>
-              <span class="detalle">⚡ {{ clase.intensidad || 'Media' }}</span>
+
+              <!-- BOTÓN ASISTIR -->
+            <div class="clase-acciones">
+              <button 
+                type="button" 
+                class="btn-asistir"
+                [class.confirmado]="clase.confirmada"
+                (click)="confirmarAsistencia(clase)"
+                [disabled]="clase.confirmada">
+                {{ clase.confirmada ? 'Confirmado' : '+ Asistir' }}
+              </button>
             </div>
+
           </div>
         </div>
       }

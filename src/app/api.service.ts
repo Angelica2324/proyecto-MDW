@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
 
   private apiUrl = 'http://localhost:8080';
@@ -41,6 +42,42 @@ export class ApiService {
 
   eliminarUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/usuario/${id}`);
+  }
+
+  registrarUsuario(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario`, usuario);
+  }
+
+  /* ================= RECUPERACIÓN DE CONTRASEÑA ================= */
+
+  recuperarPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario/recuperar-password`, { email });
+  }
+
+  cambiarPassword(datos: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario/cambiar-password`, datos);
+  }
+
+  /* ================= VERIFICAR SI EMAIL Y/O DNI YA EXISTEN ================= */
+
+  verificarEmail(email: string): Observable<boolean> {
+    return this.getUsuarios().pipe(
+      map((usuarios: any[]) => {
+        return usuarios.some((usuario: any) =>
+          usuario.email.toLowerCase() === email.toLowerCase()
+        );
+      })
+    );
+  }
+
+  verificarDNI(dni: string): Observable<boolean> {
+    return this.getUsuarios().pipe(
+      map((usuarios: any[]) => {
+        return usuarios.some((usuario: any) =>
+          usuario.documento_identidad === dni
+        );
+      })
+    );
   }
 
   /* ================= SOCIO ================= */
@@ -123,33 +160,4 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/ejercicio`);
   }
 
-    /* ================= VERIFICAR SI EMAIL Y/O DNI YA EXISTEN  ================= */
-
-   // Verificar si el email ya existe
-  verificarEmail(email: string): Observable<boolean> {
-    return this.getUsuarios().pipe(
-      map((usuarios: any[]) => {
-        return usuarios.some((usuario: any) => 
-          usuario.email.toLowerCase() === email.toLowerCase()
-        );
-      })
-    );
-  }
-
-  // Verificar si el DNI ya existe
-  verificarDNI(dni: string): Observable<boolean> {
-    return this.getUsuarios().pipe(
-      map((usuarios: any[]) => {
-        return usuarios.some((usuario: any) => 
-          usuario.documento_identidad === dni
-        );
-      })
-    );
-  }
-
-  // Registrar nuevo usuario
-  registrarUsuario(usuario: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuario`, usuario);
-  }
 }
-

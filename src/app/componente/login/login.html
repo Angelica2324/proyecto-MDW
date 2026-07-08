@@ -5,8 +5,8 @@
 
   <div class="nav-buttons">
     <button class="btn-register" (click)="irRegistro.emit()">
-  REGISTRO
-</button>
+      REGISTRO
+    </button>
   </div>
 </header>
 
@@ -18,34 +18,160 @@
       ← VOLVER
     </button>
 
-    <h2>INICIAR <span class="azul">SESIÓN</span></h2>
-    <div class="underline"></div>
+    @if (!modoRecuperacion) {
 
-    <p class="sub">Accede a tu cuenta</p>
+      <h2>INICIAR <span class="azul">SESIÓN</span></h2>
+      <div class="underline"></div>
 
-    <form class="login-form">
+      <p class="sub">Accede a tu cuenta</p>
 
-      <label>USUARIO / CORREO</label>
-      <div class="input-group">
-        <span>✉️</span>
-        <input type="text" name="correo" [(ngModel)]="correo"
-          placeholder="Ingresa tu correo o usuario">
-      </div>
+      <form class="login-form">
 
-      <label>CONTRASEÑA</label>
-      <div class="input-group">
-        <span>🔒</span>
-        <input type="password" name="contrasena" [(ngModel)]="contrasena"
-          placeholder="Ingresa tu contraseña">
-      </div>
+        <label>USUARIO / CORREO</label>
+        <div class="input-group">
+          <span>✉️</span>
+          <input
+            type="text"
+            name="correo"
+            [(ngModel)]="correo"
+            placeholder="Ingresa tu correo o usuario">
+        </div>
 
-      <button type="button" class="btn-ingresar" (click)="ingresar()">
-        ↪ INGRESAR
-      </button>
+        <label>CONTRASEÑA</label>
+        <div class="input-group">
+          <span>🔒</span>
+          <input
+            type="password"
+            name="contrasena"
+            [(ngModel)]="contrasena"
+            placeholder="Ingresa tu contraseña">
+        </div>
 
-      <a class="olvide">¿Olvidaste tu contraseña?</a>
+        <button type="button" class="btn-ingresar" (click)="ingresar()">
+          ↪ INGRESAR
+        </button>
 
-    </form>
+        <button type="button" class="olvide" (click)="abrirRecuperacion()">
+          ¿Olvidaste tu contraseña?
+        </button>
+
+      </form>
+
+    }
+
+    @if (modoRecuperacion && !pasoCodigo) {
+
+      <h2>RECUPERAR <span class="azul">CONTRASEÑA</span></h2>
+      <div class="underline"></div>
+
+      <p class="sub">Recibirás un código en tu correo</p>
+
+      <form class="login-form">
+
+        <label>CORREO REGISTRADO</label>
+        <div class="input-group">
+          <span>✉️</span>
+          <input
+            type="email"
+            name="correoRecuperacion"
+            [(ngModel)]="correoRecuperacion"
+            placeholder="Ingresa tu correo registrado">
+        </div>
+
+        <button
+          type="button"
+          class="btn-ingresar"
+          (click)="enviarCodigo()"
+          [disabled]="cargando">
+          {{ cargando ? 'ENVIANDO...' : '📩 ENVIAR CÓDIGO' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn-tengo-codigo"
+          (click)="mostrarFormularioCodigo()">
+          YA TENGO EL CÓDIGO
+        </button>
+
+        <button type="button" class="olvide" (click)="volverLogin()">
+          Volver al inicio de sesión
+        </button>
+
+      </form>
+
+    }
+
+    @if (modoRecuperacion && pasoCodigo) {
+
+      <h2>NUEVA <span class="azul">CONTRASEÑA</span></h2>
+      <div class="underline"></div>
+
+      <p class="sub">Ingresa el código recibido en tu correo</p>
+
+      <form class="login-form">
+
+        <label>CORREO REGISTRADO</label>
+        <div class="input-group">
+          <span>✉️</span>
+          <input
+            type="email"
+            name="correoRecuperacionPaso2"
+            [(ngModel)]="correoRecuperacion"
+            placeholder="Correo registrado">
+        </div>
+
+        <label>CÓDIGO RECIBIDO</label>
+        <div class="input-group">
+          <span>🔢</span>
+          <input
+            type="text"
+            name="codigoRecuperacion"
+            [(ngModel)]="codigoRecuperacion"
+            placeholder="Ingresa el código de 6 dígitos">
+        </div>
+
+        <label>NUEVA CONTRASEÑA</label>
+        <div class="input-group">
+          <span>🔒</span>
+          <input
+            type="password"
+            name="nuevaContrasena"
+            [(ngModel)]="nuevaContrasena"
+            placeholder="Ingresa tu nueva contraseña">
+        </div>
+
+        <label>CONFIRMAR CONTRASEÑA</label>
+        <div class="input-group">
+          <span>🔒</span>
+          <input
+            type="password"
+            name="confirmarContrasena"
+            [(ngModel)]="confirmarContrasena"
+            placeholder="Confirma tu nueva contraseña">
+        </div>
+
+        <button
+          type="button"
+          class="btn-ingresar"
+          (click)="cambiarContrasena()"
+          [disabled]="cargando">
+          {{ cargando ? 'CAMBIANDO...' : '✅ CAMBIAR CONTRASEÑA' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn-tengo-codigo"
+          (click)="pasoCodigo = false">
+          VOLVER A ENVIAR CÓDIGO
+        </button>
+
+        <button type="button" class="olvide" (click)="volverLogin()">
+          Volver al inicio de sesión
+        </button>
+
+      </form>
+
+    }
 
   </div>
 

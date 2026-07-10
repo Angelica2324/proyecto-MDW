@@ -164,4 +164,9 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/ejercicio`);
   }
 
+  // ============== REGISTRO ================
+
+registroCompleto(datos: any) {
+    return this.http.post(`${this.apiUrl}/api/registro/completo`, datos);
+}
 }

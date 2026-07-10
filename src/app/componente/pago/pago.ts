@@ -47,18 +47,7 @@ export class Pago {
     this.procesandoPago = true;
     this.errorPago = '';
 
-    // Simular proceso de pago
-    setTimeout(() => {
-      // Simular éxito del 80%
-      const exito = Math.random() < 0.8;
-
-      if (exito) {
-        this.registrarUsuarioCompleto();
-      } else {
-        this.errorPago = 'El pago fue rechazado. Por favor intente con otro método de pago.';
-        this.procesandoPago = false;
-      }
-    }, 2000);
+    this.registrarUsuarioCompleto();
   }
 
   registrarUsuarioCompleto() {
@@ -68,61 +57,29 @@ export class Pago {
       return;
     }
 
-    const { usuario, membresia, monto } = this.datosRegistro;
+    this.apiService.registroCompleto(this.datosRegistro).subscribe({
+      next: (respuesta: any) => {
+        console.log('Registro completado exitosamente:', respuesta);
+        this.procesandoPago = false;
+        
+        const { usuario, membresia, monto } = this.datosRegistro;
+        alert(`USUARIO CREADO CORRECTAMENTE:
+        Nombre: ${usuario.primer_nombre_usuario} ${usuario.apellidos_usuario}
+        Membresía: ${membresia}
+        Monto: S/ ${monto}`);
 
-    this.apiService.crearUsuario(usuario).subscribe({
-      next: (respuestaUsuario: any) => {
-        const idUsuario = respuestaUsuario.id_usuario;
-
-        this.apiService.crearSocio({ id_usuario: idUsuario }).subscribe({
-          next: (respuestaSocio: any) => {
-            const idSocio = respuestaSocio.id_socio;
-
-            const nuevaMembresia = {
-              Tipo_membresia: membresia,
-              estado_membresia: true,
-              fecha_inicio: new Date().toISOString().split('T')[0],
-              fecha_vencimiento: this.calcularFechaVencimiento(membresia),
-              id_entrenador: 1,
-              id_socio: idSocio,
-              monto_total: monto
-            };
-
-            this.apiService.crearMembresia(nuevaMembresia).subscribe({
-              next: () => {
-                console.log('✅ Registro completado exitosamente');
-                this.procesandoPago = false;
-                
-                alert(`✅ USUARIO CREADO CORRECTAMENTE:
-                Nombre: ${usuario.primer_nombre_usuario} ${usuario.apellidos_usuario}
-                Membresía: ${membresia}
-                Monto: S/ ${monto}`);
-
-                this.pagoExitoso.emit();
-                this.volverInicio.emit();
-              },
-              error: (error) => {
-                console.error('Error al crear membresía:', error);
-                this.errorPago = 'Error al completar el registro';
-                this.procesandoPago = false;
-              }
-            });
-          },
-          error: (error) => {
-            console.error('Error al crear socio:', error);
-            this.errorPago = 'Error al completar el registro';
-            this.procesandoPago = false;
-          }
-        });
+        this.pagoExitoso.emit();
+        this.volverInicio.emit();
       },
       error: (error) => {
-        console.error('Error al crear usuario:', error);
-        this.errorPago = 'Error al completar el registro';
+        console.error('Error en registro completo:', error);
+        this.errorPago = 'Error al completar el registro. Por favor intente nuevamente.';
         this.procesandoPago = false;
       }
     });
   }
 
+  // Este método ya no se usa porque el backend calcula la fecha
   calcularFechaVencimiento(tipoMembresia: string): string {
     const fechaInicio = new Date();
     let meses = 1;

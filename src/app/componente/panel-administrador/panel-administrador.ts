@@ -258,6 +258,7 @@
       }
 
       this.cargarDatosDelasApis();
+       this.cargarClasesPanel();
     }
 
     cargarDatosDelasApis() {

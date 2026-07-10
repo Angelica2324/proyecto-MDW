@@ -18,7 +18,11 @@ export class Login {
 
   correo: string = '';
   contrasena: string = '';
+  mostrarContrasena: boolean = false;
+  mostrarNuevaContrasena: boolean = false;
+mostrarConfirmarContrasena: boolean = false;
 
+  // Recuperación de contraseña
   modoRecuperacion: boolean = false;
   pasoCodigo: boolean = false;
 
@@ -39,20 +43,33 @@ export class Login {
     }
   }
 
+  verOcultarContrasena() {
+    this.mostrarContrasena = !this.mostrarContrasena;
+  }
+  verOcultarNuevaContrasena() {
+  this.mostrarNuevaContrasena = !this.mostrarNuevaContrasena;
+}
+
+verOcultarConfirmarContrasena() {
+  this.mostrarConfirmarContrasena = !this.mostrarConfirmarContrasena;
+}
+
   ingresar() {
     if (!this.correo.trim() || !this.contrasena.trim()) {
       alert('Completa el correo y la contraseña.');
       return;
     }
 
-    this.api.getUsuarios().subscribe({
-      next: (usuarios: any[]) => {
-        const usuario = usuarios.find((u: any) =>
-          u.email?.trim()?.toLowerCase() === this.correo.trim().toLowerCase() &&
-          u.contraseña?.trim() === this.contrasena.trim()
-        );
+    const datos = {
+      email: this.correo,
+      contrasena: this.contrasena
+    };
 
-        if (usuario) {
+    this.api.loginSeguro(datos).subscribe({
+      next: (respuesta: any) => {
+        if (respuesta.ok) {
+          const usuario = respuesta.usuario;
+
           localStorage.setItem('usuario', JSON.stringify(usuario));
 
           switch (usuario.id_rol) {
@@ -69,7 +86,7 @@ export class Login {
               alert('Rol no válido');
           }
         } else {
-          alert('Correo o contraseña incorrectos');
+          alert(respuesta.mensaje);
         }
       },
       error: () => {
@@ -81,6 +98,7 @@ export class Login {
   abrirRecuperacion() {
     this.modoRecuperacion = true;
     this.pasoCodigo = false;
+
     this.correoRecuperacion = '';
     this.codigoRecuperacion = '';
     this.nuevaContrasena = '';
@@ -91,6 +109,7 @@ export class Login {
   volverLogin() {
     this.modoRecuperacion = false;
     this.pasoCodigo = false;
+
     this.correoRecuperacion = '';
     this.codigoRecuperacion = '';
     this.nuevaContrasena = '';

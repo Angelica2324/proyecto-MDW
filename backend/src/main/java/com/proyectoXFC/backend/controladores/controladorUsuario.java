@@ -23,7 +23,7 @@ import com.proyectoXFC.backend.servicios.ServicioCorreo;
 @RestController
 @RequestMapping("/usuario")
 public class controladorUsuario {
-    
+
     @Autowired
     private RepositorioUsuario repositorio;
 
@@ -38,7 +38,7 @@ public class controladorUsuario {
     @PostMapping
     public Usuario crear(@RequestBody Usuario usuario) {
         return repositorio.save(usuario);
-    }    
+    }
 
     @PutMapping("/{id}")
     public Usuario actualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
@@ -50,6 +50,8 @@ public class controladorUsuario {
     public void eliminar(@PathVariable Long id) {
         repositorio.deleteById(id);
     }
+
+    /* ================= RECUPERAR CONTRASEÑA ================= */
 
     @PostMapping("/recuperar-password")
     public Map<String, Object> recuperarPassword(@RequestBody Map<String, String> datos) {
@@ -172,6 +174,56 @@ public class controladorUsuario {
 
         respuesta.put("ok", true);
         respuesta.put("mensaje", "Contraseña actualizada correctamente.");
+        return respuesta;
+    }
+
+    /* ================= LOGIN CON ALERTA POR CONTRASEÑA INCORRECTA ================= */
+
+    @PostMapping("/login-seguro")
+    public Map<String, Object> loginSeguro(@RequestBody Map<String, String> datos) {
+        String email = datos.get("email");
+        String contrasena = datos.get("contrasena");
+
+        Map<String, Object> respuesta = new HashMap<>();
+
+        if (email == null || email.trim().isEmpty()) {
+            respuesta.put("ok", false);
+            respuesta.put("mensaje", "El correo es obligatorio.");
+            return respuesta;
+        }
+
+        if (contrasena == null || contrasena.trim().isEmpty()) {
+            respuesta.put("ok", false);
+            respuesta.put("mensaje", "La contraseña es obligatoria.");
+            return respuesta;
+        }
+
+        Optional<Usuario> usuarioEncontrado = repositorio.findByEmail(email);
+
+        if (usuarioEncontrado.isEmpty()) {
+            respuesta.put("ok", false);
+            respuesta.put("mensaje", "Correo o contraseña incorrectos.");
+            return respuesta;
+        }
+
+        Usuario usuario = usuarioEncontrado.get();
+
+        if (!usuario.getContraseña().trim().equals(contrasena.trim())) {
+            try {
+                servicioCorreo.enviarAlertaLoginFallido(usuario.getEmail());
+            } catch (Exception e) {
+                System.out.println("No se pudo enviar alerta de login fallido: " + e.getMessage());
+            }
+
+            respuesta.put("ok", false);
+            respuesta.put("mensaje", "Correo o contraseña incorrectos.");
+            return respuesta;
+        }
+
+        respuesta.put("ok", true);
+        respuesta.put("mensaje", "Inicio de sesión correcto.");
+        respuesta.put("usuario", usuario);
+
         return respuesta;
     }
 

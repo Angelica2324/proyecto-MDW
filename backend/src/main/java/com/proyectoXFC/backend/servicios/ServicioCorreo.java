@@ -29,4 +29,23 @@ public class ServicioCorreo {
 
         mailSender.send(mensaje);
     }
+
+    public void enviarAlertaLoginFallido(String destino) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+
+        mensaje.setTo(destino);
+        mensaje.setSubject("Alerta de intento de inicio de sesión - Xtreme Fitness Center");
+
+        mensaje.setText(
+            "Hola,\n\n" +
+            "Detectamos un intento de inicio de sesión fallido en tu cuenta de Xtreme Fitness Center.\n\n" +
+            "Alguien intentó ingresar usando tu correo, pero la contraseña fue incorrecta.\n\n" +
+            "Si fuiste tú, puedes ignorar este mensaje.\n\n" +
+            "Si no fuiste tú, te recomendamos cambiar tu contraseña lo antes posible.\n\n" +
+            "Atentamente,\n" +
+            "Xtreme Fitness Center"
+        );
+
+        mailSender.send(mensaje);
+    }
 }

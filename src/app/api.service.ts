@@ -48,6 +48,10 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/usuario`, usuario);
   }
 
+  loginSeguro(datos: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/usuario/login-seguro`, datos);
+}
+
   /* ================= RECUPERACIÓN DE CONTRASEÑA ================= */
 
   recuperarPassword(email: string): Observable<any> {

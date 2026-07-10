@@ -38,14 +38,22 @@
         </div>
 
         <label>CONTRASEÑA</label>
-        <div class="input-group">
-          <span>🔒</span>
-          <input
-            type="password"
-            name="contrasena"
-            [(ngModel)]="contrasena"
-            placeholder="Ingresa tu contraseña">
-        </div>
+<div class="input-group password-group">
+  <span>🔒</span>
+
+  <input
+    [type]="mostrarContrasena ? 'text' : 'password'"
+    name="contrasena"
+    [(ngModel)]="contrasena"
+    placeholder="Ingresa tu contraseña">
+
+  <button
+    type="button"
+    class="btn-ojo"
+    (click)="verOcultarContrasena()">
+    {{ mostrarContrasena ? '👁️' : '🙈' }}
+  </button>
+</div>
 
         <button type="button" class="btn-ingresar" (click)="ingresar()">
           ↪ INGRESAR
@@ -130,25 +138,42 @@
             placeholder="Ingresa el código de 6 dígitos">
         </div>
 
-        <label>NUEVA CONTRASEÑA</label>
-        <div class="input-group">
-          <span>🔒</span>
-          <input
-            type="password"
-            name="nuevaContrasena"
-            [(ngModel)]="nuevaContrasena"
-            placeholder="Ingresa tu nueva contraseña">
-        </div>
+        
+       <label>NUEVA CONTRASEÑA</label>
+<div class="input-group password-group">
+  <span>🔒</span>
 
-        <label>CONFIRMAR CONTRASEÑA</label>
-        <div class="input-group">
-          <span>🔒</span>
-          <input
-            type="password"
-            name="confirmarContrasena"
-            [(ngModel)]="confirmarContrasena"
-            placeholder="Confirma tu nueva contraseña">
-        </div>
+  <input
+    [type]="mostrarNuevaContrasena ? 'text' : 'password'"
+    name="nuevaContrasena"
+    [(ngModel)]="nuevaContrasena"
+    placeholder="Ingresa tu nueva contraseña">
+
+  <button
+    type="button"
+    class="btn-ojo"
+    (click)="verOcultarNuevaContrasena()">
+    {{ mostrarNuevaContrasena ? '👁️' : '🙈' }}
+  </button>
+</div>
+
+<label>CONFIRMAR CONTRASEÑA</label>
+<div class="input-group password-group">
+  <span>🔒</span>
+
+  <input
+    [type]="mostrarConfirmarContrasena ? 'text' : 'password'"
+    name="confirmarContrasena"
+    [(ngModel)]="confirmarContrasena"
+    placeholder="Confirma tu nueva contraseña">
+
+  <button
+    type="button"
+    class="btn-ojo"
+    (click)="verOcultarConfirmarContrasena()">
+    {{ mostrarConfirmarContrasena ? '👁️' : '🙈' }}
+  </button>
+</div>
 
         <button
           type="button"
